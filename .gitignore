@@ -220,6 +220,8 @@ UpgradeLog*.htm
 # Microsoft Fakes
 FakesAssemblies/
 
+src/Souccar.Web.Host/App_Data/Logs
+
 # GhostDoc plugin setting file
 *.GhostDoc.xml
 
