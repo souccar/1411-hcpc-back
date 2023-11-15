@@ -1,6 +1,6 @@
 ﻿using Abp.Domain.Entities;
 using Abp.Domain.Repositories;
-using Souccar.hr.Personnel.Employees;
+using Souccar.Core.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,45 +8,35 @@ using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Souccar.Core.Services
+namespace Souccar.Core.Services.Implements
 {
-    public class SouccarDomainService<TEntity, TPrimaryKey> : ISouccarDomainService<TEntity, TPrimaryKey>
+    public class GetSouccarDomainService<TEntity, TPrimaryKey>: IGetSouccarDomainService<TEntity, TPrimaryKey>
         where TEntity : class, IEntity<TPrimaryKey>
     {
         private readonly IRepository<TEntity, TPrimaryKey> _repository;
 
-        public SouccarDomainService(IRepository<TEntity, TPrimaryKey> repository)
+        public GetSouccarDomainService(IRepository<TEntity, TPrimaryKey> repository)
         {
             _repository = repository;
         }
 
-        public virtual void Delete(TPrimaryKey id)
-        {
-            _repository.Delete(id);
-        }
-
-        public async Task DeleteAsync(TPrimaryKey id)
-        {
-            await _repository.DeleteAsync(id);
-        }
-
-        public TEntity Get(TPrimaryKey id)
+        public virtual TEntity Get(TPrimaryKey id)
         {
             return _repository.Get(id);
         }
 
 
-        public IQueryable<TEntity> GetAll()
+        public virtual IQueryable<TEntity> GetAll()
         {
             return _repository.GetAll();
         }
 
-        public Task<TEntity> GetAgreggateAsync(TPrimaryKey id)
+        public virtual Task<TEntity> GetAgreggateAsync(TPrimaryKey id)
         {
-            
+
             var properties = typeof(TEntity).GetProperties()
-                .Where(x => 
-                    x.PropertyType.IsGenericType && 
+                .Where(x =>
+                    x.PropertyType.IsGenericType &&
                     x.PropertyType.GetGenericTypeDefinition() == typeof(IList<>));
 
             if (properties.Any())
@@ -66,31 +56,9 @@ namespace Souccar.Core.Services
             return GetAsync(id);
         }
 
-        public async Task<TEntity> GetAsync(TPrimaryKey id)
+        public virtual async Task<TEntity> GetAsync(TPrimaryKey id)
         {
             return await _repository.GetAsync(id);
-        }
-
-        public TEntity Insert(TEntity input)
-        {
-            var id = _repository.InsertAndGetId(input);
-            return Get(id);
-        }
-
-        public async Task<TEntity> InsertAsync(TEntity input)
-        {
-            var id = await _repository.InsertAndGetIdAsync(input);
-            return await GetAsync(id);
-        }
-
-        public virtual TEntity Update(TEntity input)
-        {
-            return _repository.Update(input);
-        }
-
-        public virtual async Task<TEntity> UpdateAsync(TEntity input)
-        {
-            return await _repository.UpdateAsync(input);
         }
     }
 }

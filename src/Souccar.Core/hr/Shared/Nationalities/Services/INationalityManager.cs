@@ -1,4 +1,4 @@
-﻿using Souccar.Core.Services;
+﻿using Souccar.Core.Services.Interfaces;
 using Souccar.hr.Personnel.Employees;
 using Souccar.hr.Shared.Nationalities;
 

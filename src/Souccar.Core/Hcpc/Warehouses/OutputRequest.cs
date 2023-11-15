@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace Souccar.Hcpc.Warehouses
 {
-    public class Outputrequest : FullAuditedAggregateRoot, IMayHaveTenant
+    public class OutputRequest : FullAuditedAggregateRoot, IMayHaveTenant
     {
-        public Outputrequest()
+        public OutputRequest()
         {
             OutputRequestMaterials = new List<OutputRequestMaterial>();
         }

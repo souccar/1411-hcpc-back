@@ -4,6 +4,7 @@ using Abp.Domain.Entities;
 using Abp.Domain.Repositories;
 using System.Linq;
 using Abp.Linq;
+using Souccar.Core.Services.Interfaces;
 
 namespace Souccar.Core.Services
 {

@@ -1,5 +1,5 @@
 ﻿using Abp.Domain.Services;
-using Souccar.Core.Services;
+using Souccar.Core.Services.Interfaces;
 using System.Threading.Tasks;
 
 namespace Souccar.Hcpc.Units.Services

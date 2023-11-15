@@ -5,6 +5,7 @@ using Abp.Linq;
 using System.Linq;
 using System.Threading.Tasks;
 using Abp.Domain.Entities.Auditing;
+using Souccar.Core.Services.Interfaces;
 
 namespace Souccar.Core.Services
 {

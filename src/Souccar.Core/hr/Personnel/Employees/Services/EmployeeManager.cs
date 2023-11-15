@@ -1,5 +1,5 @@
 ﻿using Abp.Domain.Repositories;
-using Souccar.Core.Services;
+using Souccar.Core.Services.Implements;
 using System.Linq;
 
 namespace Souccar.hr.Personnel.Employees.Services

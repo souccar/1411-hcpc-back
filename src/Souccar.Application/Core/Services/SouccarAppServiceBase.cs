@@ -8,6 +8,7 @@ using Abp.Extensions;
 using Abp.Linq.Extensions;
 using Abp.ObjectMapping;
 using Souccar.Core.Filter;
+using Souccar.Core.Services.Interfaces;
 
 namespace Souccar.Core.Services
 {

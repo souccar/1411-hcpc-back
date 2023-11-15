@@ -1,8 +1,6 @@
 ﻿using Abp.Domain.Repositories;
 using Abp.UI;
-using Souccar.Core.Services;
-using Souccar.hr.Personnel.Employees;
-using System.Linq;
+using Souccar.Core.Services.Implements;
 using System.Threading.Tasks;
 
 namespace Souccar.Hcpc.Units.Services

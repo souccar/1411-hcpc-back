@@ -19,9 +19,4 @@
     <PackageReference Include="Abp.ZeroCore.EntityFrameworkCore" Version="8.4.0" />
     <PackageReference Include="Castle.Windsor.MsDependencyInjection" Version="4.1.0" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Hcpc\Materials\" />
-    <Folder Include="Hcpc\Plans\" />
-    <Folder Include="Hcpc\Warehouses\" />
-  </ItemGroup>
 </Project>

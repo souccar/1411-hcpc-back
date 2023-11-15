@@ -1,4 +1,4 @@
-﻿using Souccar.Core.Services;
+﻿using Souccar.Core.Services.Interfaces;
 using System.Linq;
 
 namespace Souccar.hr.Personnel.Employees.Services
