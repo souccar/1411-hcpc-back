@@ -220,6 +220,8 @@ UpgradeLog*.htm
 # Microsoft Fakes
 FakesAssemblies/
 
+
+
 # GhostDoc plugin setting file
 *.GhostDoc.xml
 
@@ -251,6 +253,9 @@ paket-files/
 .idea/
 *.sln.iml
 
+src/Souccar.Web.Host/App_Data/Logs/
+
 src/Souccar.Web.Mvc/secrets.json
 src/Souccar.Web.Host/secrets.json
 src/Souccar.Migrator/secrets.json
+src/Souccar.Web.Host/App_Data/Logs/Log.txt
