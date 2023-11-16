@@ -4,7 +4,7 @@ using Souccar.Hcpc.Materials.Dto;
 
 namespace Souccar.Hcpc.Materials.Services
 {
-    public interface IMaterialAppService : IAsyncSouccarAppService<MaterialDto, int, PagedMaterialRequestDto, CreateMaterialDto, UpdateMaterialDto, MaterialDto, EntityDto<int>>
+    public interface IMaterialAppService : IAsyncSouccarAppService<MaterialDto, int, PagedMaterialRequestDto, CreateMaterialDto, UpdateMaterialDto>
     {
     }
 }

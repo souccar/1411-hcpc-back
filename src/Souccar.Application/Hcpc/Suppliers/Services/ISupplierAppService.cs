@@ -4,7 +4,7 @@ using Souccar.Hcpc.Suppliers.Dto;
 
 namespace Souccar.Hcpc.Suppliers.Services
 {
-    public interface ISupplierAppService: IAsyncSouccarAppService<SupplierDto,int,PagedSupplierRequestDto,CreateSupplierDto,UpdateSupplierDto, SupplierDto, EntityDto<int>>
+    public interface ISupplierAppService: IAsyncSouccarAppService<SupplierDto,int,PagedSupplierRequestDto,CreateSupplierDto,UpdateSupplierDto>
     {
     }
 }

@@ -6,7 +6,7 @@ using Souccar.Hcpc.Warehouses.Services;
 
 namespace Souccar.Hcpc.WarehouseMaterials.Services
 {
-    public class WarehouseMaterialAppService: AsyncSouccarAppService<WarehouseMaterial, WarehouseMaterialDto, int, PagedWarehouseMaterialRequestDto, CreateWarehouseMaterialDto, UpdateWarehouseMaterialDto, WarehouseMaterialDto, EntityDto<int>>, IWarehouseMaterialAppService
+    public class WarehouseMaterialAppService: AsyncSouccarAppService<WarehouseMaterial, WarehouseMaterialDto, int, PagedWarehouseMaterialRequestDto, CreateWarehouseMaterialDto, UpdateWarehouseMaterialDto>, IWarehouseMaterialAppService
     {
         private readonly IWarehouseMaterialManager _warehouseMaterialDomainService;
     public WarehouseMaterialAppService(IWarehouseMaterialManager warehouseMaterialDomainService) : base(warehouseMaterialDomainService)
