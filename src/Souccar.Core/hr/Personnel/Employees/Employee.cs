@@ -21,7 +21,7 @@ namespace Souccar.hr.Personnel.Employees
         public virtual IList<Child> Children { get; set; }
 
         #region Nationality
-        public int NationalityId { get; set; }
+        public int? NationalityId { get; set; }
 
         [ForeignKey("NationalityId")]
         public virtual Nationality Nationality { get; set; }
