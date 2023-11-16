@@ -1,6 +1,8 @@
 ﻿using Abp.Application.Services.Dto;
 using Souccar.Core.Services;
 using Souccar.Hcpc.Materials.Dto;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Souccar.Hcpc.Materials.Services
 {
@@ -10,6 +12,11 @@ namespace Souccar.Hcpc.Materials.Services
         public MaterialAppService(IMaterialManager materialDomainService) : base(materialDomainService)
         {
             _materialDomainService = materialDomainService;
+        }
+        public IList<MaterialNameForDropdownDto> GetNameForDropdown()
+        {
+            return _materialDomainService.GetAll()
+                .Select(x => new MaterialNameForDropdownDto(x.Id, x.Name)).ToList();
         }
     }
 }

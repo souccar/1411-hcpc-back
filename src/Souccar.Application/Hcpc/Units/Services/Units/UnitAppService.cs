@@ -3,7 +3,6 @@ using Souccar.Core.Services;
 using Souccar.Hcpc.Units.Dto.Units;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Souccar.Hcpc.Units.Services.Units
 {
