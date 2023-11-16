@@ -8,6 +8,8 @@ namespace Souccar.Hcpc.Products
     public class Formula : Entity<int>, IMayHaveTenant
     {
         public int? TenantId { get; set; }
+
+        public string Name { get; set; }
         public double Quantity { get; set; }
 
         #region Unit
