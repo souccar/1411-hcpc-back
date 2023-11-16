@@ -12,8 +12,8 @@ using Souccar.EntityFrameworkCore;
 namespace Souccar.Migrations
 {
     [DbContext(typeof(SouccarDbContext))]
-    [Migration("20231116081247_Add_Formula_Name")]
-    partial class Add_Formula_Name
+    [Migration("20231116090737_Update_Formula_Entity")]
+    partial class Update_Formula_Entity
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1621,7 +1621,7 @@ namespace Souccar.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int>("SupplierId")
+                    b.Property<int?>("SupplierId")
                         .HasColumnType("int");
 
                     b.Property<int?>("TenantId")
@@ -1642,13 +1642,13 @@ namespace Souccar.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("MaterialId")
+                    b.Property<int?>("MaterialId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProductId")
+                    b.Property<int?>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<double>("Quantity")
@@ -1657,7 +1657,7 @@ namespace Souccar.Migrations
                     b.Property<int?>("TenantId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UnitId")
+                    b.Property<int?>("UnitId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -1777,7 +1777,7 @@ namespace Souccar.Migrations
                     b.Property<DateTime?>("DeletionTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("FromId")
+                    b.Property<int?>("FromId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
@@ -1792,7 +1792,7 @@ namespace Souccar.Migrations
                     b.Property<int?>("TenantId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ToId")
+                    b.Property<int?>("ToId")
                         .HasColumnType("int");
 
                     b.Property<double>("Value")
@@ -1882,7 +1882,12 @@ namespace Souccar.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("WarehouseMaterialId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("WarehouseMaterialId");
 
                     b.ToTable("InputRequests");
                 });
@@ -1898,7 +1903,7 @@ namespace Souccar.Migrations
                     b.Property<int?>("InputRequestId")
                         .HasColumnType("int");
 
-                    b.Property<int>("MaterialId")
+                    b.Property<int?>("MaterialId")
                         .HasColumnType("int");
 
                     b.Property<double>("Quantity")
@@ -1907,7 +1912,7 @@ namespace Souccar.Migrations
                     b.Property<int?>("TenantId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UnitId")
+                    b.Property<int?>("UnitId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -1956,7 +1961,12 @@ namespace Souccar.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("WarehouseMaterialId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("WarehouseMaterialId");
 
                     b.ToTable("OutputRequests");
                 });
@@ -1969,7 +1979,7 @@ namespace Souccar.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("MaterialId")
+                    b.Property<int?>("MaterialId")
                         .HasColumnType("int");
 
                     b.Property<int?>("OutputRequestId")
@@ -1981,7 +1991,7 @@ namespace Souccar.Migrations
                     b.Property<int?>("TenantId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UnitId")
+                    b.Property<int?>("UnitId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -2024,7 +2034,7 @@ namespace Souccar.Migrations
                     b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
 
-                    b.Property<int>("MaterialId")
+                    b.Property<int?>("MaterialId")
                         .HasColumnType("int");
 
                     b.Property<double>("Quantity")
@@ -2033,7 +2043,7 @@ namespace Souccar.Migrations
                     b.Property<int?>("TenantId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UnitId")
+                    b.Property<int?>("UnitId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -2331,9 +2341,7 @@ namespace Souccar.Migrations
                 {
                     b.HasOne("Souccar.Hcpc.Suppliers.Supplier", "Supplier")
                         .WithMany()
-                        .HasForeignKey("SupplierId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SupplierId");
 
                     b.Navigation("Supplier");
                 });
@@ -2342,21 +2350,15 @@ namespace Souccar.Migrations
                 {
                     b.HasOne("Souccar.Hcpc.Materials.Material", "Material")
                         .WithMany()
-                        .HasForeignKey("MaterialId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("MaterialId");
 
                     b.HasOne("Souccar.Hcpc.Products.Product", "Product")
-                        .WithMany("Formula")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Formulas")
+                        .HasForeignKey("ProductId");
 
                     b.HasOne("Souccar.Hcpc.Units.Unit", "Unit")
                         .WithMany()
-                        .HasForeignKey("UnitId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UnitId");
 
                     b.Navigation("Material");
 
@@ -2369,19 +2371,22 @@ namespace Souccar.Migrations
                 {
                     b.HasOne("Souccar.Hcpc.Units.Unit", "From")
                         .WithMany()
-                        .HasForeignKey("FromId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("FromId");
 
                     b.HasOne("Souccar.Hcpc.Units.Unit", "To")
                         .WithMany()
-                        .HasForeignKey("ToId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ToId");
 
                     b.Navigation("From");
 
                     b.Navigation("To");
+                });
+
+            modelBuilder.Entity("Souccar.Hcpc.Warehouses.InputRequest", b =>
+                {
+                    b.HasOne("Souccar.Hcpc.Warehouses.WarehouseMaterial", null)
+                        .WithMany("InputRequests")
+                        .HasForeignKey("WarehouseMaterialId");
                 });
 
             modelBuilder.Entity("Souccar.Hcpc.Warehouses.InputRequestMaterial", b =>
@@ -2392,28 +2397,29 @@ namespace Souccar.Migrations
 
                     b.HasOne("Souccar.Hcpc.Materials.Material", "Material")
                         .WithMany()
-                        .HasForeignKey("MaterialId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("MaterialId");
 
                     b.HasOne("Souccar.Hcpc.Units.Unit", "Unit")
                         .WithMany()
-                        .HasForeignKey("UnitId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UnitId");
 
                     b.Navigation("Material");
 
                     b.Navigation("Unit");
                 });
 
+            modelBuilder.Entity("Souccar.Hcpc.Warehouses.OutputRequest", b =>
+                {
+                    b.HasOne("Souccar.Hcpc.Warehouses.WarehouseMaterial", null)
+                        .WithMany("OutputRequests")
+                        .HasForeignKey("WarehouseMaterialId");
+                });
+
             modelBuilder.Entity("Souccar.Hcpc.Warehouses.OutputRequestMaterial", b =>
                 {
                     b.HasOne("Souccar.Hcpc.Materials.Material", "Material")
                         .WithMany()
-                        .HasForeignKey("MaterialId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("MaterialId");
 
                     b.HasOne("Souccar.Hcpc.Warehouses.OutputRequest", null)
                         .WithMany("OutputRequestMaterials")
@@ -2421,9 +2427,7 @@ namespace Souccar.Migrations
 
                     b.HasOne("Souccar.Hcpc.Units.Unit", "Unit")
                         .WithMany()
-                        .HasForeignKey("UnitId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UnitId");
 
                     b.Navigation("Material");
 
@@ -2434,15 +2438,11 @@ namespace Souccar.Migrations
                 {
                     b.HasOne("Souccar.Hcpc.Materials.Material", "Material")
                         .WithMany()
-                        .HasForeignKey("MaterialId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("MaterialId");
 
                     b.HasOne("Souccar.Hcpc.Units.Unit", "Unit")
                         .WithMany()
-                        .HasForeignKey("UnitId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UnitId");
 
                     b.Navigation("Material");
 
@@ -2549,7 +2549,7 @@ namespace Souccar.Migrations
 
             modelBuilder.Entity("Souccar.Hcpc.Products.Product", b =>
                 {
-                    b.Navigation("Formula");
+                    b.Navigation("Formulas");
                 });
 
             modelBuilder.Entity("Souccar.Hcpc.Warehouses.InputRequest", b =>
@@ -2560,6 +2560,13 @@ namespace Souccar.Migrations
             modelBuilder.Entity("Souccar.Hcpc.Warehouses.OutputRequest", b =>
                 {
                     b.Navigation("OutputRequestMaterials");
+                });
+
+            modelBuilder.Entity("Souccar.Hcpc.Warehouses.WarehouseMaterial", b =>
+                {
+                    b.Navigation("InputRequests");
+
+                    b.Navigation("OutputRequests");
                 });
 #pragma warning restore 612, 618
         }

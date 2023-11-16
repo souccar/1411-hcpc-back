@@ -5,7 +5,7 @@
 namespace Souccar.Migrations
 {
     /// <inheritdoc />
-    public partial class Add_Formula_Name : Migration
+    public partial class Update_Formula_Entity : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
