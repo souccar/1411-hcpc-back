@@ -10,18 +10,19 @@ namespace Souccar.Hcpc.Units.Services
         private readonly IRepository<Transfer, int> _transferRepository;
         public TransferManager(IRepository<Transfer, int> transferRepository) : base(transferRepository)
         {
+            _transferRepository = transferRepository;
         }
 
-        public async Task<double> ConvertTo(Unit from, Unit to, double value)
+        public async Task<double> ConvertTo(int fromId, int toId, double value)
         {
             Transfer transfer;
-            transfer = await _transferRepository.FirstOrDefaultAsync(x => x.From.Id == from.Id && x.To.Id == to.Id);
+            transfer = await _transferRepository.FirstOrDefaultAsync(x => x.From.Id == fromId && x.To.Id == toId);
             if(transfer != null)
             {
                 return value * transfer.Value;
             }
 
-            transfer = await _transferRepository.FirstOrDefaultAsync(x => x.To.Id == from.Id && x.From.Id == to.Id);
+            transfer = await _transferRepository.FirstOrDefaultAsync(x => x.To.Id == fromId && x.From.Id == toId);
             if (transfer != null)
             {
                 return value / transfer.Value;

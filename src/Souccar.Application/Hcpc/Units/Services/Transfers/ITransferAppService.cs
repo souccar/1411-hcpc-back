@@ -7,6 +7,6 @@ namespace Souccar.Hcpc.Transfers.Services.Transfers
 {
     public interface ITransferAppService : IAsyncSouccarAppService<TransferDto, int, PagedTransferRequestDto, CreateTransferDto, UpdateTransferDto>
     {
-        Task<double> ConvertTo(CreateTransferDto createTransferDto);
+        Task<ConvertToOutputDto> ConvertTo(ConvertToInputDto input);
     }
 }

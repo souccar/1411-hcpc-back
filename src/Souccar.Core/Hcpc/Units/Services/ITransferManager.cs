@@ -6,6 +6,6 @@ namespace Souccar.Hcpc.Units.Services
 {
     public interface ITransferManager: ISouccarDomainService<Transfer, int>
     {
-        Task<double> ConvertTo(Unit source, Unit destination, double value);
+        Task<double> ConvertTo(int fromId, int toId, double value);
     }
 }

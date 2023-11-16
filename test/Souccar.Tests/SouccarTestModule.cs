@@ -11,6 +11,7 @@ using Abp.Zero.Configuration;
 using Abp.Zero.EntityFrameworkCore;
 using Souccar.EntityFrameworkCore;
 using Souccar.Tests.DependencyInjection;
+using Souccar.Hcpc.Transfers.Services.Transfers;
 
 namespace Souccar.Tests
 {
@@ -43,6 +44,7 @@ namespace Souccar.Tests
             RegisterFakeService<AbpZeroDbMigrator<SouccarDbContext>>();
 
             Configuration.ReplaceService<IEmailSender, NullEmailSender>(DependencyLifeStyle.Transient);
+            Configuration.ReplaceService<ITransferAppService, TransferAppService>(DependencyLifeStyle.Transient);
         }
 
         public override void Initialize()

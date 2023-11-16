@@ -1,5 +1,4 @@
-﻿using Abp.Application.Services.Dto;
-using Souccar.Core.Services;
+﻿using Souccar.Core.Services;
 using Souccar.Hcpc.Units;
 using Souccar.Hcpc.Units.Dto.Transfers;
 using Souccar.Hcpc.Units.Services;
@@ -16,10 +15,10 @@ namespace Souccar.Hcpc.Transfers.Services.Transfers
             _transferDomainService = transferDomainService;
         }
 
-        public async Task<double> ConvertTo(CreateTransferDto createTransferDto)
+        public async Task<ConvertToOutputDto> ConvertTo(ConvertToInputDto input)
         {
-            var transfer = ObjectMapper.Map<Transfer>(createTransferDto);
-           return await _transferDomainService.ConvertTo(transfer.From,transfer.To,transfer.Value);
+            var value = await _transferDomainService.ConvertTo(input.FromId, input.ToId, input.Value);
+            return new ConvertToOutputDto(value);
         }
     }
 }
