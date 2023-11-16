@@ -14,7 +14,7 @@ namespace Souccar.Hcpc.Materials
         public double Price { get; set; }
 
         #region Supplier
-        public int SupplierId { get; set; }
+        public int? SupplierId { get; set; }
 
         [ForeignKey("SupplierId")]
         public Supplier Supplier { get; set; }

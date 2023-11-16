@@ -6,11 +6,15 @@ namespace Souccar.Hcpc.Products
 {
     public class Product : FullAuditedAggregateRoot, IMayHaveTenant
     {
+        public Product()
+        {
+            Formulas = new List<Formula>();
+        }
         public int? TenantId { get; set; }
 
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public virtual IList<Formula> Formula { get; set; }
+        public virtual IList<Formula> Formulas { get; set; }
     }
 }
