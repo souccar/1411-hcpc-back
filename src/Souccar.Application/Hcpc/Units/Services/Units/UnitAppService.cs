@@ -1,6 +1,9 @@
 ﻿using Abp.Application.Services.Dto;
 using Souccar.Core.Services;
 using Souccar.Hcpc.Units.Dto.Units;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Souccar.Hcpc.Units.Services.Units
 {
@@ -13,5 +16,10 @@ namespace Souccar.Hcpc.Units.Services.Units
             _unitDomainService = unitDomainService;
         }
 
+        public IList<UnitNameForDropdownDto> GetNameForDropdown()
+        {
+            return _unitDomainService.GetAll()
+                .Select(x=>new UnitNameForDropdownDto(x.Id,x.Name)).ToList();
+        }
     }
 }
