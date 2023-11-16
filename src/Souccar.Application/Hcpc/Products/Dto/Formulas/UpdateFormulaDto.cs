@@ -1,5 +1,4 @@
 ﻿using Abp.Application.Services.Dto;
-using Souccar.Hcpc.Products.Dto.Products;
 
 namespace Souccar.Hcpc.Products.Dto.Formulas
 {
