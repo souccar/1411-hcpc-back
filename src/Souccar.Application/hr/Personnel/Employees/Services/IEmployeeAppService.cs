@@ -5,7 +5,7 @@ using Souccar.hr.Personnel.Employees.Dto;
 namespace Souccar.hr.Personnel.Employees.Services
 {
     public interface IEmployeeAppService : 
-        IAsyncSouccarAppService<EmployeeDto, int, PagedEmployeeRequestDto, CreateEmployeeDto, UpdateEmployeeDto, EmployeeDto, EntityDto<int>>
+        IAsyncSouccarAppService<EmployeeDto, int, PagedEmployeeRequestDto, CreateEmployeeDto, UpdateEmployeeDto>
     {
 
     }

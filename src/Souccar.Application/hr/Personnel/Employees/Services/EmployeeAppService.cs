@@ -6,7 +6,7 @@ using System.Linq;
 namespace Souccar.hr.Personnel.Employees.Services
 {
     public class EmployeeAppService : 
-        AsyncSouccarAppService<Employee, EmployeeDto, int, PagedEmployeeRequestDto, CreateEmployeeDto, UpdateEmployeeDto, EmployeeDto, EntityDto<int>>, IEmployeeAppService
+        AsyncSouccarAppService<Employee, EmployeeDto, int, PagedEmployeeRequestDto, CreateEmployeeDto, UpdateEmployeeDto>, IEmployeeAppService
     {
         private readonly IEmployeeManager _employeeDomainService;
         public EmployeeAppService(IEmployeeManager employeeDomainService): base(employeeDomainService)

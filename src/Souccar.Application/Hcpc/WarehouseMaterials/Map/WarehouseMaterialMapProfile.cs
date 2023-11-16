@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Souccar.Hcpc.WarehouseMaterials.Dto;
-using Souccar.Hcpc.WarehouseMaterials;
+using Souccar.Hcpc.Warehouses;
 
 namespace Souccar.Hcpc.WarehouseMaterials.Map
 {

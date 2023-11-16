@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Souccar.Hcpc.Units.Services.Units
 {
     public class UnitAppService :
-        AsyncSouccarAppService<Unit, UnitDto, int, PagedUnitRequestDto, CreateUnitDto, UpdateUnitDto, UnitDto, EntityDto<int>>, IUnitAppService
+        AsyncSouccarAppService<Unit, UnitDto, int, PagedUnitRequestDto, CreateUnitDto, UpdateUnitDto>, IUnitAppService
     {
         private readonly IUnitManager _unitDomainService;
         public UnitAppService(IUnitManager unitDomainService) : base(unitDomainService)

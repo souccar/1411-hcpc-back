@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Souccar.Hcpc.Transfers.Services.Transfers
 {
-    public interface ITransferAppService : IAsyncSouccarAppService<TransferDto, int, PagedTransferRequestDto, CreateTransferDto, UpdateTransferDto, TransferDto, EntityDto<int>>
+    public interface ITransferAppService : IAsyncSouccarAppService<TransferDto, int, PagedTransferRequestDto, CreateTransferDto, UpdateTransferDto>
     {
         Task<double> ConvertTo(CreateTransferDto createTransferDto);
     }
