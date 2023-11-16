@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Souccar.Hcpc.Materials.Services
 {
-    public interface IMaterialAppService : IAsyncSouccarAppService<MaterialDto, int, PagedMaterialRequestDto, CreateMaterialDto, UpdateMaterialDto, MaterialDto, EntityDto<int>>
+    public interface IMaterialAppService : IAsyncSouccarAppService<MaterialDto, int, PagedMaterialRequestDto, CreateMaterialDto, UpdateMaterialDto>
     {
 
         IList<MaterialNameForDropdownDto> GetNameForDropdown();

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Souccar.Hcpc.Suppliers.Services
 {
-    public interface ISupplierAppService: IAsyncSouccarAppService<SupplierDto,int,PagedSupplierRequestDto,CreateSupplierDto,UpdateSupplierDto, SupplierDto, EntityDto<int>>
+    public interface ISupplierAppService: IAsyncSouccarAppService<SupplierDto,int,PagedSupplierRequestDto,CreateSupplierDto,UpdateSupplierDto>
     {
         IList<SupplierNameForDropdownDto> GetNameForDropdown();
     }

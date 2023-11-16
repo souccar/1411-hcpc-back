@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Souccar.Hcpc.Formulas.Services.Formulas
 {
-    public interface IFormulaAppService : IAsyncSouccarAppService<FormulaDto, int, PagedFormulaRequestDto, CreateFormulaDto, UpdateFormulaDto, FormulaDto, EntityDto<int>>
+    public interface IFormulaAppService : IAsyncSouccarAppService<FormulaDto, int, PagedFormulaRequestDto, CreateFormulaDto, UpdateFormulaDto>
     {
 
         IList<FormulaNameForDropdownDto> GetNameForDropdown();

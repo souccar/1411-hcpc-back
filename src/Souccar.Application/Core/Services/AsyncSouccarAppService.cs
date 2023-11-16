@@ -9,14 +9,12 @@ using Souccar.Core.Services.Interfaces;
 
 namespace Souccar.Core.Services
 {
-    public abstract class AsyncSouccarAppService<TEntity, TEntityDto, TPrimaryKey, TGetAllInput, TCreateInput, TUpdateInput, TGetInput, TDeleteInput>
+    public abstract class AsyncSouccarAppService<TEntity, TEntityDto, TPrimaryKey, TGetAllInput, TCreateInput, TUpdateInput>
        : CrudAppServiceBase<TEntity, TEntityDto, TPrimaryKey, TGetAllInput, TCreateInput, TUpdateInput>,
-        IAsyncCrudAppService<TEntityDto, TPrimaryKey, TGetAllInput, TCreateInput, TUpdateInput, TGetInput, TDeleteInput>
+        IAsyncCrudAppService<TEntityDto, TPrimaryKey, TGetAllInput, TCreateInput, TUpdateInput, EntityDto<TPrimaryKey>, EntityDto<TPrimaryKey>>
            where TEntity : class, IEntity<TPrimaryKey>
            where TEntityDto : IEntityDto<TPrimaryKey>
            where TUpdateInput : IEntityDto<TPrimaryKey>
-           where TGetInput : IEntityDto<TPrimaryKey>
-           where TDeleteInput : IEntityDto<TPrimaryKey>
     {
         public IAsyncQueryableExecuter AsyncQueryableExecuter { get; set; }
 
@@ -26,7 +24,7 @@ namespace Souccar.Core.Services
 
         }
 
-        public virtual async Task<TEntityDto> GetAsync(TGetInput input)
+        public virtual async Task<TEntityDto> GetAsync(EntityDto<TPrimaryKey> input)
         {
             CheckGetPermission();
 
@@ -78,7 +76,7 @@ namespace Souccar.Core.Services
             return MapToEntityDto(entity);
         }
 
-        public virtual Task DeleteAsync(TDeleteInput input)
+        public virtual Task DeleteAsync(EntityDto<TPrimaryKey> input)
         {
             CheckDeletePermission();
 

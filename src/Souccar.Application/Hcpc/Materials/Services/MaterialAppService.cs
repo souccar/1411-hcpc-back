@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Souccar.Hcpc.Materials.Services
 {
-    public class MaterialAppService : AsyncSouccarAppService<Material, MaterialDto, int, PagedMaterialRequestDto, CreateMaterialDto, UpdateMaterialDto, MaterialDto, EntityDto<int>>, IMaterialAppService
+    public class MaterialAppService : AsyncSouccarAppService<Material, MaterialDto, int, PagedMaterialRequestDto, CreateMaterialDto, UpdateMaterialDto>, IMaterialAppService
     {
         private readonly IMaterialManager _materialDomainService;
         public MaterialAppService(IMaterialManager materialDomainService) : base(materialDomainService)
