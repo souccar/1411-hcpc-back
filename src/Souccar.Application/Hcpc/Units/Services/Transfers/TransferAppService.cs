@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Souccar.Hcpc.Transfers.Services.Transfers
 {
     public class TransferAppService :
-        AsyncSouccarAppService<Transfer, TransferDto, int, PagedTransferRequestDto, CreateTransferDto, UpdateTransferDto, TransferDto, EntityDto<int>>, ITransferAppService
+        AsyncSouccarAppService<Transfer, TransferDto, int, PagedTransferRequestDto, CreateTransferDto, UpdateTransferDto>, ITransferAppService
     {
         private readonly ITransferManager _transferDomainService;
         public TransferAppService(ITransferManager transferDomainService) : base(transferDomainService)

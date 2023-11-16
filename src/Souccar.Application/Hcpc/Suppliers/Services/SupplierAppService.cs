@@ -7,7 +7,7 @@ using System.Linq;
 namespace Souccar.Hcpc.Suppliers.Services
 {
     public class SupplierAppService :
-        AsyncSouccarAppService<Supplier, SupplierDto, int, PagedSupplierRequestDto, CreateSupplierDto, UpdateSupplierDto, SupplierDto, EntityDto<int>>, ISupplierAppService
+        AsyncSouccarAppService<Supplier, SupplierDto, int, PagedSupplierRequestDto, CreateSupplierDto, UpdateSupplierDto>, ISupplierAppService
     {
         private readonly ISupplierManager _supplierDomainService;
         public SupplierAppService(ISupplierManager supplierDomainService) : base(supplierDomainService)

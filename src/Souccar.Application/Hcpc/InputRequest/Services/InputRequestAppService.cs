@@ -7,7 +7,7 @@ using Souccar.Hcpc.Warehouses.Services;
 namespace Souccar.Hcpc.InputRequests.Services
 {
     public class InputRequestAppService :
-        AsyncSouccarAppService<InputRequest, InputRequestDto, int, PagedInputRequestDto, CreateInputRequestDto, UpdateInputRequestDto, InputRequestDto, EntityDto<int>>, IInputRequestAppService
+        AsyncSouccarAppService<InputRequest, InputRequestDto, int, PagedInputRequestDto, CreateInputRequestDto, UpdateInputRequestDto>, IInputRequestAppService
     {
         private readonly IInputRequestManager _supplierDomainService;
         public InputRequestAppService(IInputRequestManager supplierDomainService) : base(supplierDomainService)

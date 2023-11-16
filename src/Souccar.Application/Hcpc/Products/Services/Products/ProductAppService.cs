@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Souccar.Hcpc.Products.Services.Products
 {
-    public class ProductAppService : AsyncSouccarAppService<Product, ProductDto, int, PagedProductRequestDto, CreateProductDto, UpdateProductDto, ProductDto, EntityDto<int>>, IProductAppService
+    public class ProductAppService : AsyncSouccarAppService<Product, ProductDto, int, PagedProductRequestDto, CreateProductDto, UpdateProductDto>, IProductAppService
     {
         private readonly IProductManager _productDomainService;
         public ProductAppService(IProductManager productDomainService) : base(productDomainService)

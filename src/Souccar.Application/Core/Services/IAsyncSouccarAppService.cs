@@ -4,14 +4,12 @@ using System.Threading.Tasks;
 
 namespace Souccar.Core.Services
 {
-    public interface IAsyncSouccarAppService<TEntityDto, TPrimaryKey, in TGetAllInput, in TCreateInput, in TUpdateInput, in TGetInput, in TDeleteInput>
+    public interface IAsyncSouccarAppService<TEntityDto, TPrimaryKey, in TGetAllInput, in TCreateInput, in TUpdateInput>
         : IApplicationService
         where TEntityDto : IEntityDto<TPrimaryKey>
         where TUpdateInput : IEntityDto<TPrimaryKey>
-        where TGetInput : IEntityDto<TPrimaryKey>
-        where TDeleteInput : IEntityDto<TPrimaryKey>
     {
-        Task<TEntityDto> GetAsync(TGetInput input);
+        Task<TEntityDto> GetAsync(EntityDto<TPrimaryKey> input);
 
         Task<PagedResultDto<TEntityDto>> GetAllAsync(TGetAllInput input);
 
@@ -19,6 +17,6 @@ namespace Souccar.Core.Services
 
         Task<TEntityDto> UpdateAsync(TUpdateInput input);
 
-        Task DeleteAsync(TDeleteInput input);
+        Task DeleteAsync(EntityDto<TPrimaryKey> input);
     }
 }
