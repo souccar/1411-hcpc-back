@@ -11,16 +11,14 @@ namespace Souccar.Hcpc.Plans
         public Plan()
         {
             PlanProducts = new List<PlanProduct>();
+            PlanMaterials = new List<PlanMaterial>();
         }
         public int? TenantId { get; set; }
         public string Title { get; set; }
         public int Duration { get; set; }
-        
+        public int TotalItems { get; set; }
         public DateTime? StartDate { get; set; }
         public virtual IList<PlanProduct> PlanProducts { get; set; }
-
-        #region Getters
-        public int TotalItems => PlanProducts.Sum(x => x.NumberOfItems);
-        #endregion
+        public virtual IList<PlanMaterial> PlanMaterials { get; set; }
     }
 }

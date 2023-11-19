@@ -1,5 +1,7 @@
 ﻿using Abp.Domain.Entities;
+using Souccar.Hcpc.Materials;
 using Souccar.Hcpc.Products;
+using Souccar.Hcpc.Units;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Souccar.Hcpc.Plans
@@ -8,16 +10,29 @@ namespace Souccar.Hcpc.Plans
     {
         public int? TenantId { get; set; }
         /// <summary>
-        /// Quentity in product
-        /// Product.Count * Formula.Material.Quentity
+        /// Required quantity for currenct product
         /// </summary>
-        public double Quantity { get; set; }
+        public double RequiredQuantity { get; set; } //Product.NumberOfItems * Formula.Material.Quentity
 
-        #region Formula
-        public int? FormulaId { get; set; }
+        #region Unit
+        public int? UnitId { get; set; }
 
-        [ForeignKey("FormulaId")]
-        public Formula Formula { get; set; }
+        [ForeignKey("UnitId")]
+        public Unit Unit { get; set; }
+        #endregion
+
+        #region Material
+        public int? MaterialId { get; set; }
+
+        [ForeignKey("MaterialId")]
+        public Material Material { get; set; }
+        #endregion
+
+        #region Plan product
+        public int? PlanProductId { get; set; }
+
+        [ForeignKey("PlanProductId")]
+        public PlanProduct PlanProduct { get; set; }
         #endregion
     }
 }

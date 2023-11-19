@@ -1,5 +1,6 @@
 ﻿using Souccar.Hcpc.Units.Dto.Units;
 using Souccar.Hcpc.Units.Services.Units;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
@@ -15,7 +16,7 @@ namespace Souccar.Tests.Hcpc.Units
         }
 
         [Fact]
-        public async Task CreateUnits()
+        public async Task CreateUnits_Test()
         {
             //Get all units
             var pagedUnitRequest = new PagedUnitRequestDto();
@@ -23,28 +24,15 @@ namespace Souccar.Tests.Hcpc.Units
             pagedUnitRequest.SkipCount = 0;
             var units = await _unitAppService.GetAllAsync(pagedUnitRequest);
 
-            UnitDto fromUnitOutput = null;
-            UnitDto toUnitOutput = null;
-            if (units.TotalCount > 0)
+            var values = new List<string> { "kg" , "g", "ml" , "l" };
+            foreach (var value in values)
             {
-                //From Unit
-                fromUnitOutput = units.Items.Where(x => x.Name.ToLower().Equals("kg")).FirstOrDefault();
-                //To Unit
-                toUnitOutput = units.Items.Where(x => x.Name.ToLower().Equals("g")).FirstOrDefault();
-            }
-
-            if (fromUnitOutput == null)
-            {
-                var fromUnitInput = new CreateUnitDto();
-                fromUnitInput.Name = "kg";
-                fromUnitOutput = await _unitAppService.CreateAsync(fromUnitInput);
-            }
-
-            if (toUnitOutput == null)
-            {
-                var toUnitInput = new CreateUnitDto();
-                toUnitInput.Name = "g";
-                toUnitOutput = await _unitAppService.CreateAsync(toUnitInput);
+                if (!units.Items.Any(x => x.Name.ToLower().Equals(value)))
+                {
+                    var unit = new CreateUnitDto();
+                    unit.Name = value;
+                    await _unitAppService.CreateAsync(unit);
+                }
             }
         }
     }

@@ -9,7 +9,14 @@ namespace Souccar.Hcpc.Plans
     {
         public int? TenantId { get; set; }
 
-        public double Quantity { get; set; }
+        /// <summary>
+        /// The total quantity required of this material
+        /// </summary>
+        public double TotalQuantity { get; set; }
+
+        /// <summary>
+        /// Inventory quantity of this material
+        /// </summary>
         public double InventoryQuantity { get; set; }
 
         #region Unit
@@ -26,5 +33,11 @@ namespace Souccar.Hcpc.Plans
         public Material Material { get; set; }
         #endregion
 
+        #region Plan
+        public int PlanId { get; set; }
+
+        [ForeignKey("PlanId")]
+        public Plan Plan { get; set; }
+        #endregion
     }
 }
