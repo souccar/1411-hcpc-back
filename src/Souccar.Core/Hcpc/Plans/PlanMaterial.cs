@@ -3,13 +3,14 @@ using Souccar.Hcpc.Materials;
 using Souccar.Hcpc.Units;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Souccar.Hcpc.Products
+namespace Souccar.Hcpc.Plans
 {
-    public class Formula : Entity<int>, IMayHaveTenant
+    public class PlanMaterial : Entity<int>, IMayHaveTenant
     {
         public int? TenantId { get; set; }
-        public string Name { get; set; }
+
         public double Quantity { get; set; }
+        public double InventoryQuantity { get; set; }
 
         #region Unit
         public int? UnitId { get; set; }
@@ -25,11 +26,5 @@ namespace Souccar.Hcpc.Products
         public Material Material { get; set; }
         #endregion
 
-        #region Product
-        public int? ProductId { get; set; }
-
-        [ForeignKey("ProductId")]
-        public Product Product { get; set; }
-        #endregion
     }
 }

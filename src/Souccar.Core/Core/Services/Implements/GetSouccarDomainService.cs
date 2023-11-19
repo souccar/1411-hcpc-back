@@ -56,6 +56,39 @@ namespace Souccar.Core.Services.Implements
             return GetAsync(id);
         }
 
+        public virtual IQueryable<TEntity> GetAllWithIncluding(string including)
+        {
+            
+            if (!string.IsNullOrEmpty(including))
+            {
+                var array = including.Split(',').ToList();
+                var properties = typeof(TEntity).GetProperties()
+                .Where(x =>
+                    x.PropertyType.IsGenericType &&
+                    x.PropertyType.GetGenericTypeDefinition() == typeof(IList<>));
+
+                if (properties.Any())
+                {
+                    var lambdaExp = new List<Expression<Func<TEntity, object>>>();
+                    foreach (var prop in properties)
+                    {
+                        if (array.Any(x=> x.Trim().ToLower() == prop.Name.ToLower()))
+                        {
+                            var paramName = prop.Name.Substring(0, 2).ToLower();
+                            var parameter = Expression.Parameter(typeof(TEntity), paramName);
+                            var member = Expression.Property(parameter, prop.Name);
+                            var finalExpression = Expression.Lambda<Func<TEntity, object>>(member, parameter);
+                            lambdaExp.Add(finalExpression);
+                        }
+                    }
+                    var result = _repository.GetAllIncluding(lambdaExp.ToArray());
+                    return result;
+                }
+            }
+            
+            return GetAll();
+        }
+
         public virtual async Task<TEntity> GetAsync(TPrimaryKey id)
         {
             return await _repository.GetAsync(id);

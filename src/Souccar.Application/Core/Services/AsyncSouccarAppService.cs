@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Abp.Domain.Entities.Auditing;
 using Souccar.Core.Services.Interfaces;
+using Souccar.Core.Includes;
 
 namespace Souccar.Core.Services
 {
@@ -36,6 +37,7 @@ namespace Souccar.Core.Services
         {
             CheckGetAllPermission();
 
+            var containIncluding = typeof(TGetAllInput).GetInterfaces().Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IIncludeResultRequest));
             var query = CreateFilteredQuery(input);
 
             var totalCount = await AsyncQueryableExecuter.CountAsync(query);

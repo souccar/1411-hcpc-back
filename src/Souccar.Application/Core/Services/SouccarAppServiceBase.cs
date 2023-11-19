@@ -8,6 +8,7 @@ using Abp.Extensions;
 using Abp.Linq.Extensions;
 using Abp.ObjectMapping;
 using Souccar.Core.Filter;
+using Souccar.Core.Includes;
 using Souccar.Core.Services.Interfaces;
 
 namespace Souccar.Core.Services
@@ -118,7 +119,29 @@ namespace Souccar.Core.Services
         /// <param name="input">The input.</param>
         protected virtual IQueryable<TEntity> CreateFilteredQuery(TGetAllInput input)
         {
+            var containIncluding = typeof(TGetAllInput).GetInterfaces().Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IIncludeResultRequest));
+            if (containIncluding)
+            {
+                var includingProp = typeof(TGetAllInput).GetProperty("Including");
+                object propValue = includingProp.GetValue(input, null);
+                if(propValue != null)
+                {
+                    return _domainService.GetAllWithIncluding(propValue.ToString());
+                }
+            }
             return _domainService.GetAll();
+        }
+
+        /// <summary>
+        /// This method should create <see cref="IQueryable{TEntity}"/> based on given input.
+        /// It should filter query if needed, but should not do sorting or paging.
+        /// Sorting should be done in <see cref="ApplySorting"/> and paging should be done in <see cref="ApplyPaging"/>
+        /// methods.
+        /// </summary>
+        /// <param name="input">The input.</param>
+        protected virtual IQueryable<TEntity> CreateFilteredQueryWithIncluding(TGetAllInput input, string including)
+        {
+            return _domainService.GetAllWithIncluding(including);
         }
 
         /// <summary>

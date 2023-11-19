@@ -9,6 +9,7 @@ namespace Souccar.Core.Services.Interfaces
         where TEntity : class, IEntity<TPrimaryKey>
     {
         IQueryable<TEntity> GetAll();
+        IQueryable<TEntity> GetAllWithIncluding(string including);
         TEntity Get(TPrimaryKey id);
         Task<TEntity> GetAsync(TPrimaryKey id);
         Task<TEntity> GetAgreggateAsync(TPrimaryKey id);
