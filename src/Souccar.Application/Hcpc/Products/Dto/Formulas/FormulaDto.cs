@@ -10,7 +10,7 @@ namespace Souccar.Hcpc.Products.Dto.Formulas
         public int Id { get; set; }
         public UnitDto Unit { get; set; }
         public MaterialDto Material { get; set; }
-        public ProductDto Product { get; set; }
+        public int ProductId { get; set; }
     }
 }
 
