@@ -2,7 +2,7 @@
 
 namespace Souccar.Hcpc.Units.Dto.Units
 {
-    public class UpdateUnitDto : UnitDto, IEntityDto<int>
+    public class UpdateUnitDto : UnitBaseDto, IEntityDto<int>
     {
         public int Id { get; set; }
     }

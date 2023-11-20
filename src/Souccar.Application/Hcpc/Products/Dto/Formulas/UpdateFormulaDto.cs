@@ -2,8 +2,12 @@
 
 namespace Souccar.Hcpc.Products.Dto.Formulas
 {
-    public class UpdateFormulaDto : FormulaBaseDto, IEntityDto<int>
+    public class UpdateFormulaDto : EntityDto<int>
     {
-        public int Id { get; set; }
+        public string Name { get; set; }
+        public double Quantity { get; set; }
+        public int MaterialId { get; set; }
+        public int UnitId { get; set; }
+        public int ProductId { get; set; }
     }
 }
