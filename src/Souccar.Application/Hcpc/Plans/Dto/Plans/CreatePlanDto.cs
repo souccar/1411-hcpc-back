@@ -13,7 +13,7 @@ namespace Souccar.Hcpc.Plans.Dto.Plans
         }
         public string Title { get; set; }
         public int Duration { get; set; }
-        public DateTime? StartDate { get; set; }
+        public string StartDate { get; set; }
         public IList<CreatePlanProductDto> PlanProducts { get; set; }
     }
 }

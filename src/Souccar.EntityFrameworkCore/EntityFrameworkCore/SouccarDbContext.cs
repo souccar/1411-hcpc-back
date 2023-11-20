@@ -25,6 +25,7 @@ namespace Souccar.EntityFrameworkCore
         public DbSet<OutputRequest> OutputRequests { get; set; }
         public DbSet<InputRequestMaterial> InputRequestMaterials { get; set; }
         public DbSet<OutputRequestMaterial> OutputRequestMaterials { get; set; }
+        public DbSet<MaterialSuppliers> MaterialSuppliers { get; set; }
 
         public SouccarDbContext(DbContextOptions<SouccarDbContext> options)
             : base(options)

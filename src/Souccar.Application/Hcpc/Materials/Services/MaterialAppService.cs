@@ -18,5 +18,10 @@ namespace Souccar.Hcpc.Materials.Services
             return _materialDomainService.GetAll()
                 .Select(x => new MaterialNameForDropdownDto(x.Id, x.Name)).ToList();
         }
+
+        protected override IQueryable<Material> CreateFilteredQuery(PagedMaterialRequestDto input)
+        {
+            return base.CreateFilteredQuery(input);
+        }
     }
 }

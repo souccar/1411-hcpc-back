@@ -1,4 +1,4 @@
-﻿using Souccar.Hcpc.Suppliers.Dto;
+﻿using Souccar.Hcpc.Materials.Dto.MaterialSuppliersDtos;
 using System.Collections.Generic;
 
 namespace Souccar.Hcpc.Materials.Dto
@@ -7,8 +7,8 @@ namespace Souccar.Hcpc.Materials.Dto
     {
         public CreateMaterialDto()
         {
-            Suppliers = new List<SupplierDto>();
+            Suppliers = new List<CreateMaterialSuppliersDto>();
         }
-        public IList<SupplierDto> Suppliers { get; set; }
+        public IList<CreateMaterialSuppliersDto> Suppliers { get; set; }
     }
 }
