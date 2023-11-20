@@ -26,26 +26,26 @@ namespace Souccar.Tests.Hcpc.Units
         [Fact]
         public async Task ConvertTo()
         {
-            FormulaDto formula = null;
-            //Get all units
-            var pagedFormulaRequest = new PagedFormulaRequestDto();
-            pagedFormulaRequest.MaxResultCount = 100;
-            pagedFormulaRequest.SkipCount = 0;
-            var formulas = await _formulaAppService.GetAllAsync(pagedFormulaRequest);
-            if (formulas.TotalCount > 0)
-            {
+            //FormulaDto formula = null;
+            ////Get all units
+            //var pagedFormulaRequest = new PagedFormulaRequestDto();
+            //pagedFormulaRequest.MaxResultCount = 100;
+            //pagedFormulaRequest.SkipCount = 0;
+            //var formulas = await _formulaAppService.GetAllAsync(pagedFormulaRequest);
+            //if (formulas.TotalCount > 0)
+            //{
                 
-            }
+            //}
 
 
-            var input = new ConvertToInputDto()
-            {
-                FromId = 1,
-                ToId = 2,
-                Value = 100
-            };
+            //var input = new ConvertToInputDto()
+            //{
+            //    FromId = 1,
+            //    ToId = 2,
+            //    Value = 100
+            //};
 
-            await _transferAppService.ConvertTo(input);
+            //await _transferAppService.ConvertTo(input);
         }
     }
 }

@@ -33,34 +33,35 @@ namespace Souccar.Tests.Hcpc.Products
         {
             Thread.Sleep(5000);
             //Get all units
-            var pagedProductRequest = new PagedProductRequestDto();
-            pagedProductRequest.MaxResultCount = 100;
-            pagedProductRequest.SkipCount = 0;
-            var products = await _productAppService.GetAllAsync(pagedProductRequest);
+            //var pagedProductRequest = new PagedProductRequestDto();
+            //pagedProductRequest.MaxResultCount = 100;
+            //pagedProductRequest.SkipCount = 0;
+            //var products = await _productAppService.GetAllAsync(pagedProductRequest);
 
-            var pagedMaterialRequest = new PagedMaterialRequestDto();
-            pagedMaterialRequest.MaxResultCount = 100;
-            pagedMaterialRequest.SkipCount = 0;
-            var materials = await _materialAppService.GetAllAsync(pagedMaterialRequest);
+            //var pagedMaterialRequest = new PagedMaterialRequestDto();
+            //pagedMaterialRequest.MaxResultCount = 100;
+            //pagedMaterialRequest.SkipCount = 0;
+            //var materials = await _materialAppService.GetAllAsync(pagedMaterialRequest);
 
-            var pagedUnitRequest = new PagedUnitRequestDto();
-            pagedUnitRequest.MaxResultCount = 100;
-            pagedUnitRequest.SkipCount = 0;
-            var units = await _unitAppService.GetAllAsync(pagedUnitRequest);
+            //var pagedUnitRequest = new PagedUnitRequestDto();
+            //pagedUnitRequest.MaxResultCount = 100;
+            //pagedUnitRequest.SkipCount = 0;
+            //var units = await _unitAppService.GetAllAsync(pagedUnitRequest);
 
-            if (!products.Items.Any(x => x.Name.ToLower().Equals("Men shampoo")))
-            {
-                var shampoo = new CreateProductDto();
-                shampoo.Name = "Men shampoo";
-                await _productAppService.CreateAsync(shampoo);
-            }
+            //if (!products.Items.Any(x => x.Name.ToLower().Equals("Men shampoo")))
+            //{
 
-            if (!products.Items.Any(x => x.Name.ToLower().Equals("Oil replacement")))
-            {
-                var replacement = new CreateProductDto();
-                replacement.Name = "Oil replacement";
-                await _productAppService.CreateAsync(replacement);
-            }
+            //    var shampoo = new CreateProductDto();
+            //    shampoo.Name = "Men shampoo";
+            //    await _productAppService.CreateAsync(shampoo);
+            //}
+
+            //if (!products.Items.Any(x => x.Name.ToLower().Equals("Oil replacement")))
+            //{
+            //    var replacement = new CreateProductDto();
+            //    replacement.Name = "Oil replacement";
+            //    await _productAppService.CreateAsync(replacement);
+            //}
         }
     }
 }

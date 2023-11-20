@@ -30,6 +30,7 @@ namespace Souccar.Tests.Hcpc.Materials
                 oil.Name = "Oil";
                 oil.Description = "Oil";
                 oil.LeadTime = 1;
+                oil.Price = 10;
                 await _materialAppService.CreateAsync(oil);
             }
 
