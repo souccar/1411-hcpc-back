@@ -1,5 +1,7 @@
 ﻿using Abp.Domain.Entities.Auditing;
 using Abp.Domain.Entities;
+using Souccar.Hcpc.Materials;
+using System.Collections.Generic;
 
 namespace Souccar.Hcpc.Suppliers
 {
@@ -9,5 +11,6 @@ namespace Souccar.Hcpc.Suppliers
 
         public string Name { get; set; }
         public string Description { get; set; }
+        public virtual IList<MaterialSuppliers> MaterialSuppliers { get; set; }
     }
 }

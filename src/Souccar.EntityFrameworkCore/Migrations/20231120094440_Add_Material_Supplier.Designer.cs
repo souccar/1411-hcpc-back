@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Souccar.EntityFrameworkCore;
 
@@ -11,9 +12,11 @@ using Souccar.EntityFrameworkCore;
 namespace Souccar.Migrations
 {
     [DbContext(typeof(SouccarDbContext))]
-    partial class SouccarDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231120094440_Add_Material_Supplier")]
+    partial class Add_Material_Supplier
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1626,173 +1629,30 @@ namespace Souccar.Migrations
                     b.ToTable("Materials");
                 });
 
-                modelBuilder.Entity("Souccar.Hcpc.Materials.MaterialSuppliers", b =>
+            modelBuilder.Entity("Souccar.Hcpc.Materials.MaterialSuppliers", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<int>("MaterialId")
                         .HasColumnType("int");
 
                     b.Property<int>("SupplierId")
                         .HasColumnType("int");
 
-                     b.HasIndex("MaterialId");
+                    b.Property<int?>("TenantId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MaterialId");
 
                     b.HasIndex("SupplierId");
 
                     b.ToTable("MaterialSuppliers");
-                });
-
-
-
-            modelBuilder.Entity("Souccar.Hcpc.Plans.Plan", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("DeleterUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Duration")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("LastModifierUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("TenantId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TotalItems")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Plans");
-                });
-
-            modelBuilder.Entity("Souccar.Hcpc.Plans.PlanMaterial", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<double>("InventoryQuantity")
-                        .HasColumnType("float");
-
-                    b.Property<int?>("MaterialId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PlanId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TenantId")
-                        .HasColumnType("int");
-
-                    b.Property<double>("TotalQuantity")
-                        .HasColumnType("float");
-
-                    b.Property<int?>("UnitId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MaterialId");
-
-                    b.HasIndex("PlanId");
-
-                    b.HasIndex("UnitId");
-
-                    b.ToTable("PlanMaterials");
-                });
-
-            modelBuilder.Entity("Souccar.Hcpc.Plans.PlanProduct", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("NumberOfItems")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PlanId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Priority")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TenantId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PlanId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("PlanProducts");
-                });
-
-            modelBuilder.Entity("Souccar.Hcpc.Plans.PlanProductMaterial", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("MaterialId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PlanProductId")
-                        .HasColumnType("int");
-
-                    b.Property<double>("RequiredQuantity")
-                        .HasColumnType("float");
-
-                    b.Property<int?>("TenantId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UnitId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MaterialId");
-
-                    b.HasIndex("PlanProductId");
-
-                    b.HasIndex("UnitId");
-
-                    b.ToTable("PlanProductMaterials");
                 });
 
             modelBuilder.Entity("Souccar.Hcpc.Products.Formula", b =>
@@ -2498,7 +2358,7 @@ namespace Souccar.Migrations
                     b.Navigation("LastModifierUser");
                 });
 
-                modelBuilder.Entity("Souccar.Hcpc.Materials.MaterialSuppliers", b =>
+            modelBuilder.Entity("Souccar.Hcpc.Materials.MaterialSuppliers", b =>
                 {
                     b.HasOne("Souccar.Hcpc.Materials.Material", "Material")
                         .WithMany("Suppliers")
@@ -2515,69 +2375,6 @@ namespace Souccar.Migrations
                     b.Navigation("Material");
 
                     b.Navigation("Supplier");
-                });
-
-            modelBuilder.Entity("Souccar.Hcpc.Plans.PlanMaterial", b =>
-                {
-                    b.HasOne("Souccar.Hcpc.Materials.Material", "Material")
-                        .WithMany()
-                        .HasForeignKey("MaterialId");
-
-                    b.HasOne("Souccar.Hcpc.Plans.Plan", "Plan")
-                        .WithMany("PlanMaterials")
-                        .HasForeignKey("PlanId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Souccar.Hcpc.Units.Unit", "Unit")
-                        .WithMany()
-                        .HasForeignKey("UnitId");
-
-                    b.Navigation("Material");
-
-                    b.Navigation("Plan");
-
-                    b.Navigation("Unit");
-                });
-
-            modelBuilder.Entity("Souccar.Hcpc.Plans.PlanProduct", b =>
-                {
-                    b.HasOne("Souccar.Hcpc.Plans.Plan", "Plan")
-                        .WithMany("PlanProducts")
-                        .HasForeignKey("PlanId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Souccar.Hcpc.Products.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Plan");
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("Souccar.Hcpc.Plans.PlanProductMaterial", b =>
-                {
-                    b.HasOne("Souccar.Hcpc.Materials.Material", "Material")
-                        .WithMany()
-                        .HasForeignKey("MaterialId");
-
-                    b.HasOne("Souccar.Hcpc.Plans.PlanProduct", "PlanProduct")
-                        .WithMany("PlanProductMaterials")
-                        .HasForeignKey("PlanProductId");
-
-                    b.HasOne("Souccar.Hcpc.Units.Unit", "Unit")
-                        .WithMany()
-                        .HasForeignKey("UnitId");
-
-                    b.Navigation("Material");
-
-                    b.Navigation("PlanProduct");
-
-                    b.Navigation("Unit");
                 });
 
             modelBuilder.Entity("Souccar.Hcpc.Products.Formula", b =>
@@ -2784,18 +2581,6 @@ namespace Souccar.Migrations
             modelBuilder.Entity("Souccar.Hcpc.Materials.Material", b =>
                 {
                     b.Navigation("Suppliers");
-                });
-
-            modelBuilder.Entity("Souccar.Hcpc.Plans.Plan", b =>
-                {
-                    b.Navigation("PlanMaterials");
-
-                    b.Navigation("PlanProducts");
-                });
-
-            modelBuilder.Entity("Souccar.Hcpc.Plans.PlanProduct", b =>
-                {
-                    b.Navigation("PlanProductMaterials");
                 });
 
             modelBuilder.Entity("Souccar.Hcpc.Products.Product", b =>
