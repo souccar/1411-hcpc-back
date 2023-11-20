@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Souccar.EntityFrameworkCore;
 
@@ -11,9 +12,11 @@ using Souccar.EntityFrameworkCore;
 namespace Souccar.Migrations
 {
     [DbContext(typeof(SouccarDbContext))]
-    partial class SouccarDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231120083943_Add_Plan_Entity")]
+    partial class Add_Plan_Entity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1626,23 +1629,6 @@ namespace Souccar.Migrations
                     b.ToTable("Materials");
                 });
 
-                modelBuilder.Entity("Souccar.Hcpc.Materials.MaterialSuppliers", b =>
-                {
-                    b.Property<int>("MaterialId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SupplierId")
-                        .HasColumnType("int");
-
-                     b.HasIndex("MaterialId");
-
-                    b.HasIndex("SupplierId");
-
-                    b.ToTable("MaterialSuppliers");
-                });
-
-
-
             modelBuilder.Entity("Souccar.Hcpc.Plans.Plan", b =>
                 {
                     b.Property<int>("Id")
@@ -1907,6 +1893,9 @@ namespace Souccar.Migrations
                     b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
 
+                    b.Property<int?>("MaterialId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -1914,6 +1903,8 @@ namespace Souccar.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MaterialId");
 
                     b.ToTable("Suppliers");
                 });
@@ -2498,25 +2489,6 @@ namespace Souccar.Migrations
                     b.Navigation("LastModifierUser");
                 });
 
-                modelBuilder.Entity("Souccar.Hcpc.Materials.MaterialSuppliers", b =>
-                {
-                    b.HasOne("Souccar.Hcpc.Materials.Material", "Material")
-                        .WithMany("Suppliers")
-                        .HasForeignKey("MaterialId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Souccar.Hcpc.Suppliers.Supplier", "Supplier")
-                        .WithMany("MaterialSuppliers")
-                        .HasForeignKey("SupplierId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Material");
-
-                    b.Navigation("Supplier");
-                });
-
             modelBuilder.Entity("Souccar.Hcpc.Plans.PlanMaterial", b =>
                 {
                     b.HasOne("Souccar.Hcpc.Materials.Material", "Material")
@@ -2599,6 +2571,13 @@ namespace Souccar.Migrations
                     b.Navigation("Product");
 
                     b.Navigation("Unit");
+                });
+
+            modelBuilder.Entity("Souccar.Hcpc.Suppliers.Supplier", b =>
+                {
+                    b.HasOne("Souccar.Hcpc.Materials.Material", null)
+                        .WithMany("Suppliers")
+                        .HasForeignKey("MaterialId");
                 });
 
             modelBuilder.Entity("Souccar.Hcpc.Units.Transfer", b =>
@@ -2801,11 +2780,6 @@ namespace Souccar.Migrations
             modelBuilder.Entity("Souccar.Hcpc.Products.Product", b =>
                 {
                     b.Navigation("Formulas");
-                });
-
-            modelBuilder.Entity("Souccar.Hcpc.Suppliers.Supplier", b =>
-                {
-                    b.Navigation("MaterialSuppliers");
                 });
 
             modelBuilder.Entity("Souccar.Hcpc.Warehouses.InputRequest", b =>

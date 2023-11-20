@@ -37,7 +37,6 @@ namespace Souccar.Core.Services
         {
             CheckGetAllPermission();
 
-            var containIncluding = typeof(TGetAllInput).GetInterfaces().Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IIncludeResultRequest));
             var query = CreateFilteredQuery(input);
 
             var totalCount = await AsyncQueryableExecuter.CountAsync(query);
