@@ -8,11 +8,11 @@ namespace Souccar.Hcpc.InputRequests.Map
     {
         public InputRequestMapProfile()
         {
-            CreateMap<InputRequest, InputRequestDto>();
-            CreateMap<InputRequest, ReadInputRequestDto>();
-            CreateMap<CreateInputRequestDto, InputRequest>();
-            CreateMap<UpdateInputRequestDto, InputRequest>();
-            CreateMap<InputRequest, UpdateInputRequestDto>();
+            CreateMap<Souccar.Hcpc.Warehouses.InputRequest, InputRequestDto>();
+            CreateMap<Souccar.Hcpc.Warehouses.InputRequest, ReadInputRequestDto>();
+            CreateMap<CreateInputRequestDto, Souccar.Hcpc.Warehouses.InputRequest>();
+            CreateMap<UpdateInputRequestDto, Souccar.Hcpc.Warehouses.InputRequest>();
+            CreateMap<Souccar.Hcpc.Warehouses.InputRequest, UpdateInputRequestDto>();
         }
     }
 }
