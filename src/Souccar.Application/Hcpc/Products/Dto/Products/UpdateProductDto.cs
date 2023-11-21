@@ -1,9 +1,17 @@
 ﻿using Abp.Application.Services.Dto;
+using Souccar.Hcpc.Products.Dto.Formulas;
+using System.Collections.Generic;
 
 namespace Souccar.Hcpc.Products.Dto.Products
 {
-    public class UpdateProductDto : ProductBaseDto, IEntityDto<int>
+    public class UpdateProductDto : EntityDto<int>
     {
-        public int Id { get; set; }
+        public UpdateProductDto()
+        {
+            Formulas = new List<UpdateFormulaDto>();
+        }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public virtual IList<UpdateFormulaDto> Formulas { get; set; }
     }
 }
