@@ -9,6 +9,8 @@ namespace Souccar.Hcpc.Plans.Dto.PlanProductMaterials
         public double RequiredQuantity { get; set; }
         public int? UnitId { get; set; }
         public int? MaterialId { get; set; }
+        public int? PlanProductId { get; set; }
+        public int CanProduce { get; set; }
         public UnitDto Unit { get; set; }
         public MaterialDto Material { get; set; }
     }

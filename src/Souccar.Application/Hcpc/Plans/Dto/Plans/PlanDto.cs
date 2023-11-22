@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Souccar.Hcpc.Plans.Dto.Plans
 {
-    public class PlanDto: EntityDto<int>
+    public class PlanDto : EntityDto<int>
     {
         public PlanDto()
         {

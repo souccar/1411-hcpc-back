@@ -2,7 +2,6 @@
 using Abp.Domain.Entities;
 using System.Collections.Generic;
 using System;
-using System.Linq;
 
 namespace Souccar.Hcpc.Plans
 {
