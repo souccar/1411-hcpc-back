@@ -1,14 +1,8 @@
 ﻿using Abp.Application.Services.Dto;
-using Abp.Domain.Entities;
 using Souccar.Hcpc.Plans.Dto.PlanProductMaterials;
-using Souccar.Hcpc.Products;
 using Souccar.Hcpc.Products.Dto.Products;
-using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Souccar.Hcpc.Plans.Dto.PlanProducts
 {
@@ -23,6 +17,9 @@ namespace Souccar.Hcpc.Plans.Dto.PlanProducts
         public int ProductId { get; set; }
         public int PlanId { get; set; }
         public ProductDto Product { get; set; }
+        public int CanProduce => PlanProductMaterials.Any() ? PlanProductMaterials.Min(x => x.CanProduce) : 0;
         public IList<PlanProductMaterialDto> PlanProductMaterials { get; set; }
+        public int DurationProduce { get; set; }
+        //public int DurationProduce => Product.ExpectedProduce != 0 ? CanProduce / Product.ExpectedProduce : 0;
     }
 }

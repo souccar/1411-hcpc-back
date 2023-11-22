@@ -14,6 +14,7 @@ namespace Souccar.Hcpc.Products
 
         public string Name { get; set; }
         public string Description { get; set; }
+        public int ExpectedProduce { get; set; }
 
         public virtual IList<Formula> Formulas { get; set; }
     }
