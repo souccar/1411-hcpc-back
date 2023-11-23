@@ -9,6 +9,7 @@ using Souccar.Hcpc.Suppliers;
 using Souccar.Hcpc.Units;
 using Souccar.Hcpc.Warehouses;
 using Souccar.Hcpc.Plans;
+using Souccar.Hcpc.DailyProductions;
 
 namespace Souccar.EntityFrameworkCore
 {
@@ -31,6 +32,8 @@ namespace Souccar.EntityFrameworkCore
         public DbSet<InputRequestMaterial> InputRequestMaterials { get; set; }
         public DbSet<OutputRequestMaterial> OutputRequestMaterials { get; set; }
         public DbSet<MaterialSuppliers> MaterialSuppliers { get; set; }
+        public DbSet<DailyProduction> DailyProductions { get; set; }
+        public DbSet<DailyProductionDetail> DailyProductionDetails { get; set; }
 
         public SouccarDbContext(DbContextOptions<SouccarDbContext> options)
             : base(options)

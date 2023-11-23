@@ -39,5 +39,12 @@ namespace Souccar.Hcpc.Plans.Services
 
             return plan;
         }
+
+        public async Task<Plan> GetLastPlanAsync()
+        {
+            var allplans = await _planRepository.GetAllListAsync();
+            var lastPlan= allplans.OrderByDescending(x => x.Id).FirstOrDefault();
+            return GetWithDetails(lastPlan.Id);
+        }
     }
 }

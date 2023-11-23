@@ -2,6 +2,7 @@
 using Abp.Domain.Entities;
 using System.Collections.Generic;
 using System;
+using Souccar.Hcpc.DailyProductions;
 
 namespace Souccar.Hcpc.Plans
 {
@@ -11,6 +12,7 @@ namespace Souccar.Hcpc.Plans
         {
             PlanProducts = new List<PlanProduct>();
             PlanMaterials = new List<PlanMaterial>();
+            DailyProduction = new List<DailyProduction>();
         }
         public int? TenantId { get; set; }
         public string Title { get; set; }
@@ -19,5 +21,6 @@ namespace Souccar.Hcpc.Plans
         public DateTime? StartDate { get; set; }
         public virtual IList<PlanProduct> PlanProducts { get; set; }
         public virtual IList<PlanMaterial> PlanMaterials { get; set; }
+        public virtual IList<DailyProduction> DailyProduction { get; set; }
     }
 }
