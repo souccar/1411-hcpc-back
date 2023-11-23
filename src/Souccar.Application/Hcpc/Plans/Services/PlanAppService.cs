@@ -53,6 +53,14 @@ namespace Souccar.Hcpc.Plans.Services
             return InitialDurationProduce(planDtoWithDetails);
         }
 
+        public async Task<PlanDto> GetLastPlanAsync()
+        {
+            var LastPlan = await _planManager.GetLastPlanAsync();
+            var LastPlanDto = MapToEntityDto(LastPlan);
+
+            var LastPlanDtoWithDetails = InitPlanDetails(LastPlanDto);
+            return InitialDurationProduce(LastPlanDtoWithDetails);
+        }
 
 
         #region Helper Methods
@@ -136,6 +144,7 @@ namespace Souccar.Hcpc.Plans.Services
 
             return planDto;
         }
+
         #endregion
     }
 }
