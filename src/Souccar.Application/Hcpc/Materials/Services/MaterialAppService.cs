@@ -3,6 +3,7 @@ using Souccar.Core.Services;
 using Souccar.Hcpc.Materials.Dto;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Souccar.Hcpc.Materials.Services
 {
@@ -19,9 +20,13 @@ namespace Souccar.Hcpc.Materials.Services
                 .Select(x => new MaterialNameForDropdownDto(x.Id, x.Name)).ToList();
         }
 
-        protected override IQueryable<Material> CreateFilteredQuery(PagedMaterialRequestDto input)
+        public override async Task<MaterialDto> GetAsync(EntityDto<int> input)
         {
-            return base.CreateFilteredQuery(input);
+            var material = _materialDomainService.GetWithDetails(input.Id);
+            var materialDto = MapToEntityDto(material);
+            return materialDto;
         }
+
+
     }
 }

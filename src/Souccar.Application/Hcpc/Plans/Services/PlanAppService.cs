@@ -14,20 +14,24 @@ namespace Souccar.Hcpc.Plans.Services
     public class PlanAppService: AsyncSouccarAppService<Plan, PlanDto, int, PagedPlanRequestDto, CreatePlanDto, UpdatePlanDto>, IPlanAppService
     {
         private readonly IPlanManager _planManager;
+        private readonly IProductManager _productManager;
         private readonly IFormulaManager _formulaManager;
         private readonly IWarehouseMaterialManager _warehouseMaterialManager;
-        public PlanAppService(IPlanManager planManager, IFormulaManager formulaManager, IWarehouseMaterialManager warehouseMaterialManager) : base(planManager)
+        public PlanAppService(IFormulaManager formulaManager, IWarehouseMaterialManager warehouseMaterialManager, IProductManager productManager, IPlanManager planManager) : base(planManager)
         {
-            _planManager = planManager;
             _formulaManager = formulaManager;
             _warehouseMaterialManager = warehouseMaterialManager;
+            _productManager = productManager;
+            _planManager = planManager;
         }
 
         public override async Task<PlanDto> CreateAsync(CreatePlanDto input)
         {
             var insertedPlanDto = await base.CreateAsync(input);
 
-            return InitPlanDetails(insertedPlanDto);
+             var planDtoWithDetails = InitPlanDetails(insertedPlanDto);
+
+            return InitialDurationProduce(planDtoWithDetails);
 
         }
 
@@ -35,7 +39,18 @@ namespace Souccar.Hcpc.Plans.Services
         {
             var updatedPlan = await base.UpdateAsync(input);
 
-            return InitPlanDetails(updatedPlan);
+            var UpdatedPlanDtoWithDetails = InitPlanDetails(updatedPlan);
+
+            return InitialDurationProduce(UpdatedPlanDtoWithDetails);
+        }
+
+        public override async Task<PlanDto> GetAsync(EntityDto<int> input)
+        {
+            var plan = _planManager.GetWithDetails(input.Id);
+            var planDto = MapToEntityDto(plan);
+
+            var planDtoWithDetails = InitPlanDetails(planDto);
+            return InitialDurationProduce(planDtoWithDetails);
         }
 
 
@@ -105,10 +120,20 @@ namespace Souccar.Hcpc.Plans.Services
                     {
                             planProductMaterial.CanProduce = pl.NumberOfItems;
                     }
-
-                    //pl.DurationProduce = pl.CanProduce / pl.Product.ExpectedProduce;
                 }               
             }
+            return planDto;
+        }
+
+        private PlanDto InitialDurationProduce(PlanDto planDto)
+        {
+            foreach (var planProduct in planDto.PlanProducts)
+            {
+                var product = _productManager.Get(planProduct.ProductId);
+
+                planProduct.DurationProduce = product.ExpectedProduce != 0 ? planProduct.CanProduce / product.ExpectedProduce : 0;
+            }
+
             return planDto;
         }
         #endregion

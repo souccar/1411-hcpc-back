@@ -20,6 +20,5 @@ namespace Souccar.Hcpc.Plans.Dto.PlanProducts
         public int CanProduce => PlanProductMaterials.Any() ? PlanProductMaterials.Min(x => x.CanProduce) : 0;
         public IList<PlanProductMaterialDto> PlanProductMaterials { get; set; }
         public int DurationProduce { get; set; }
-        //public int DurationProduce => Product.ExpectedProduce != 0 ? CanProduce / Product.ExpectedProduce : 0;
     }
 }
