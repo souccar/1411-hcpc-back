@@ -1,5 +1,6 @@
 ﻿using Abp.Application.Services.Dto;
 using Souccar.Core.Services;
+using Souccar.Hcpc.Materials;
 using Souccar.Hcpc.Plans.Dto.PlanMaterials;
 using Souccar.Hcpc.Plans.Dto.PlanProductMaterials;
 using Souccar.Hcpc.Plans.Dto.Plans;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Souccar.Hcpc.Plans.Services
 {
-    public class PlanAppService: AsyncSouccarAppService<Plan, PlanDto, int, PagedPlanRequestDto, CreatePlanDto, UpdatePlanDto>, IPlanAppService
+    public class PlanAppService : AsyncSouccarAppService<Plan, PlanDto, int, PagedPlanRequestDto, CreatePlanDto, UpdatePlanDto>, IPlanAppService
     {
         private readonly IPlanManager _planManager;
         private readonly IProductManager _productManager;
@@ -29,7 +30,7 @@ namespace Souccar.Hcpc.Plans.Services
         {
             var insertedPlanDto = await base.CreateAsync(input);
 
-             var planDtoWithDetails = InitPlanDetails(insertedPlanDto);
+            var planDtoWithDetails = InitPlanDetails(insertedPlanDto);
 
             return InitialDurationProduce(planDtoWithDetails);
 
@@ -78,7 +79,7 @@ namespace Souccar.Hcpc.Plans.Services
                         MaterialId = formula.MaterialId,
                         UnitId = formula.UnitId,
                         RequiredQuantity = planProduct.NumberOfItems * formula.Quantity,
-                        PlanProductId = planProduct.Id,
+                        PlanProductId = planProduct.Id
                     };
                     planProduct.PlanProductMaterials.Add(planProductMaterial);
                 }
@@ -86,49 +87,67 @@ namespace Souccar.Hcpc.Plans.Services
 
             var planProductMaterials = planDto.PlanProducts.SelectMany(x => x.PlanProductMaterials);
             var materialIds = planProductMaterials.Select(x => x.MaterialId).Distinct();
+            var materials = planDto.PlanProducts.Select(x => x.Product).SelectMany(x => x.Formulas).Select(x => x.Material);
             foreach (var materialId in materialIds)
             {
                 double rate = 0;
-                var items = planProductMaterials.Where(x => x.MaterialId == materialId);
-                var warehouseMaterial = warehouseMaterials.FirstOrDefault(x => x.MaterialId == materialId);
+                var items = planProductMaterials.Where(x => x.MaterialId == materialId).ToList();
+                var material = materials.FirstOrDefault(x => x.Id == materialId);
+                var stock = warehouseMaterials.FirstOrDefault(x => x.MaterialId == materialId);
                 if (items.Any())
                 {
+
                     var planMaterial = new PlanMaterialDto()
                     {
                         MaterialId = materialId,
                         UnitId = items.FirstOrDefault().UnitId,
                         TotalQuantity = items.Sum(x => x.RequiredQuantity),
-                        InventoryQuantity = warehouseMaterial != null ? warehouseMaterial.Quantity : 0,
+                        InventoryQuantity = stock != null ? stock.Quantity : 0,
+                        Material = material,
+
                     };
 
                     rate = planMaterial.TotalQuantity != 0 ? (planMaterial.InventoryQuantity / planMaterial.TotalQuantity) : 0;
 
+                    //Produce days
+                    var products = planDto.PlanProducts.Where(x => x.PlanProductMaterials.Any(y => y.MaterialId == materialId)).Select(x => x.Product);
+
+                    double dailyQuentity = 0;
+                    foreach (var product in products)
+                    {
+                        dailyQuentity += product.ExpectedProduce * product.Formulas.FirstOrDefault(x => x.MaterialId == materialId).Quantity;
+                    }
+                    planMaterial.ProduceDays = (int)(stock.Quantity / dailyQuentity);
+                    
                     planDto.PlanMaterials.Add(planMaterial);
                 }
 
-               
-                var plm = planProductMaterials.Where(x => x.MaterialId == materialId).ToList();
+
+                //var plm = planProductMaterials.Where(x => x.MaterialId == materialId).ToList();
 
 
-                foreach (var planProductMaterial in plm)
+                foreach (var planProductMaterial in items)
                 {
                     var pl = planDto.PlanProducts
                         .FirstOrDefault(x => x.PlanProductMaterials.Any(f => f.MaterialId == materialId) && x.Id == planProductMaterial.PlanProductId);
 
                     if (rate < 1)
                     {
-                            var tempCount = (int)(pl.NumberOfItems * rate);
+                        var tempCount = (int)(pl.NumberOfItems * rate);
 
-                            if ((planProductMaterial.CanProduce != 0 && planProductMaterial.CanProduce > tempCount) || planProductMaterial.CanProduce == 0)
-                            {
-                                planProductMaterial.CanProduce = tempCount;
-                            }
+                        if ((planProductMaterial.CanProduce != 0 && planProductMaterial.CanProduce > tempCount) || planProductMaterial.CanProduce == 0)
+                        {
+                            planProductMaterial.CanProduce = tempCount;
+                        }
                     }
                     else
                     {
-                            planProductMaterial.CanProduce = pl.NumberOfItems;
+                        planProductMaterial.CanProduce = pl.NumberOfItems;
                     }
-                }               
+                }
+
+                
+
             }
             return planDto;
         }
@@ -144,6 +163,7 @@ namespace Souccar.Hcpc.Plans.Services
 
             return planDto;
         }
+
 
         #endregion
     }
