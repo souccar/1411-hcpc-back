@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Souccar.Core.Services.Implements;
 using Souccar.Hcpc.Products.Services;
 using Souccar.Hcpc.Warehouses.Services;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -43,8 +44,24 @@ namespace Souccar.Hcpc.Plans.Services
         public async Task<Plan> GetLastPlanAsync()
         {
             var allplans = await _planRepository.GetAllListAsync();
-            var lastPlan= allplans.OrderByDescending(x => x.Id).FirstOrDefault();
-            return GetWithDetails(lastPlan.Id);
+
+            if (allplans.Any())
+            {
+                var lastPlan = allplans.OrderByDescending(x => x.Id).FirstOrDefault();
+
+                if (lastPlan != null)
+                {
+                    return GetWithDetails(lastPlan.Id);
+                }
+                else
+                {
+                    return new Plan();
+                }
+            }
+            else
+            {
+                return new Plan();
+            }            
         }
     }
 }
