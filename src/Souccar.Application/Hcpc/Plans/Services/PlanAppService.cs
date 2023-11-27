@@ -117,7 +117,7 @@ namespace Souccar.Hcpc.Plans.Services
                     {
                         dailyQuentity += product.ExpectedProduce * product.Formulas.FirstOrDefault(x => x.MaterialId == materialId).Quantity;
                     }
-                    planMaterial.ProduceDays = (int)(stock.Quantity / dailyQuentity);
+                    planMaterial.ProduceDays = dailyQuentity != 0 ? (int)(stock.Quantity / dailyQuentity) : 0;
                     
                     planDto.PlanMaterials.Add(planMaterial);
                 }
