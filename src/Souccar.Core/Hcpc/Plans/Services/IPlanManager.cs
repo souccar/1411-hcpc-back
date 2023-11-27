@@ -7,6 +7,7 @@ namespace Souccar.Hcpc.Plans.Services
     {
         Plan GetWithDetails(int id);
         Task<Plan> GetLastPlanAsync();
+        Plan UpdatePlan(Plan plan);
 
     }
 }

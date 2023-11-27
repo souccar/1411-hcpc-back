@@ -18,13 +18,13 @@ namespace Souccar.Hcpc.Plans
         public virtual IList<PlanProductMaterial> PlanProductMaterials { get; set; }
 
         #region Product
-        public int ProductId { get; set; }
+        public int? ProductId { get; set; }
         [ForeignKey("ProductId")]
         public Product Product { get; set; }
         #endregion
 
         #region Plan
-        public int PlanId { get; set; }
+        public int? PlanId { get; set; }
 
         [ForeignKey("PlanId")]
         public Plan Plan { get; set; }
