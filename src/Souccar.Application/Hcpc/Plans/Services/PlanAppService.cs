@@ -38,7 +38,8 @@ namespace Souccar.Hcpc.Plans.Services
 
         public override async Task<PlanDto> UpdateAsync(UpdatePlanDto input)
         {
-            var updatedPlan = await base.UpdateAsync(input);
+            //var updatedPlan = await base.UpdateAsync(input);
+            var updatedPlan = UpdatePlan(input);
 
             var UpdatedPlanDtoWithDetails = InitPlanDetails(updatedPlan);
 
@@ -63,6 +64,7 @@ namespace Souccar.Hcpc.Plans.Services
             return InitialDurationProduce(LastPlanDtoWithDetails);
         }
 
+        
 
         #region Helper Methods
         private PlanDto InitPlanDetails(PlanDto planDto)
@@ -162,6 +164,21 @@ namespace Souccar.Hcpc.Plans.Services
             }
 
             return planDto;
+        }
+
+        private PlanDto UpdatePlan(UpdatePlanDto data)
+        {
+            var plan = _planManager.GetWithDetails(data.Id);
+
+            ObjectMapper.Map<UpdatePlanDto, Plan>(data, plan);
+
+            var update = _planManager.UpdatePlan(plan);
+
+            var dto = ObjectMapper.Map<PlanDto>(update);
+
+            var UpdatedPlanDtoWithDetails = InitPlanDetails(dto);
+
+            return InitialDurationProduce(UpdatedPlanDtoWithDetails);
         }
 
 
