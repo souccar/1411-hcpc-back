@@ -15,5 +15,10 @@
         public const string Pages_Nationalities_Edit = "Pages.Nationalities.Edit";
         public const string Pages_Nationalities_Delete = "Pages.Nationalities.Delete";
 
+        //Hangfire
+        
+        public const string Pages_Administration_HangfireDashboard = "Pages.Administration.HangfireDashboard";
+
+
     }
 }
