@@ -8,14 +8,15 @@ namespace Souccar.Hcpc.Products
     {
         public Product()
         {
-            Formulas = new List<Formula>();
+            Formulas = new List<FormulaItem>();
         }
         public int? TenantId { get; set; }
 
         public string Name { get; set; }
         public string Description { get; set; }
         public int ExpectedProduce { get; set; }
+        public double Price { get; set; }
 
-        public virtual IList<Formula> Formulas { get; set; }
+        public virtual IList<FormulaItem> Formulas { get; set; }
     }
 }

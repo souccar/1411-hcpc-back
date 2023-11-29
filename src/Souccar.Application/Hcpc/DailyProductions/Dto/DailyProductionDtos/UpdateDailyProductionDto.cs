@@ -10,7 +10,7 @@ namespace Souccar.Hcpc.DailyProductions.Dto.DailyProductionDtos
         {
             DailyProductionDetails = new List<UpdateDailyProductionDetailsDto>();
         }
-        public int PlanId { get; set; }
+        public int? PlanId { get; set; }
         public IList<UpdateDailyProductionDetailsDto> DailyProductionDetails { get; set; }
     }
 }

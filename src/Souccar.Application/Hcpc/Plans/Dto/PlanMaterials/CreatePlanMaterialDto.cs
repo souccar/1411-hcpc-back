@@ -6,6 +6,6 @@
         public double InventoryQuantity { get; set; }
         public int? UnitId { get; set; }
         public int? MaterialId { get; set; }
-        public int PlanId { get; set; }
+        public int? PlanId { get; set; }
     }
 }

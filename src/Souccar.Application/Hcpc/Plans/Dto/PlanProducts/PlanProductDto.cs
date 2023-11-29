@@ -14,8 +14,8 @@ namespace Souccar.Hcpc.Plans.Dto.PlanProducts
         }
         public int NumberOfItems { get; set; }
         public PriorityInPlan Priority { get; set; }
-        public int ProductId { get; set; }
-        public int PlanId { get; set; }
+        public int? PlanId { get; set; }
+        public int? ProductId { get; set; }
         public ProductDto Product { get; set; }
         public int DurationProduce { get; set; }
         public int CanProduce => PlanProductMaterials.Any() ? PlanProductMaterials.Min(x => x.CanProduce) : 0;
