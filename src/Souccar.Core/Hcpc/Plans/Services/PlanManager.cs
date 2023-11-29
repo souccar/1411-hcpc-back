@@ -63,5 +63,11 @@ namespace Souccar.Hcpc.Plans.Services
                 return new Plan();
             }            
         }
+
+        public Plan UpdatePlan(Plan plan)
+        {
+            var Update = _planRepository.Update(plan);
+            return Update;
+        }
     }
 }

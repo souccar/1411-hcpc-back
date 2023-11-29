@@ -13,6 +13,11 @@ using Souccar.Authentication.JwtBearer;
 using Souccar.Configuration;
 using Souccar.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
+using Abp.Hangfire;
+using Abp.Hangfire.Configuration;
+using Hangfire;
+using Abp.Threading.BackgroundWorkers;
+using Souccar.Jobs;
 
 namespace Souccar
 {
@@ -20,7 +25,8 @@ namespace Souccar
          typeof(SouccarApplicationModule),
          typeof(SouccarEntityFrameworkModule),
          typeof(AbpAspNetCoreModule)
-        ,typeof(AbpAspNetCoreSignalRModule)
+        ,typeof(AbpAspNetCoreSignalRModule),
+        typeof(AbpHangfireAspNetCoreModule)
      )]
     public class SouccarWebCoreModule : AbpModule
     {
@@ -48,6 +54,9 @@ namespace Souccar
                  );
 
             ConfigureTokenAuth();
+
+            //Hangfire
+            Configuration.BackgroundJobs.UseHangfire();
         }
 
         private void ConfigureTokenAuth()
@@ -71,6 +80,10 @@ namespace Souccar
         {
             IocManager.Resolve<ApplicationPartManager>()
                 .AddApplicationPartsIfNotAddedBefore(typeof(SouccarWebCoreModule).Assembly);
+
+            //Workers
+            var workManager = IocManager.Resolve<IBackgroundWorkerManager>();
+            workManager.Add(IocManager.Resolve<CheckMaterialExpiryBackgroundWorker>());
         }
     }
 }

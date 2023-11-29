@@ -3,11 +3,16 @@ using Microsoft.Extensions.Configuration;
 using Abp.Modules;
 using Abp.Reflection.Extensions;
 using Souccar.Configuration;
+using Abp.Hangfire;
+using Abp.Hangfire.Configuration;
+using Hangfire;
+
 
 namespace Souccar.Web.Host.Startup
 {
     [DependsOn(
-       typeof(SouccarWebCoreModule))]
+       typeof(SouccarWebCoreModule)
+        )]
     public class SouccarWebHostModule: AbpModule
     {
         private readonly IWebHostEnvironment _env;
@@ -19,6 +24,12 @@ namespace Souccar.Web.Host.Startup
             _appConfiguration = env.GetAppConfiguration();
         }
 
+        public override void PreInitialize()
+        {
+            
+
+            //base.PreInitialize();
+        }
         public override void Initialize()
         {
             IocManager.RegisterAssemblyByConvention(typeof(SouccarWebHostModule).GetAssembly());
