@@ -11,13 +11,13 @@ namespace Souccar.Hcpc.Materials
         #region Material
         [ForeignKey("MaterialId")]
         public virtual Material Material { get; set; }
-        public int MaterialId { get; set; }
+        public int? MaterialId { get; set; }
         #endregion
 
         #region Supplier
         [ForeignKey("SupplierId")]
         public virtual Supplier Supplier { get; set; }
-        public int SupplierId { get; set; }
+        public int? SupplierId { get; set; }
         #endregion
     }
 }

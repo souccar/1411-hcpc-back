@@ -12,13 +12,13 @@ namespace Souccar.Hcpc.DailyProductions
         #region DailyProduction
         [ForeignKey("DailyProductionId")]
         public virtual DailyProduction DailyProduction { get; set; }
-        public int DailyProductionId { get; set; }
+        public int? DailyProductionId { get; set; }
         #endregion
 
         #region Product
         [ForeignKey("ProductId")]
         public virtual Product Product { get; set; }
-        public int ProductId { get; set; }
+        public int? ProductId { get; set; }
         #endregion
     }
 }

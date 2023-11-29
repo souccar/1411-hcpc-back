@@ -6,5 +6,6 @@ namespace Souccar.Hcpc.Materials.Dto.MaterialSuppliersDtos
     {
         public int SupplierId { get; set; }
         public int Id { get; set; }
+        public int MaterialId { get; set; }
     }
 }
