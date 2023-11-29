@@ -11,8 +11,9 @@ namespace Souccar.Hcpc.Plans
         public Plan()
         {
             PlanProducts = new List<PlanProduct>();
-            PlanMaterials = new List<PlanMaterial>();
-            DailyProduction = new List<DailyProduction>();
+
+            //PlanMaterials = new List<PlanMaterial>();
+            //DailyProduction = new List<DailyProduction>();
         }
         public int? TenantId { get; set; }
         public string Title { get; set; }
@@ -20,7 +21,8 @@ namespace Souccar.Hcpc.Plans
         public int TotalItems { get; set; }
         public DateTime? StartDate { get; set; }
         public virtual IList<PlanProduct> PlanProducts { get; set; }
-        public virtual IList<PlanMaterial> PlanMaterials { get; set; }
-        public virtual IList<DailyProduction> DailyProduction { get; set; }
+
+        //public virtual IList<PlanMaterial> PlanMaterials { get; set; }
+        //public virtual IList<DailyProduction> DailyProduction { get; set; }
     }
 }

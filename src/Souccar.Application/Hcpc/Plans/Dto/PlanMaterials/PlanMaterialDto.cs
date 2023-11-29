@@ -10,7 +10,7 @@ namespace Souccar.Hcpc.Plans.Dto.PlanMaterials
         public double InventoryQuantity { get; set; }
         public int? UnitId { get; set; }
         public int? MaterialId { get; set; }
-        public int PlanId { get; set; }
+        public int? PlanId { get; set; }
         /// <summary>
         /// كم تسمح لي هذه المادة أن انتج
         /// </summary>

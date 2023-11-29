@@ -17,7 +17,7 @@ namespace Souccar.Hcpc.DailyProductions
         #region Plan
         [ForeignKey("PlanId")]
         public virtual Plan Plan { get; set; }
-        public int PlanId { get; set; }
+        public int? PlanId { get; set; }
         #endregion
 
         #region Details

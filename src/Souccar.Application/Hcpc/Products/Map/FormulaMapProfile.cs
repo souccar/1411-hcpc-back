@@ -8,11 +8,11 @@ namespace Souccar.Hcpc.Formulas.Map
     {
         public FormulaMapProfile()
         {
-            CreateMap<Formula, FormulaDto>();
-            CreateMap<Formula, ReadFormulaDto>();
-            CreateMap<CreateFormulaDto, Formula>();
-            CreateMap<UpdateFormulaDto, Formula>();
-            CreateMap<Formula, UpdateFormulaDto>();
+            CreateMap<FormulaItem, FormulaDto>();
+            CreateMap<FormulaItem, ReadFormulaDto>();
+            CreateMap<CreateFormulaDto, FormulaItem>();
+            CreateMap<UpdateFormulaDto, FormulaItem>();
+            CreateMap<FormulaItem, UpdateFormulaDto>();
         }
     }
 }

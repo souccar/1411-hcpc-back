@@ -13,8 +13,8 @@ namespace Souccar.Hcpc.Materials
         public int? TenantId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public int LeadTime { get; set; }
-        public double Price { get; set; }
+        //public int LeadTime { get; set; }
+        //public double Price { get; set; }
 
         public virtual IList<MaterialSuppliers> Suppliers { get; set; }
 

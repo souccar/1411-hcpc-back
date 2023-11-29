@@ -5,7 +5,8 @@ namespace Souccar.Hcpc.Materials.Dto.MaterialSuppliersDtos
 {
     public class MaterialSuppliersDto :  IEntityDto<int>
     {
-        public ReadSupplierDto Supplier { get; set; }
         public int Id { get; set; }
+        public SupplierDto Supplier { get; set; }
+        public int LeadTime { get; set; }
     }
 }

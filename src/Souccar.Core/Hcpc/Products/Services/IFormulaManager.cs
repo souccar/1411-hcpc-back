@@ -2,7 +2,7 @@
 
 namespace Souccar.Hcpc.Products.Services
 {
-    public interface IFormulaManager : ISouccarDomainService<Formula, int>
+    public interface IFormulaManager : ISouccarDomainService<FormulaItem, int>
     {
     }
 }

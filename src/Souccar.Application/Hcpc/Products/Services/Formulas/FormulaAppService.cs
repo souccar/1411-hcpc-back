@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Souccar.Hcpc.Formulas.Services.Formulas
 {
-    public class FormulaAppService : AsyncSouccarAppService<Formula, FormulaDto, int, PagedFormulaRequestDto, CreateFormulaDto, UpdateFormulaDto>, IFormulaAppService
+    public class FormulaAppService : AsyncSouccarAppService<FormulaItem, FormulaDto, int, PagedFormulaRequestDto, CreateFormulaDto, UpdateFormulaDto>, IFormulaAppService
     {
         private readonly IFormulaManager _formulaDomainService;
         public FormulaAppService(IFormulaManager formulaDomainService) : base(formulaDomainService)
