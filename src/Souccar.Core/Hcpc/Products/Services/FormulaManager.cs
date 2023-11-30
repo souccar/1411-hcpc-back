@@ -3,9 +3,9 @@ using Souccar.Core.Services.Implements;
 
 namespace Souccar.Hcpc.Products.Services
 {
-    public class FormulaManager : SouccarDomainService<Formula, int>, IFormulaManager
+    public class FormulaManager : SouccarDomainService<FormulaItem, int>, IFormulaManager
     {
-        public FormulaManager(IRepository<Formula> repository) : base(repository)
+        public FormulaManager(IRepository<FormulaItem> repository) : base(repository)
         {
 
         }

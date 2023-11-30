@@ -1,12 +1,6 @@
-﻿using Abp.Localization;
-using Abp.Notifications;
-using Abp;
+﻿using Abp.Notifications;
 using Souccar.Authorization.Users;
-using Souccar.MultiTenancy;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Souccar.Notification

@@ -3,6 +3,6 @@
     public class CreateDailyProductionDetailsDto
     {
         public int Quantity { get; set; }
-        public int ProductId { get; set; }
+        public int? ProductId { get; set; }
     }
 }

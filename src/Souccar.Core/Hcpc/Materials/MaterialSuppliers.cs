@@ -19,5 +19,7 @@ namespace Souccar.Hcpc.Materials
         public virtual Supplier Supplier { get; set; }
         public int? SupplierId { get; set; }
         #endregion
+
+        public int LeadTime { get; set; }
     }
 }
