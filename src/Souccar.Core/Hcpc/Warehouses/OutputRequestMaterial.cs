@@ -14,14 +14,14 @@ namespace Souccar.Hcpc.Warehouses
         public int? UnitId { get; set; }
 
         [ForeignKey("UnitId")]
-        public Unit Unit { get; set; }
+        public virtual Unit Unit { get; set; }
         #endregion
 
-        #region Material
-        public int? MaterialId { get; set; }
+        #region WarehouseMaterial
+        public int? WarehouseMaterialId { get; set; }
 
-        [ForeignKey("MaterialId")]
-        public Material Material { get; set; }
+        [ForeignKey("WarehouseMaterialId")]
+        public virtual WarehouseMaterial WarehouseMaterial { get; set; }
         #endregion
     }
 }

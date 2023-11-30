@@ -17,7 +17,7 @@
             new DefaultSettingsCreator(_context).Create();
             new DefaultUnitsCreator(_context).Create();
             new DefaultTransfersCreator(_context).Create();
-            new DefaultMaterialsCreator(_context).Create();
+            //new DefaultMaterialsCreator(_context).Create();
 
             _context.SaveChanges();
         }

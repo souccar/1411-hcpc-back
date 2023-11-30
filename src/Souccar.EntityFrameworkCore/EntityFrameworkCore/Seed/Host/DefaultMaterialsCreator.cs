@@ -1,9 +1,4 @@
-﻿using Abp.MultiTenancy;
-using Microsoft.EntityFrameworkCore;
-using Souccar.Hcpc.Materials;
-using System.Linq;
-
-namespace Souccar.EntityFrameworkCore.Seed.Host
+﻿namespace Souccar.EntityFrameworkCore.Seed.Host
 {
     public class DefaultMaterialsCreator
     {
@@ -14,40 +9,40 @@ namespace Souccar.EntityFrameworkCore.Seed.Host
             _context = context;
         }
 
-        public void Create()
-        {
-            CreateMaterials();
-        }
+        //public void Create()
+        //{
+        //    CreateMaterials();
+        //}
 
-        private void CreateMaterials()
-        {
-            int? tenantId = null;
+        //private void CreateMaterials()
+        //{
+        //    int? tenantId = null;
 
-            if (SouccarConsts.MultiTenancyEnabled == false)
-            {
-                tenantId = MultiTenancyConsts.DefaultTenantId;
-            }
+        //    if (SouccarConsts.MultiTenancyEnabled == false)
+        //    {
+        //        tenantId = MultiTenancyConsts.DefaultTenantId;
+        //    }
 
-            AddMaterialIfNotExists("Phosphate", tenantId);
-            AddMaterialIfNotExists("Silicone", tenantId);
-        }
+        //    AddMaterialIfNotExists("Phosphate", tenantId);
+        //    AddMaterialIfNotExists("Silicone", tenantId);
+        //}
 
-        private void AddMaterialIfNotExists(string name, int? tenantId = null)
-        {
-            if (_context.Materials.IgnoreQueryFilters().Any(s => s.Name.ToLower().Equals(name) && s.TenantId == tenantId))
-            {
-                return;
-            }
+        //private void AddMaterialIfNotExists(string name, int? tenantId = null)
+        //{
+        //    if (_context.Materials.IgnoreQueryFilters().Any(s => s.Name.ToLower().Equals(name) && s.TenantId == tenantId))
+        //    {
+        //        return;
+        //    }
 
-            _context.Materials.Add(
-                new Material()
-                {
-                    Name = name,
-                    Description = name,
-                    LeadTime = 1,
-                    TenantId = tenantId
-                });
-            _context.SaveChanges();
-        }
+        //    _context.Materials.Add(
+        //        new Material()
+        //        {
+        //            Name = name,
+        //            Description = name,
+        //            LeadTime = 1,
+        //            TenantId = tenantId
+        //        });
+        //    _context.SaveChanges();
+        //}
     }
 }

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Souccar.Core.Services.Implements;
 using Souccar.Hcpc.Products.Services;
-using Souccar.Hcpc.Warehouses.Services;
+using Souccar.Hcpc.Warehouses.Services.WarehouseServices;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
