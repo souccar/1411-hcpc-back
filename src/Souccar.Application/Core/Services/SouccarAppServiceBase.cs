@@ -172,7 +172,7 @@ namespace Souccar.Core.Services
         /// </summary>
         protected virtual void MapToEntity(TUpdateInput updateInput, TEntity entity)
         {
-            ObjectMapper.Map(updateInput, entity);
+            ObjectMapper.Map<TUpdateInput, TEntity>(updateInput, entity);
         }
 
         protected virtual void CheckPermission(string permissionName)

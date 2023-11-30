@@ -22,5 +22,6 @@ namespace Souccar.Notification
         Task UpdateNotificationSettings(UpdateNotificationSettingsInput input);
 
         Task DeleteNotification(EntityDto<Guid> input);
+        Task SendTestNotification();
     }
 }

@@ -5,12 +5,15 @@ using Abp.Notifications;
 using Abp.Runtime.Session;
 using Abp.UI;
 using AutoMapper.Internal.Mappers;
+using Souccar.Authorization.Users;
 using Souccar.Notification.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Xml.Linq;
 
 namespace Souccar.Notification
 {
@@ -122,6 +125,18 @@ namespace Souccar.Notification
             }
 
             await _userNotificationManager.DeleteUserNotificationAsync(AbpSession.TenantId, input.Id);
+        }
+
+        public async Task SendTestNotification()
+        {
+            var user = await GetCurrentUserAsync();
+            var param = new string[2] { "Sillicon", DateTime.Now.ToString("dd/MM/yyyy") };
+            await _notificationPublisher.PublishAsync(
+                AppNotificationNames.MaterialExpirationWarning,
+                new MessageNotificationData(L("The{0}MaterialWillExpireOn{1}", param)),
+                severity: NotificationSeverity.Warn,
+                userIds: new[] { user.ToUserIdentifier() }
+                );
         }
     }
 }
