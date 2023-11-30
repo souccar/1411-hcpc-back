@@ -1,8 +1,9 @@
 ﻿using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
 using Souccar.Hcpc.Materials;
-using Souccar.Hcpc.Products;
+using Souccar.Hcpc.Suppliers;
 using Souccar.Hcpc.Units;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -13,30 +14,57 @@ namespace Souccar.Hcpc.Warehouses
 
         public WarehouseMaterial()
         {
-            InputRequests = new List<InputRequest>();
-            OutputRequests= new List<OutputRequest>();
+            OutputRequestMaterilas = new List<OutputRequestMaterial>();
         }
         public int? TenantId { get; set; }
         public double Quantity { get; set; }
+        public DateTime ExpirationDate { get; set; }
+        public string Code { get; set; }
+        public double Price { get; set; }
 
         #region Unit
         public int? UnitId { get; set; }
 
         [ForeignKey("UnitId")]
-        public Unit Unit { get; set; }
+        public virtual Unit Unit { get; set; }
+        #endregion
+
+        #region UnitPrice
+        public int? UnitPriceId { get; set; }
+
+        [ForeignKey("UnitPriceId")]
+        public virtual Unit UnitPrice { get; set; }
         #endregion
 
         #region Material
         public int? MaterialId { get; set; }
 
         [ForeignKey("MaterialId")]
-        public Material Material { get; set; }
+        public virtual Material Material { get; set; }
         #endregion
 
+        #region Supplier
+        public int? SupplierId { get; set; }
 
-        public virtual IList<InputRequest> InputRequests { get; set; }
+        [ForeignKey("SupplierId")]
+        public virtual Supplier Supplier { get; set; }
+        #endregion
 
-        public virtual IList<OutputRequest> OutputRequests { get; set; }
+        #region Warehouse
+        public int? WarehouseId { get; set; }
+
+        [ForeignKey("WarehouseId")]
+        public virtual Warehouse Warehouse { get; set; }
+        #endregion
+
+        #region InputRequestMaterial
+        public int? InputRequestMaterialId { get; set; }
+
+        [ForeignKey("InputRequestMaterialId")]
+        public virtual InputRequestMaterial InputRequestMaterial { get; set; }
+        #endregion
+
+        public virtual IList<OutputRequestMaterial> OutputRequestMaterilas { get; set; }
 
     }
 }

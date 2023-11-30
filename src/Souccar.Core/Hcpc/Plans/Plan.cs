@@ -3,6 +3,7 @@ using Abp.Domain.Entities;
 using System.Collections.Generic;
 using System;
 using Souccar.Hcpc.DailyProductions;
+using Souccar.Hcpc.Warehouses;
 
 namespace Souccar.Hcpc.Plans
 {
@@ -11,6 +12,7 @@ namespace Souccar.Hcpc.Plans
         public Plan()
         {
             PlanProducts = new List<PlanProduct>();
+            OutputRequests = new List<OutputRequest>();
 
             //PlanMaterials = new List<PlanMaterial>();
             //DailyProduction = new List<DailyProduction>();
@@ -21,6 +23,7 @@ namespace Souccar.Hcpc.Plans
         public int TotalItems { get; set; }
         public DateTime? StartDate { get; set; }
         public virtual IList<PlanProduct> PlanProducts { get; set; }
+        public virtual IList<OutputRequest> OutputRequests { get; set; }
 
         //public virtual IList<PlanMaterial> PlanMaterials { get; set; }
         //public virtual IList<DailyProduction> DailyProduction { get; set; }

@@ -36,6 +36,7 @@ namespace Souccar.EntityFrameworkCore
         public DbSet<DailyProduction> DailyProductions { get; set; }
         public DbSet<DailyProductionDetail> DailyProductionDetails { get; set; }
         public DbSet<GeneralSetting> GeneralSettings { get; set; }
+        public DbSet<Warehouse> Warehouses { get; set; }
 
         public SouccarDbContext(DbContextOptions<SouccarDbContext> options)
             : base(options)

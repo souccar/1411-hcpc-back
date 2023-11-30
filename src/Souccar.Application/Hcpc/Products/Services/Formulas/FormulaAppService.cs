@@ -16,10 +16,10 @@ namespace Souccar.Hcpc.Formulas.Services.Formulas
             _formulaDomainService = formulaDomainService;
         }
 
-        public IList<FormulaNameForDropdownDto> GetNameForDropdown()
-        {
-            return _formulaDomainService.GetAll()
-                .Select(x => new FormulaNameForDropdownDto(x.Id, x.Name)).ToList();
-        }
+        //public IList<FormulaNameForDropdownDto> GetNameForDropdown()
+        //{
+        //    return _formulaDomainService.GetAll()
+        //        .Select(x => new FormulaNameForDropdownDto(x.Id, x.Name)).ToList();
+        //}
     }
 }

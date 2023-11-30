@@ -17,9 +17,4 @@
   <ItemGroup>
     <ProjectReference Include="..\Souccar.Core\Souccar.Core.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Hcpc\GeneralSettings\Dto\" />
-    <Folder Include="Hcpc\GeneralSettings\Map\" />
-    <Folder Include="Hcpc\GeneralSettings\Services\" />
-  </ItemGroup>
 </Project>

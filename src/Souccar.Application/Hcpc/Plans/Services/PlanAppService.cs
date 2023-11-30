@@ -1,13 +1,11 @@
 ﻿using Abp.Application.Services.Dto;
 using Souccar.Core.Services;
-using Souccar.Hcpc.Materials;
 using Souccar.Hcpc.Plans.Dto.PlanMaterials;
 using Souccar.Hcpc.Plans.Dto.PlanProductMaterials;
 using Souccar.Hcpc.Plans.Dto.Plans;
 using Souccar.Hcpc.Products.Services;
-using Souccar.Hcpc.Warehouses.Services;
+using Souccar.Hcpc.Warehouses.Services.WarehouseServices;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace Souccar.Hcpc.Plans.Services
@@ -30,20 +28,14 @@ namespace Souccar.Hcpc.Plans.Services
         {
             var insertedPlanDto = await base.CreateAsync(input);
 
-            var planDtoWithDetails = InitPlanDetails(insertedPlanDto);
-
-            return InitialDurationProduce(planDtoWithDetails);
+            return InitPlanDetails(insertedPlanDto);
 
         }
 
         public override async Task<PlanDto> UpdateAsync(UpdatePlanDto input)
         {
-            //var updatedPlan = await base.UpdateAsync(input);
             var updatedPlan = UpdatePlan(input);
-
-            var UpdatedPlanDtoWithDetails = InitPlanDetails(updatedPlan);
-
-            return InitialDurationProduce(UpdatedPlanDtoWithDetails);
+            return updatedPlan;
         }
 
         public override async Task<PlanDto> GetAsync(EntityDto<int> input)
@@ -51,8 +43,7 @@ namespace Souccar.Hcpc.Plans.Services
             var plan = _planManager.GetWithDetails(input.Id);
             var planDto = MapToEntityDto(plan);
 
-            var planDtoWithDetails = InitPlanDetails(planDto);
-            return InitialDurationProduce(planDtoWithDetails);
+            return InitPlanDetails(planDto);
         }
 
         public async Task<PlanDto> GetLastPlanAsync()
@@ -60,8 +51,7 @@ namespace Souccar.Hcpc.Plans.Services
             var LastPlan = await _planManager.GetLastPlanAsync();
             var LastPlanDto = MapToEntityDto(LastPlan);
 
-            var LastPlanDtoWithDetails = InitPlanDetails(LastPlanDto);
-            return InitialDurationProduce(LastPlanDtoWithDetails);
+            return InitPlanDetails(LastPlanDto);
         }
 
         
@@ -109,17 +99,7 @@ namespace Souccar.Hcpc.Plans.Services
 
                     };
 
-                    rate = planMaterial.TotalQuantity != 0 ? (planMaterial.InventoryQuantity / planMaterial.TotalQuantity) : 0;
-
-                    //Produce days
-                    var products = planDto.PlanProducts.Where(x => x.PlanProductMaterials.Any(y => y.MaterialId == materialId)).Select(x => x.Product);
-
-                    double dailyQuentity = 0;
-                    foreach (var product in products)
-                    {
-                        dailyQuentity += product.ExpectedProduce * product.Formulas.FirstOrDefault(x => x.MaterialId == materialId).Quantity;
-                    }
-                    planMaterial.ProduceDays = dailyQuentity != 0 ? (int)(stock.Quantity / dailyQuentity) : 0;
+                    rate = planMaterial.TotalQuantity != 0 ? (planMaterial.InventoryQuantity / planMaterial.TotalQuantity) : 0;                    
                     
                     planDto.PlanMaterials.Add(planMaterial);
                 }
@@ -154,18 +134,6 @@ namespace Souccar.Hcpc.Plans.Services
             return planDto;
         }
 
-        private PlanDto InitialDurationProduce(PlanDto planDto)
-        {
-            foreach (var planProduct in planDto.PlanProducts)
-            {
-                var product = _productManager.Get(planProduct.ProductId);
-
-                planProduct.DurationProduce = product.ExpectedProduce != 0 ? planProduct.CanProduce / product.ExpectedProduce : 0;
-            }
-
-            return planDto;
-        }
-
         private PlanDto UpdatePlan(UpdatePlanDto data)
         {
             var plan = _planManager.GetWithDetails(data.Id);
@@ -176,9 +144,7 @@ namespace Souccar.Hcpc.Plans.Services
 
             var dto = ObjectMapper.Map<PlanDto>(update);
 
-            var UpdatedPlanDtoWithDetails = InitPlanDetails(dto);
-
-            return InitialDurationProduce(UpdatedPlanDtoWithDetails);
+            return InitPlanDetails(dto);
         }
 
 
