@@ -7,7 +7,6 @@ namespace Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Dto
         public int Id { get; set; }
         public string EntryDate { get; set; }
         public double InitialQuantity { get; set; }
-        public double CurrentQuantity { get; set; }
         public string ExpirationDate { get; set; }
         public string Code { get; set; }
         public double Price { get; set; }
