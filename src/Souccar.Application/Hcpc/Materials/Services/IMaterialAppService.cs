@@ -1,7 +1,10 @@
 ﻿using Abp.Application.Services.Dto;
 using Souccar.Core.Services;
 using Souccar.Hcpc.Materials.Dto;
+using Souccar.Hcpc.Materials.Dto.MaterialDetailsDtos;
+using Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Dto;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Souccar.Hcpc.Materials.Services
 {
@@ -9,5 +12,7 @@ namespace Souccar.Hcpc.Materials.Services
     {
 
         IList<MaterialNameForDropdownDto> GetNameForDropdown();
+
+        public Task<MaterialDetailsDto> GetWarehouseMaterialDetails(int materialId);
     }
 }
