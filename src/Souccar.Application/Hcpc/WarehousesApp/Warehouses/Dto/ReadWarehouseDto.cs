@@ -8,12 +8,12 @@ namespace Souccar.Hcpc.WarehousesApp.Warehouses.Dto
     {
         public ReadWarehouseDto()
         {
-            WarehouseMaterials = new List<ReadWarehouseMaterialDto>();
+            //WarehouseMaterials = new List<ReadWarehouseMaterialDto>();
         }
         public int Id { get; set; }
         public string Name { get; set; }
         public string Place { get; set; }
         public string WarehouseKeeper { get; set; }
-        public IList<ReadWarehouseMaterialDto> WarehouseMaterials { get; set; }
+        //public IList<ReadWarehouseMaterialDto> WarehouseMaterials { get; set; }
     }
 }
