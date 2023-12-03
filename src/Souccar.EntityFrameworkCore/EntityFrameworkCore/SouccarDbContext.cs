@@ -28,9 +28,7 @@ namespace Souccar.EntityFrameworkCore
         public DbSet<Transfer> Transfers { get; set; }
         public DbSet<Unit> Units { get; set; }
         public DbSet<WarehouseMaterial> WarehouseMaterials { get; set; }
-        public DbSet<InputRequest> InputRequests { get; set; }
         public DbSet<OutputRequest> OutputRequests { get; set; }
-        public DbSet<InputRequestMaterial> InputRequestMaterials { get; set; }
         public DbSet<OutputRequestMaterial> OutputRequestMaterials { get; set; }
         public DbSet<MaterialSuppliers> MaterialSuppliers { get; set; }
         public DbSet<DailyProduction> DailyProductions { get; set; }
