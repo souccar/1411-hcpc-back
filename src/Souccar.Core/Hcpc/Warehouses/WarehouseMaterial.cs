@@ -17,7 +17,9 @@ namespace Souccar.Hcpc.Warehouses
             OutputRequestMaterilas = new List<OutputRequestMaterial>();
         }
         public int? TenantId { get; set; }
-        public double Quantity { get; set; }
+        public DateTime? EntryDate { get; set; }
+        public double InitialQuantity { get; set; }
+        public double CurrentQuantity { get; set; }
         public DateTime ExpirationDate { get; set; }
         public string Code { get; set; }
         public double Price { get; set; }
@@ -55,13 +57,6 @@ namespace Souccar.Hcpc.Warehouses
 
         [ForeignKey("WarehouseId")]
         public virtual Warehouse Warehouse { get; set; }
-        #endregion
-
-        #region InputRequestMaterial
-        public int? InputRequestMaterialId { get; set; }
-
-        [ForeignKey("InputRequestMaterialId")]
-        public virtual InputRequestMaterial InputRequestMaterial { get; set; }
         #endregion
 
         public virtual IList<OutputRequestMaterial> OutputRequestMaterilas { get; set; }

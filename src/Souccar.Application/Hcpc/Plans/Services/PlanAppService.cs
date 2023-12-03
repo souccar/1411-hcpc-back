@@ -94,7 +94,7 @@ namespace Souccar.Hcpc.Plans.Services
                         MaterialId = materialId,
                         UnitId = items.FirstOrDefault().UnitId,
                         TotalQuantity = items.Sum(x => x.RequiredQuantity),
-                        InventoryQuantity = stock != null ? stock.Quantity : 0,
+                        InventoryQuantity = stock != null ? stock.CurrentQuantity : 0,
                         Material = material,
 
                     };

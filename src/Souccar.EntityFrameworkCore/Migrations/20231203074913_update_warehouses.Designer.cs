@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Souccar.EntityFrameworkCore;
 
@@ -11,9 +12,11 @@ using Souccar.EntityFrameworkCore;
 namespace Souccar.Migrations
 {
     [DbContext(typeof(SouccarDbContext))]
-    partial class SouccarDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231203074913_update_warehouses")]
+    partial class update_warehouses
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2125,6 +2128,99 @@ namespace Souccar.Migrations
                     b.ToTable("Units");
                 });
 
+            modelBuilder.Entity("Souccar.Hcpc.Warehouses.InputRequest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("DeleterUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int?>("TenantId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("InputRequests");
+                });
+
+            modelBuilder.Entity("Souccar.Hcpc.Warehouses.InputRequestMaterial", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ExpirationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("InputRequestId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MaterialId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Quantity")
+                        .HasColumnType("float");
+
+                    b.Property<int?>("SupplierId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TenantId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UnitId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("WarehouseId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InputRequestId");
+
+                    b.HasIndex("MaterialId");
+
+                    b.HasIndex("SupplierId");
+
+                    b.HasIndex("UnitId");
+
+                    b.HasIndex("WarehouseId");
+
+                    b.ToTable("InputRequestMaterials");
+                });
+
             modelBuilder.Entity("Souccar.Hcpc.Warehouses.OutputRequest", b =>
                 {
                     b.Property<int>("Id")
@@ -2749,6 +2845,37 @@ namespace Souccar.Migrations
                     b.Navigation("To");
                 });
 
+            modelBuilder.Entity("Souccar.Hcpc.Warehouses.InputRequestMaterial", b =>
+                {
+                    b.HasOne("Souccar.Hcpc.Warehouses.InputRequest", null)
+                        .WithMany("InputRequestMaterials")
+                        .HasForeignKey("InputRequestId");
+
+                    b.HasOne("Souccar.Hcpc.Materials.Material", "Material")
+                        .WithMany()
+                        .HasForeignKey("MaterialId");
+
+                    b.HasOne("Souccar.Hcpc.Suppliers.Supplier", "Supplier")
+                        .WithMany()
+                        .HasForeignKey("SupplierId");
+
+                    b.HasOne("Souccar.Hcpc.Units.Unit", "Unit")
+                        .WithMany()
+                        .HasForeignKey("UnitId");
+
+                    b.HasOne("Souccar.Hcpc.Warehouses.Warehouse", "Warehouse")
+                        .WithMany()
+                        .HasForeignKey("WarehouseId");
+
+                    b.Navigation("Material");
+
+                    b.Navigation("Supplier");
+
+                    b.Navigation("Unit");
+
+                    b.Navigation("Warehouse");
+                });
+
             modelBuilder.Entity("Souccar.Hcpc.Warehouses.OutputRequest", b =>
                 {
                     b.HasOne("Souccar.Hcpc.Plans.Plan", "Plan")
@@ -2938,6 +3065,11 @@ namespace Souccar.Migrations
             modelBuilder.Entity("Souccar.Hcpc.Suppliers.Supplier", b =>
                 {
                     b.Navigation("MaterialSuppliers");
+                });
+
+            modelBuilder.Entity("Souccar.Hcpc.Warehouses.InputRequest", b =>
+                {
+                    b.Navigation("InputRequestMaterials");
                 });
 
             modelBuilder.Entity("Souccar.Hcpc.Warehouses.OutputRequest", b =>
