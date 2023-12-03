@@ -1,5 +1,6 @@
 ﻿using Souccar.Core.Services.Interfaces;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Souccar.Hcpc.DailyProductions.Services
 {
@@ -7,5 +8,6 @@ namespace Souccar.Hcpc.DailyProductions.Services
     {
         DailyProduction GetWithDetails(int id);
         List<DailyProduction> GetAllIncluding();
+        Dictionary<int, int> GetAllProductionsCountForPlan(int PlanId);
     }
 }
