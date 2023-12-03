@@ -1,5 +1,6 @@
 ﻿using Abp.Application.Services.Dto;
 using Souccar.Core.Services;
+using Souccar.Hcpc.DailyProductions.Services;
 using Souccar.Hcpc.Plans.Dto.PlanMaterials;
 using Souccar.Hcpc.Plans.Dto.PlanProductMaterials;
 using Souccar.Hcpc.Plans.Dto.Plans;
@@ -16,12 +17,14 @@ namespace Souccar.Hcpc.Plans.Services
         private readonly IProductManager _productManager;
         private readonly IFormulaManager _formulaManager;
         private readonly IWarehouseMaterialManager _warehouseMaterialManager;
-        public PlanAppService(IFormulaManager formulaManager, IWarehouseMaterialManager warehouseMaterialManager, IProductManager productManager, IPlanManager planManager) : base(planManager)
+        private readonly IDailyProductionManager _dailyProductionManager;
+        public PlanAppService(IFormulaManager formulaManager, IWarehouseMaterialManager warehouseMaterialManager, IProductManager productManager, IPlanManager planManager, IDailyProductionManager dailyProductionManager) : base(planManager)
         {
             _formulaManager = formulaManager;
             _warehouseMaterialManager = warehouseMaterialManager;
             _productManager = productManager;
             _planManager = planManager;
+            _dailyProductionManager = dailyProductionManager;
         }
 
         public override async Task<PlanDto> CreateAsync(CreatePlanDto input)
@@ -61,6 +64,8 @@ namespace Souccar.Hcpc.Plans.Services
         {
             var formulas = _formulaManager.GetAllWithIncluding("Unit,Material");
             var warehouseMaterials = _warehouseMaterialManager.GetAll();
+            var TotalProduction = _dailyProductionManager.GetAllProductionsCountForPlan(planDto.Id);
+
             foreach (var planProduct in planDto.PlanProducts)
             {
                 var productFormula = formulas.Where(x => x.ProductId == planProduct.ProductId);
@@ -75,6 +80,8 @@ namespace Souccar.Hcpc.Plans.Services
                     };
                     planProduct.PlanProductMaterials.Add(planProductMaterial);
                 }
+
+                planProduct.TotalProduction = TotalProduction[(int)planProduct.ProductId];
             }
 
             var planProductMaterials = planDto.PlanProducts.SelectMany(x => x.PlanProductMaterials);
@@ -85,7 +92,7 @@ namespace Souccar.Hcpc.Plans.Services
                 double rate = 0;
                 var items = planProductMaterials.Where(x => x.MaterialId == materialId).ToList();
                 var material = materials.FirstOrDefault(x => x.Id == materialId);
-                var stock = warehouseMaterials.FirstOrDefault(x => x.MaterialId == materialId);
+                var stock = warehouseMaterials.Where(x => x.MaterialId == materialId && x.CurrentQuantity != 0).ToList();
                 if (items.Any())
                 {
 
@@ -94,7 +101,7 @@ namespace Souccar.Hcpc.Plans.Services
                         MaterialId = materialId,
                         UnitId = items.FirstOrDefault().UnitId,
                         TotalQuantity = items.Sum(x => x.RequiredQuantity),
-                        InventoryQuantity = stock != null ? stock.CurrentQuantity : 0,
+                        InventoryQuantity = stock != null ? stock.Sum(x=>x.CurrentQuantity) : 0,
                         Material = material,
 
                     };
