@@ -1,33 +1,30 @@
-﻿using Abp.Application.Services.Dto;
-using Abp.Dependency;
+﻿using Abp.Dependency;
 using Abp.Domain.Uow;
 using Abp.Threading.BackgroundWorkers;
 using Abp.Threading.Timers;
 using Souccar.Hcpc.Materials.Services;
+using Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Services;
 using System.Threading.Tasks;
 
 namespace Souccar.Jobs
 {
     public class CheckMaterialExpiryBackgroundWorker : AsyncPeriodicBackgroundWorkerBase, ISingletonDependency
     {
-        private readonly IMaterialAppService _materialAppService;
+        private readonly IWarehouseMaterialAppService _warehouseMaterialAppService;
 
-        public CheckMaterialExpiryBackgroundWorker(AbpAsyncTimer timer, IMaterialAppService materialAppService)
+        public CheckMaterialExpiryBackgroundWorker(AbpAsyncTimer timer, IWarehouseMaterialAppService warehouseMaterialAppService)
             : base(timer)
         {
-            _materialAppService = materialAppService;
-            Timer.Period = 5000; //5 seconds (good for tests, but normally will be more)
+            Timer.Period = 20000; //5 seconds (good for tests, but normally will be more)
+            _warehouseMaterialAppService = warehouseMaterialAppService;
+
+
+            //Timer.Period = 86400000;
         }
         [UnitOfWork]
         protected override async Task DoWorkAsync()
         {
-            var materials = await _materialAppService.GetAsync(new EntityDto<int>() { Id = 1});
-            if(materials == null)
-            {
-                Logger.Error("There is no material named Silicone");
-            }
-
-            Logger.Info("Material is exist");
+           //await _warehouseMaterialAppService.SendMaterialExpiryNotifications();
         }
     }
 }
