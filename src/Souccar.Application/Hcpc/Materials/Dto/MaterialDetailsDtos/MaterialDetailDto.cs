@@ -10,7 +10,7 @@ namespace Souccar.Hcpc.Materials.Dto.MaterialDetailsDtos
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public double TotalQuantity => WarehouseMaterials.Sum(x => x.Quantity);
+        public double TotalQuantity => WarehouseMaterials !=null? WarehouseMaterials.Sum(x => x.Quantity):0;
         public IList<MaterialSuppliersDto> Suppliers { get; set; }
         public IList<WarehouseMaterialDto> WarehouseMaterials { get; set; }
 

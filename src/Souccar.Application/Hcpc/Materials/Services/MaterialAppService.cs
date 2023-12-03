@@ -39,7 +39,7 @@ namespace Souccar.Hcpc.Materials.Services
         public async Task<MaterialDetailDto> GetWarehouseMaterialDetails(int materialId)
         {
             //Get Material
-            var material = await _materialManager.GetAgreggateAsync(materialId);
+            var material =  _materialManager.GetWithDetails(materialId);
             var materialDetails = ObjectMapper.Map<MaterialDetailDto>(material);
 
             //Get warehouse materials
