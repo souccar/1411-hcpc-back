@@ -1,4 +1,5 @@
 ﻿using Abp.Application.Services.Dto;
+using Abp.UI;
 using AutoMapper;
 using Souccar.Core.Services;
 using Souccar.Hcpc.Materials.Dto;
@@ -38,16 +39,24 @@ namespace Souccar.Hcpc.Materials.Services
 
         public async Task<MaterialDetailDto> GetWarehouseMaterialDetails(int materialId)
         {
-            //Get Material
-            var material =  _materialManager.GetWithDetails(materialId);
-            var materialDetails = ObjectMapper.Map<MaterialDetailDto>(material);
+            try
+            {
+                //Get Material
+                var material = _materialManager.GetWithDetails(materialId);
+                var materialDetails = ObjectMapper.Map<MaterialDetailDto>(material);
 
-            //Get warehouse materials
-            var warehouseMaterials = _warehouseMaterialManager.GetAllWithIncluding("OutputRequestMaterilas").Where(x => x.MaterialId.Equals(materialId)).ToList();
+                //Get warehouse materials
+                var warehouseMaterials = _warehouseMaterialManager.GetAllWithIncluding("OutputRequestMaterilas").Where(x => x.MaterialId.Equals(materialId)).ToList();
 
-            materialDetails.WarehouseMaterials = ObjectMapper.Map<IList<WarehouseMaterialDto>>(warehouseMaterials);
+                materialDetails.WarehouseMaterials = ObjectMapper.Map<IList<WarehouseMaterialDto>>(warehouseMaterials);
 
-            return materialDetails;
+                return materialDetails;
+            }
+            catch (Exception ex)
+            {
+                throw new UserFriendlyException(ex.Message);
+            }
+           
 
         }
 
