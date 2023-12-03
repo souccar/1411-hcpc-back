@@ -36,15 +36,18 @@ namespace Souccar.Hcpc.Materials.Services
             return materialDto;
         }
 
-        public async Task<MaterialDetailsDto> GetWarehouseMaterialDetails(int materialId)
+        public async Task<MaterialDetailDto> GetWarehouseMaterialDetails(int materialId)
         {
-            var material = await _materialManager.GetAsync(materialId);
-            MaterialDto materialDto = MapToEntityDto(material);
-            var warehouseMaterials = _warehouseMaterialManager.GetAllWithIncluding("OutputRequestMaterilas").Where(x => x.MaterialId.Equals(materialId)).ToList();
-            var warehouseMaterialsDtos = ObjectMapper.Map<IList<WarehouseMaterialDto>>(warehouseMaterials);
-            var materialDetailsDto = new MaterialDetailsDto(materialDto,warehouseMaterialsDtos);
+            //Get Material
+            var material = await _materialManager.GetAgreggateAsync(materialId);
+            var materialDetails = ObjectMapper.Map<MaterialDetailDto>(material);
 
-            return materialDetailsDto;
+            //Get warehouse materials
+            var warehouseMaterials = _warehouseMaterialManager.GetAllWithIncluding("OutputRequestMaterilas").Where(x => x.MaterialId.Equals(materialId)).ToList();
+
+            materialDetails.WarehouseMaterials = ObjectMapper.Map<IList<WarehouseMaterialDto>>(warehouseMaterials);
+
+            return materialDetails;
 
         }
 
