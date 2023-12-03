@@ -37,7 +37,7 @@ namespace Souccar.Hcpc.Materials.Services
             return materialDto;
         }
 
-        public async Task<MaterialDetailDto> GetWarehouseMaterialDetails(int materialId)
+        public async Task<MaterialDetailDto> GetMaterialDetails(int materialId)
         {
             try
             {
