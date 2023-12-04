@@ -21,18 +21,6 @@ namespace Souccar.Hcpc.Warehouses.Services.WarehouseServices
             _generalSettingManager = generalSettingManager;
         }
 
-        public async Task<List<WarehouseMaterial>> GetAllThatWillExpire()
-        {
-            var generalSetting = await _generalSettingManager.GetAll().FirstOrDefaultAsync();
-
-            var allThatWillExpire = _warehouseMaterialRepository.GetAllIncluding(x=>x.Material)
-                .Where(x=>x.ExpirationDate.Date <= DateTime.Now.AddDays(generalSetting.ExpiryDurationNotify).Date && x.Quantity != 0).ToList();
-        private readonly IRepository<WarehouseMaterial> _warehouseMaterialRepository;
-        public WarehouseMaterialManager(IRepository<WarehouseMaterial> warehouseMaterialRepository) : base(warehouseMaterialRepository)
-        {
-            _warehouseMaterialRepository = warehouseMaterialRepository;
-        }
-
         public override Task<WarehouseMaterial> InsertAsync(WarehouseMaterial input)
         {
             input.CurrentQuantity = input.InitialQuantity;
@@ -51,9 +39,19 @@ namespace Souccar.Hcpc.Warehouses.Services.WarehouseServices
                 await _warehouseMaterialRepository.EnsurePropertyLoadedAsync(warehouseMaterial, up => up.UnitPrice);
                 await _warehouseMaterialRepository.EnsurePropertyLoadedAsync(warehouseMaterial, u => u.Unit);
             }
-
-            return allThatWillExpire;
+            
             return warehouseMaterial;
         }
+
+        public async Task<List<WarehouseMaterial>> GetAllThatWillExpire()
+        {
+            var generalSetting = await _generalSettingManager.GetAll().FirstOrDefaultAsync();
+
+            var allThatWillExpire = _warehouseMaterialRepository.GetAllIncluding(x => x.Material)
+                .Where(x => x.ExpirationDate.Date <= DateTime.Now.AddDays(generalSetting.ExpiryDurationNotify).Date && x.CurrentQuantity != 0).ToList();
+
+            return allThatWillExpire;
+        }
+
     }
 }
