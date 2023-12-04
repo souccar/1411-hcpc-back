@@ -12,6 +12,12 @@ namespace Souccar.Hcpc.Warehouses.Services.WarehouseServices
             _warehouseMaterialRepository = warehouseMaterialRepository;
         }
 
+        public override Task<WarehouseMaterial> InsertAsync(WarehouseMaterial input)
+        {
+            input.CurrentQuantity = input.InitialQuantity;
+            return base.InsertAsync(input);
+        }
+
         public async Task<WarehouseMaterial> GetWithDetailsAsync(int id)
         {
             var warehouseMaterial = await _warehouseMaterialRepository.GetAsync(id);
