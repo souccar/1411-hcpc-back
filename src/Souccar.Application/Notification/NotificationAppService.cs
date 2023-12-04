@@ -60,16 +60,8 @@ namespace Souccar.Notification
 
         public async Task SetNotificationAsRead(EntityDto<Guid> input)
         {
-            var _user = await UserManager.FindByIdAsync("2");
-            if (AbpSession.UserId.HasValue)
-            {
-                _user = await UserManager.FindByIdAsync(AbpSession.UserId.ToString());
-            }
-            await _notificationPublisher.PublishAsync(
-            "Ali Essa",
-            new MessageNotificationData("Has registered on site test"),
-            userIds: new[] { _user.ToUserIdentifier() }
-           );
+            var _user = await GetCurrentUserAsync();
+            
             var userNotification = await _userNotificationManager.GetUserNotificationAsync(AbpSession.TenantId, input.Id);
             if (userNotification.UserId != AbpSession.GetUserId())
             {
@@ -131,9 +123,10 @@ namespace Souccar.Notification
         {
             var user = await GetCurrentUserAsync();
             var param = new string[2] { "Sillicon", DateTime.Now.ToString("dd/MM/yyyy") };
+            var body = L("The{0}MaterialWillExpireOn{1}", param);
             await _notificationPublisher.PublishAsync(
                 AppNotificationNames.MaterialExpirationWarning,
-                new MessageNotificationData(L("The{0}MaterialWillExpireOn{1}", param)),
+                new MessageNotificationData(body),
                 severity: NotificationSeverity.Warn,
                 userIds: new[] { user.ToUserIdentifier() }
                 );

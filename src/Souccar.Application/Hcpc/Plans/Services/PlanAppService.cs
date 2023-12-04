@@ -62,6 +62,10 @@ namespace Souccar.Hcpc.Plans.Services
         #region Helper Methods
         private PlanDto InitPlanDetails(PlanDto planDto)
         {
+            //If there is no plan
+            if (planDto.Id == 0)
+                return new PlanDto();
+
             var formulas = _formulaManager.GetAllWithIncluding("Unit,Material");
             var warehouseMaterials = _warehouseMaterialManager.GetAll();
             var TotalProduction = _dailyProductionManager.GetAllProductionsCountForPlan(planDto.Id);
