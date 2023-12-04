@@ -23,6 +23,7 @@ namespace Souccar.Hcpc.Warehouses
         public DateTime ExpirationDate { get; set; }
         public string Code { get; set; }
         public double Price { get; set; }
+        public bool AboutToFinish { get; set; }
 
         #region Unit
         public int? UnitId { get; set; }
