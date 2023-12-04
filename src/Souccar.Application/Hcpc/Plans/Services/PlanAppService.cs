@@ -7,6 +7,7 @@ using Souccar.Hcpc.Plans.Dto.Plans;
 using Souccar.Hcpc.Products.Dto.Products;
 using Souccar.Hcpc.Products.Services;
 using Souccar.Hcpc.Warehouses.Services.WarehouseServices;
+using Souccar.Hcpc.WarehousesApp.Warehouses.Dto;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -27,6 +28,12 @@ namespace Souccar.Hcpc.Plans.Services
             _productManager = productManager;
             _planManager = planManager;
             _dailyProductionManager = dailyProductionManager;
+        }
+
+        public IList<PlanNameForDropdownDto> GetNameForDropdown()
+        {
+            return _planManager.GetAll()
+                .Select(x => new PlanNameForDropdownDto(x.Id, x.Title)).ToList();
         }
 
         public override async Task<PlanDto> CreateAsync(CreatePlanDto input)
