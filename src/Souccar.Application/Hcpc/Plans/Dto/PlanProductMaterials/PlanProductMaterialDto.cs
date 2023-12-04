@@ -6,6 +6,10 @@ namespace Souccar.Hcpc.Plans.Dto.PlanProductMaterials
 {
     public class PlanProductMaterialDto:EntityDto<int>
     {
+
+        /// <summary>
+        /// الكمية المطلوبة من هذه المادة لإنتاج المنتج الحالي
+        /// </summary>
         public double RequiredQuantity { get; set; }
         public int? UnitId { get; set; }
         public int? MaterialId { get; set; }
