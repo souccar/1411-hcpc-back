@@ -7,9 +7,7 @@ using Souccar.Configuration;
 
 namespace Souccar.Web.Host.Startup
 {
-    [DependsOn(
-       typeof(SouccarWebCoreModule)
-        )]
+    [DependsOn(typeof(SouccarWebCoreModule))]
     public class SouccarWebHostModule: AbpModule
     {
         private readonly IWebHostEnvironment _env;
