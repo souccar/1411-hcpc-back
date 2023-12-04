@@ -1,6 +1,7 @@
 ﻿using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
 using Souccar.Hcpc.Plans;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -14,6 +15,7 @@ namespace Souccar.Hcpc.Warehouses
         }
         public int? TenantId { get; set; }
         public string Title { get; set; }
+        public DateTime OutputDate { get; set; }
 
         #region Plan
         public int? PlanId { get; set; }

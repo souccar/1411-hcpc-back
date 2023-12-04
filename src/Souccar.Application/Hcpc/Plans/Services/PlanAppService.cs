@@ -1,10 +1,13 @@
 ﻿using Abp.Application.Services.Dto;
 using Souccar.Core.Services;
+using Souccar.Hcpc.DailyProductions.Services;
 using Souccar.Hcpc.Plans.Dto.PlanMaterials;
 using Souccar.Hcpc.Plans.Dto.PlanProductMaterials;
 using Souccar.Hcpc.Plans.Dto.Plans;
+using Souccar.Hcpc.Products.Dto.Products;
 using Souccar.Hcpc.Products.Services;
 using Souccar.Hcpc.Warehouses.Services.WarehouseServices;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,12 +19,14 @@ namespace Souccar.Hcpc.Plans.Services
         private readonly IProductManager _productManager;
         private readonly IFormulaManager _formulaManager;
         private readonly IWarehouseMaterialManager _warehouseMaterialManager;
-        public PlanAppService(IFormulaManager formulaManager, IWarehouseMaterialManager warehouseMaterialManager, IProductManager productManager, IPlanManager planManager) : base(planManager)
+        private readonly IDailyProductionManager _dailyProductionManager;
+        public PlanAppService(IFormulaManager formulaManager, IWarehouseMaterialManager warehouseMaterialManager, IProductManager productManager, IPlanManager planManager, IDailyProductionManager dailyProductionManager) : base(planManager)
         {
             _formulaManager = formulaManager;
             _warehouseMaterialManager = warehouseMaterialManager;
             _productManager = productManager;
             _planManager = planManager;
+            _dailyProductionManager = dailyProductionManager;
         }
 
         public override async Task<PlanDto> CreateAsync(CreatePlanDto input)
@@ -61,8 +66,12 @@ namespace Souccar.Hcpc.Plans.Services
         {
             var formulas = _formulaManager.GetAllWithIncluding("Unit,Material");
             var warehouseMaterials = _warehouseMaterialManager.GetAll();
+            var TotalProduction = _dailyProductionManager.GetAllProductionsCountForPlan(planDto.Id);
+            var costs = GetProductsCostForPlan(planDto.Id);
+
             foreach (var planProduct in planDto.PlanProducts)
             {
+                var productCost = costs.Where(x=>x.ProductId == planProduct.ProductId).FirstOrDefault();
                 var productFormula = formulas.Where(x => x.ProductId == planProduct.ProductId);
                 foreach (var formula in productFormula)
                 {
@@ -75,6 +84,13 @@ namespace Souccar.Hcpc.Plans.Services
                     };
                     planProduct.PlanProductMaterials.Add(planProductMaterial);
                 }
+
+                planProduct.TotalProduction = TotalProduction[(int)planProduct.ProductId];
+
+                planProduct.TotalCost = productCost.CostOfProduction * planProduct.NumberOfItems;
+
+                planProduct.ProduceCost = productCost.CostOfProduction * planProduct.TotalProduction;
+
             }
 
             var planProductMaterials = planDto.PlanProducts.SelectMany(x => x.PlanProductMaterials);
@@ -85,7 +101,7 @@ namespace Souccar.Hcpc.Plans.Services
                 double rate = 0;
                 var items = planProductMaterials.Where(x => x.MaterialId == materialId).ToList();
                 var material = materials.FirstOrDefault(x => x.Id == materialId);
-                var stock = warehouseMaterials.FirstOrDefault(x => x.MaterialId == materialId);
+                var stock = warehouseMaterials.Where(x => x.MaterialId == materialId && x.CurrentQuantity != 0).ToList();
                 if (items.Any())
                 {
 
@@ -94,7 +110,7 @@ namespace Souccar.Hcpc.Plans.Services
                         MaterialId = materialId,
                         UnitId = items.FirstOrDefault().UnitId,
                         TotalQuantity = items.Sum(x => x.RequiredQuantity),
-                        InventoryQuantity = stock != null ? stock.Quantity : 0,
+                        InventoryQuantity = stock != null ? stock.Sum(x=>x.CurrentQuantity) : 0,
                         Material = material,
 
                     };
@@ -132,6 +148,33 @@ namespace Souccar.Hcpc.Plans.Services
 
             }
             return planDto;
+        }
+
+        private IList<ProductCostDto> GetProductsCostForPlan(int planId)
+        {
+            IList<ProductCostDto> productsCost = new List<ProductCostDto>();
+
+            var plan = _planManager.GetWithDetails(planId);
+
+            foreach (var planProduct in plan.PlanProducts)
+            {
+                double productCost = 0;
+
+                foreach (var formula in planProduct.Product.Formulas)
+                {
+                    var warehouseMaterials = _warehouseMaterialManager.GetAll()
+                        .Where(x => x.MaterialId == formula.MaterialId && x.CurrentQuantity != 0);
+
+                    var materialPrice = ((warehouseMaterials.Sum(x => x.Price)) / (warehouseMaterials.Sum(x => x.InitialQuantity)));
+
+                    productCost = productCost + materialPrice;
+                }
+
+                productsCost.Add(new ProductCostDto()
+                { ProductId = (int)planProduct.ProductId, CostOfProduction = productCost });
+            }
+
+            return productsCost;
         }
 
         private PlanDto UpdatePlan(UpdatePlanDto data)

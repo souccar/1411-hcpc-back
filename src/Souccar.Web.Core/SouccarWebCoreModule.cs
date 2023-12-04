@@ -13,9 +13,6 @@ using Souccar.Authentication.JwtBearer;
 using Souccar.Configuration;
 using Souccar.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
-using Abp.Hangfire;
-using Abp.Hangfire.Configuration;
-using Hangfire;
 using Abp.Threading.BackgroundWorkers;
 using Souccar.Jobs;
 
@@ -25,8 +22,7 @@ namespace Souccar
          typeof(SouccarApplicationModule),
          typeof(SouccarEntityFrameworkModule),
          typeof(AbpAspNetCoreModule)
-        ,typeof(AbpAspNetCoreSignalRModule),
-        typeof(AbpHangfireAspNetCoreModule)
+        ,typeof(AbpAspNetCoreSignalRModule)
      )]
     public class SouccarWebCoreModule : AbpModule
     {
@@ -55,8 +51,7 @@ namespace Souccar
 
             ConfigureTokenAuth();
 
-            //Hangfire
-            Configuration.BackgroundJobs.UseHangfire();
+            
         }
 
         private void ConfigureTokenAuth()

@@ -48,5 +48,14 @@ namespace Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Services
                 }
             }
         }
+        public override async Task<WarehouseMaterialDto> GetAsync(EntityDto<int> input)
+        {
+            var warehouseMaterial = await _warehouseMaterialDomainService.GetWithDetailsAsync(input.Id);
+
+            var warehouseMaterialDto = MapToEntityDto(warehouseMaterial);
+
+            return warehouseMaterialDto;
+        }
+
     }
 }

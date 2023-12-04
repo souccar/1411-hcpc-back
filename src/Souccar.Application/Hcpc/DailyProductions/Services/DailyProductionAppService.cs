@@ -63,5 +63,12 @@ namespace Souccar.Hcpc.DailyProductions.Services
 
             return DailyProductionDto;
         }
+
+        public Dictionary<int, int> GetAllProductionsCountForPlan(int PlanId)
+        {
+            var result = _dailyProductionManager.GetAllProductionsCountForPlan(PlanId);
+
+            return result;
+        }
     }
 }

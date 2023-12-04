@@ -27,8 +27,33 @@ namespace Souccar.Hcpc.Warehouses.Services.WarehouseServices
 
             var allThatWillExpire = _warehouseMaterialRepository.GetAllIncluding(x=>x.Material)
                 .Where(x=>x.ExpirationDate.Date <= DateTime.Now.AddDays(generalSetting.ExpiryDurationNotify).Date && x.Quantity != 0).ToList();
+        private readonly IRepository<WarehouseMaterial> _warehouseMaterialRepository;
+        public WarehouseMaterialManager(IRepository<WarehouseMaterial> warehouseMaterialRepository) : base(warehouseMaterialRepository)
+        {
+            _warehouseMaterialRepository = warehouseMaterialRepository;
+        }
+
+        public override Task<WarehouseMaterial> InsertAsync(WarehouseMaterial input)
+        {
+            input.CurrentQuantity = input.InitialQuantity;
+            return base.InsertAsync(input);
+        }
+
+        public async Task<WarehouseMaterial> GetWithDetailsAsync(int id)
+        {
+            var warehouseMaterial = await _warehouseMaterialRepository.GetAsync(id);
+
+            if (warehouseMaterial != null)
+            {
+                await _warehouseMaterialRepository.EnsurePropertyLoadedAsync(warehouseMaterial, w => w.Warehouse);
+                await _warehouseMaterialRepository.EnsurePropertyLoadedAsync(warehouseMaterial, s => s.Supplier);
+                await _warehouseMaterialRepository.EnsurePropertyLoadedAsync(warehouseMaterial, m => m.Material);
+                await _warehouseMaterialRepository.EnsurePropertyLoadedAsync(warehouseMaterial, up => up.UnitPrice);
+                await _warehouseMaterialRepository.EnsurePropertyLoadedAsync(warehouseMaterial, u => u.Unit);
+            }
 
             return allThatWillExpire;
+            return warehouseMaterial;
         }
     }
 }
