@@ -4,6 +4,7 @@ using Souccar.Core.Services;
 using Souccar.Hcpc.Warehouses;
 using Souccar.Hcpc.Warehouses.Services.WarehouseServices;
 using Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Dto;
+using Souccar.Hcpc.WarehousesApp.Warehouses.Dto;
 using Souccar.Notification;
 using Souccar.Notification.Dto;
 using System.Collections.Generic;
@@ -51,5 +52,10 @@ namespace Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Services
             }
         }
 
+        public IList<WarehouseMaterialNameForDropdownDto> GetNameForDropdown()
+        {
+            return _warehouseMaterialDomainService.GetAll()
+                .Select(x => new WarehouseMaterialNameForDropdownDto(x.Id, x.Code)).ToList();
+        }
     }
 }
