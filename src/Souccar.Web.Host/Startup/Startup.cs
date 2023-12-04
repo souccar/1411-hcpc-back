@@ -20,10 +20,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 using System.IO;
-using Abp.Hangfire;
-using Hangfire;
 using Souccar.Common;
-using Souccar.Authorization;
 
 namespace Souccar.Web.Host.Startup
 {
@@ -92,14 +89,6 @@ namespace Souccar.Web.Host.Startup
                 )
             );
 
-            if (WebConsts.HangfireDashboardEnabled)
-            {
-                //Hangfire(Enable to use Hangfire instead of default job manager)
-                services.AddHangfire(config =>
-                {
-                    config.UseSqlServerStorage(_appConfiguration.GetConnectionString("Default"));
-                });
-            }
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
@@ -116,13 +105,6 @@ namespace Souccar.Web.Host.Startup
             app.UseAuthorization();
             
             app.UseAbpRequestLocalization();
-
-            if (WebConsts.HangfireDashboardEnabled)
-            {
-                //Hangfire dashboard &server(Enable to use Hangfire instead of default job manager)
-                app.UseHangfireDashboard();
-                app.UseHangfireServer();
-            }
 
             app.UseEndpoints(endpoints =>
             {
