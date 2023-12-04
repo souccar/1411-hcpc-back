@@ -26,28 +26,6 @@ namespace Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Services
             _notificationAppService = notificationAppService;
         }
 
-        public async Task SendMaterialExpiryNotifications()
-        {
-            var input = new GetUserNotificationsInput() { State = 0, MaxResultCount = 1000, SkipCount = 0 };
-
-            var user = await UserManager.GetUserByIdAsync((long)AbpSession.UserId);
-
-
-
-            var currentUserNotifications = await _notificationAppService.GetUserNotifications(input);
-            var allThatWillExpire = await _warehouseMaterialDomainService.GetAllThatWillExpire();
-
-            foreach (var warehouseMaterial in allThatWillExpire) 
-            {
-                string name = warehouseMaterial.Material.Name + " - " + warehouseMaterial.Code;
-                string message = "The " + name + " material will expire on " + warehouseMaterial.ExpirationDate.ToString("dd/MM/yyyy");
-
-                if (!currentUserNotifications.Items.Any(x => x.Notification.Data["Message"].ToString() == message))
-                {
-                    await _notifier.SendMaterialExpiryDate(user, name, warehouseMaterial.ExpirationDate);
-                }
-            }
-        }
         public override async Task<WarehouseMaterialDto> GetAsync(EntityDto<int> input)
         {
             var warehouseMaterial = await _warehouseMaterialDomainService.GetWithDetailsAsync(input.Id);
@@ -55,6 +33,22 @@ namespace Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Services
             var warehouseMaterialDto = MapToEntityDto(warehouseMaterial);
 
             return warehouseMaterialDto;
+        }
+
+        public async Task SendMaterialExpiryNotifications()
+        {
+            var input = new GetUserNotificationsInput() { State = 0, MaxResultCount = 1000, SkipCount = 0 };
+
+            var user = await UserManager.GetUserByIdAsync(1);
+            var allThatWillExpire = await _warehouseMaterialDomainService.GetAllThatWillExpire();
+
+            foreach (var warehouseMaterial in allThatWillExpire) 
+            {
+                await _notifier.SendMaterialExpiryDate(user, warehouseMaterial.Material.Name +"/"+ warehouseMaterial.Code, warehouseMaterial.ExpirationDate);
+
+                warehouseMaterial.AboutToFinish = true;
+                await _warehouseMaterialDomainService.UpdateAsync(warehouseMaterial);
+            }
         }
 
     }

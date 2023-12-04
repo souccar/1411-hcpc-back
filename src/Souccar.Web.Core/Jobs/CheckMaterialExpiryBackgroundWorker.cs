@@ -19,7 +19,7 @@ namespace Souccar.Jobs
             _warehouseMaterialAppService = warehouseMaterialAppService;
 
 
-            //Timer.Period = 86400000;
+            //Timer.Period = 86400000; // Day
         }
         [UnitOfWork]
         protected override async Task DoWorkAsync()

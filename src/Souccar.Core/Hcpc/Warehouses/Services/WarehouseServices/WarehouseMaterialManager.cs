@@ -48,7 +48,8 @@ namespace Souccar.Hcpc.Warehouses.Services.WarehouseServices
             var generalSetting = await _generalSettingManager.GetAll().FirstOrDefaultAsync();
 
             var allThatWillExpire = _warehouseMaterialRepository.GetAllIncluding(x => x.Material)
-                .Where(x => x.ExpirationDate.Date <= DateTime.Now.AddDays(generalSetting.ExpiryDurationNotify).Date && x.CurrentQuantity != 0).ToList();
+                .Where(x => x.ExpirationDate.Date <= DateTime.Now.AddDays(generalSetting.ExpiryDurationNotify).Date &&
+                x.CurrentQuantity != 0 && !x.AboutToFinish).ToList();
 
             return allThatWillExpire;
         }
