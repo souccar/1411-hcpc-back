@@ -118,5 +118,11 @@ namespace Souccar.Hcpc.Plans.Services
             var UpdatedPlan = await _planRepository.UpdateAsync(plan);
             return UpdatedPlan;
         }
+
+        public IList<Plan> GetActualPlans()
+        {
+            var actualPlans = _planRepository.GetAll().Where(x => x.Status == PlanStatus.Actual).ToList();
+            return actualPlans;
+        }
     }
 }

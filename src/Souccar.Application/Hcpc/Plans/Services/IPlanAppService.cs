@@ -13,5 +13,6 @@ namespace Souccar.Hcpc.Plans.Services
         Task<PlanDto> GetLastPlanActualAsync();
         Task<PlanDto> ChangeStatusToActual(int id);
         IList<PlanNameForDropdownDto> GetNameForDropdown();
+        IList<PlanNameForDropdownDto> GetActualPlansNameForDropdown();
     }
 }
