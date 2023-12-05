@@ -2,6 +2,8 @@
 using Souccar.Authorization.Users;
 using System;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Xml.Linq;
 
 namespace Souccar.Notification
 {
@@ -12,7 +14,7 @@ namespace Souccar.Notification
         public AppNotifier(INotificationPublisher notificationPublisher)
         {
             _notificationPublisher = notificationPublisher;
-        }
+        }        
 
         public async Task SendMaterialExpiryDate(User user, string name, DateTime date)
         {
@@ -20,6 +22,18 @@ namespace Souccar.Notification
             await _notificationPublisher.PublishAsync(
                 AppNotificationNames.MaterialExpirationWarning,
                 new MessageNotificationData(L("The{0}MaterialWillExpireOn{1}", param)),
+                severity: NotificationSeverity.Warn,
+                userIds: new[] { user.ToUserIdentifier() }
+                );
+        }
+
+        public async Task SendCreateOutputRequst(User user, string title)
+        {
+            var param = new string[1] {title};
+
+            await _notificationPublisher.PublishAsync(
+                AppNotificationNames.AddOutputRequest,
+                new MessageNotificationData(L("{0}OutputRequestAdded", param)),
                 severity: NotificationSeverity.Warn,
                 userIds: new[] { user.ToUserIdentifier() }
                 );
