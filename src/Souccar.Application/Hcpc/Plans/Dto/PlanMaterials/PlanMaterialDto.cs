@@ -9,6 +9,7 @@ namespace Souccar.Hcpc.Plans.Dto.PlanMaterials
         public double TotalQuantity { get; set; }
         public double InventoryQuantity { get; set; }
         public int? UnitId { get; set; }
+        public int? InventoryUnitId { get; set; }
         public int? MaterialId { get; set; }
         public int? PlanId { get; set; }
         /// <summary>
@@ -16,6 +17,7 @@ namespace Souccar.Hcpc.Plans.Dto.PlanMaterials
         /// </summary>
         public int ProduceDays { get; set; }
         public UnitDto Unit { get; set; }
+        public UnitDto InventoryUnit { get; set; }
         public MaterialDto Material { get; set; }
     }
 }

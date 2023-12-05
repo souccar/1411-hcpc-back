@@ -13,8 +13,13 @@ namespace Souccar.Hcpc.Units.Services
             _transferRepository = transferRepository;
         }
 
-        public async Task<double> ConvertTo(int fromId, int toId, double value)
+        public async Task<double> ConvertTo(int? fromId, int? toId, double value)
         {
+            if (fromId == toId)
+            {
+                return value;
+            }
+
             Transfer transfer;
             transfer = await _transferRepository.FirstOrDefaultAsync(x => x.From.Id == fromId && x.To.Id == toId);
             if(transfer != null)
@@ -28,7 +33,7 @@ namespace Souccar.Hcpc.Units.Services
                 return value / transfer.Value;
             }
 
-            throw new UserFriendlyException("TransferNotExist");
+            return 0;
             
         }
     }

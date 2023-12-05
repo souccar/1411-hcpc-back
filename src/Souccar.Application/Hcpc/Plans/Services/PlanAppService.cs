@@ -1,4 +1,6 @@
 ﻿using Abp.Application.Services.Dto;
+using Abp.Threading;
+using Microsoft.AspNetCore.Connections.Features;
 using Souccar.Core.Services;
 using Souccar.Hcpc.DailyProductions.Services;
 using Souccar.Hcpc.Plans.Dto.PlanMaterials;
@@ -6,6 +8,8 @@ using Souccar.Hcpc.Plans.Dto.PlanProductMaterials;
 using Souccar.Hcpc.Plans.Dto.Plans;
 using Souccar.Hcpc.Products.Dto.Products;
 using Souccar.Hcpc.Products.Services;
+using Souccar.Hcpc.Units.Dto.Units;
+using Souccar.Hcpc.Units.Services;
 using Souccar.Hcpc.Warehouses.Services.WarehouseServices;
 using Souccar.Hcpc.WarehousesApp.Warehouses.Dto;
 using System.Collections.Generic;
@@ -96,7 +100,7 @@ namespace Souccar.Hcpc.Plans.Services
                 return new PlanDto();
 
             var formulas = _formulaManager.GetAllWithIncluding("Unit,Material");
-            var warehouseMaterials = _warehouseMaterialManager.GetAll();
+            var warehouseMaterials = _warehouseMaterialManager.GetAllWithIncluding("Unit,Material");
             var TotalProduction = _dailyProductionManager.GetAllProductionsCountForPlan(planDto.Id);
             var costs = GetProductsCostForPlan(planDto.Id);
 
@@ -127,31 +131,34 @@ namespace Souccar.Hcpc.Plans.Services
             var planProductMaterials = planDto.PlanProducts.SelectMany(x => x.PlanProductMaterials);
             var materialIds = planProductMaterials.Select(x => x.MaterialId).Distinct();
             var materials = planDto.PlanProducts.Select(x => x.Product).SelectMany(x => x.Formulas).Select(x => x.Material);
+            
             foreach (var materialId in materialIds)
             {
                 double rate = 0;
                 var items = planProductMaterials.Where(x => x.MaterialId == materialId).ToList();
                 var material = materials.FirstOrDefault(x => x.Id == materialId);
                 var stock = warehouseMaterials.Where(x => x.MaterialId == materialId && x.CurrentQuantity != 0).ToList();
+                var totalQuantity = items.Sum(x => x.RequiredQuantity);
+                var totalQuantityAfterTranfer = AsyncHelper.RunSync(()=> _transferManager.ConvertTo(items.FirstOrDefault().UnitId, stock.FirstOrDefault().UnitId, totalQuantity));
+
                 if (items.Any())
                 {
-
                     var planMaterial = new PlanMaterialDto()
                     {
                         MaterialId = materialId,
-                        UnitId = items.FirstOrDefault().UnitId,
-                        TotalQuantity = items.Sum(x => x.RequiredQuantity),
+                        UnitId = stock.FirstOrDefault().UnitId,
+                        Unit = ObjectMapper.Map<UnitDto>(stock.FirstOrDefault().Unit),
+                        TotalQuantity = totalQuantityAfterTranfer,
                         InventoryQuantity = stock != null ? stock.Sum(x=>x.CurrentQuantity) : 0,
                         Material = material,
-
+                        //InventoryUnitId = stock.FirstOrDefault().UnitId,
+                        //InventoryUnit = ObjectMapper.Map<UnitDto>(stock.FirstOrDefault().Unit),
                     };
 
                     rate = planMaterial.TotalQuantity != 0 ? (planMaterial.InventoryQuantity / planMaterial.TotalQuantity) : 0;                    
                     
                     planDto.PlanMaterials.Add(planMaterial);
                 }
-
-
                 //var plm = planProductMaterials.Where(x => x.MaterialId == materialId).ToList();
 
 
