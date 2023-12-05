@@ -26,7 +26,8 @@ namespace Souccar.Hcpc.Plans.Services
         private readonly IFormulaManager _formulaManager;
         private readonly IWarehouseMaterialManager _warehouseMaterialManager;
         private readonly IDailyProductionManager _dailyProductionManager;
-        public PlanAppService(IFormulaManager formulaManager, IWarehouseMaterialManager warehouseMaterialManager, IProductManager productManager, IPlanManager planManager, IDailyProductionManager dailyProductionManager, IPlanProductManager planProductManager) : base(planManager)
+        private readonly ITransferManager _transferManager;
+        public PlanAppService(IFormulaManager formulaManager, IWarehouseMaterialManager warehouseMaterialManager, IProductManager productManager, IPlanManager planManager, IDailyProductionManager dailyProductionManager, IPlanProductManager planProductManager, ITransferManager transferManager) : base(planManager)
         {
             _formulaManager = formulaManager;
             _warehouseMaterialManager = warehouseMaterialManager;
@@ -34,6 +35,7 @@ namespace Souccar.Hcpc.Plans.Services
             _planManager = planManager;
             _dailyProductionManager = dailyProductionManager;
             _planProductManager = planProductManager;
+            _transferManager = transferManager;
         }
 
         public IList<PlanNameForDropdownDto> GetNameForDropdown()
