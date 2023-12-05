@@ -1,4 +1,5 @@
 ﻿using Souccar.Core.Services.Interfaces;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Souccar.Hcpc.Plans.Services
@@ -11,6 +12,7 @@ namespace Souccar.Hcpc.Plans.Services
         Plan UpdatePlan(Plan plan);
         Task<Plan> ChangeStausToActual(int id);
         Task<Plan> ChangeStausToArchive(int id);
+        IList<Plan> GetActualPlans();
 
     }
 }

@@ -44,6 +44,12 @@ namespace Souccar.Hcpc.Plans.Services
                 .Select(x => new PlanNameForDropdownDto(x.Id, x.Title)).ToList();
         }
 
+        public IList<PlanNameForDropdownDto> GetActualPlansNameForDropdown()
+        {
+            return _planManager.GetActualPlans()
+                .Select(x => new PlanNameForDropdownDto(x.Id, x.Title)).ToList();
+        }
+
         public override async Task<PlanDto> CreateAsync(CreatePlanDto input)
         {
             var insertedPlanDto = await base.CreateAsync(input);
@@ -240,6 +246,7 @@ namespace Souccar.Hcpc.Plans.Services
 
             return InitPlanDetails(dto);
         }
+        
         #endregion
     }
 }
