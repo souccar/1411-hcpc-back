@@ -10,6 +10,8 @@ namespace Souccar.Hcpc.Plans.Services
     public interface IPlanAppService : IAsyncSouccarAppService<PlanDto, int, PagedPlanRequestDto, CreatePlanDto, UpdatePlanDto>
     {
         Task<PlanDto> GetLastPlanAsync();
+        Task<PlanDto> GetLastPlanActualAsync();
+        Task<PlanDto> ChangeStatusToActual(int id);
         IList<PlanNameForDropdownDto> GetNameForDropdown();
     }
 }

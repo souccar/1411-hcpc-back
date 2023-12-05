@@ -47,9 +47,9 @@ namespace Souccar.Hcpc.DailyProductions.Services
 
             foreach (var planProduct in plan.PlanProducts)
             {
-                if (!allProductionsForPlan.ContainsKey(planProduct.Product.Id))
+                if (!allProductionsForPlan.ContainsKey((int)planProduct.ProductId))
                 {
-                    allProductionsForPlan.Add(planProduct.Product.Id, 0);
+                    allProductionsForPlan.Add((int)planProduct.ProductId, 0);
                 }
             }
 
@@ -57,7 +57,11 @@ namespace Souccar.Hcpc.DailyProductions.Services
             {
                 foreach (var dailyProductionDetail in dailyProduction.DailyProductionDetails)
                 {
-                    allProductionsForPlan[dailyProductionDetail.Product.Id] += dailyProductionDetail.Quantity;
+                    if (allProductionsForPlan.ContainsKey((int)dailyProductionDetail.ProductId))
+                    {
+                        allProductionsForPlan[(int)dailyProductionDetail.ProductId] += dailyProductionDetail.Quantity;
+                    }
+                    
                 }
             }
 

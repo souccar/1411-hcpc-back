@@ -17,7 +17,7 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Dto
         public string OutputDate { get; set; }
         public int? PlanId { get; set; }
 
-        public PlanDto Plan { get; set; }
+        public PlanNameDto Plan { get; set; }
 
         public List<OutputRequestMaterialDto> OutputRequestMaterials { get; set; }
 

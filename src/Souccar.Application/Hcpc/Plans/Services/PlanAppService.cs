@@ -17,17 +17,19 @@ namespace Souccar.Hcpc.Plans.Services
     public class PlanAppService : AsyncSouccarAppService<Plan, PlanDto, int, PagedPlanRequestDto, CreatePlanDto, UpdatePlanDto>, IPlanAppService
     {
         private readonly IPlanManager _planManager;
+        private readonly IPlanProductManager _planProductManager;
         private readonly IProductManager _productManager;
         private readonly IFormulaManager _formulaManager;
         private readonly IWarehouseMaterialManager _warehouseMaterialManager;
         private readonly IDailyProductionManager _dailyProductionManager;
-        public PlanAppService(IFormulaManager formulaManager, IWarehouseMaterialManager warehouseMaterialManager, IProductManager productManager, IPlanManager planManager, IDailyProductionManager dailyProductionManager) : base(planManager)
+        public PlanAppService(IFormulaManager formulaManager, IWarehouseMaterialManager warehouseMaterialManager, IProductManager productManager, IPlanManager planManager, IDailyProductionManager dailyProductionManager, IPlanProductManager planProductManager) : base(planManager)
         {
             _formulaManager = formulaManager;
             _warehouseMaterialManager = warehouseMaterialManager;
             _productManager = productManager;
             _planManager = planManager;
             _dailyProductionManager = dailyProductionManager;
+            _planProductManager = planProductManager;
         }
 
         public IList<PlanNameForDropdownDto> GetNameForDropdown()
@@ -66,7 +68,25 @@ namespace Souccar.Hcpc.Plans.Services
             return InitPlanDetails(LastPlanDto);
         }
 
-        
+        public async Task<PlanDto> GetLastPlanActualAsync()
+        {
+            var LastPlan = await _planManager.GetLastPlanActualAsync();
+            var LastPlanDto = MapToEntityDto(LastPlan);
+
+            return InitPlanDetails(LastPlanDto);
+        }
+
+        public async Task<PlanDto> ChangeStatusToActual(int id)
+        {
+            var UpdatedPlan = await _planManager.ChangeStausToActual(id);
+            return MapToEntityDto(UpdatedPlan);
+        }
+
+        public async Task<PlanDto> ChangeStatusToArchive(int id)
+        {
+            var UpdatedPlan = await _planManager.ChangeStausToArchive(id);
+            return MapToEntityDto(UpdatedPlan);
+        }
 
         #region Helper Methods
         private PlanDto InitPlanDetails(PlanDto planDto)
@@ -191,8 +211,19 @@ namespace Souccar.Hcpc.Plans.Services
         private PlanDto UpdatePlan(UpdatePlanDto data)
         {
             var plan = _planManager.GetWithDetails(data.Id);
+            var planProducts = _planProductManager.GetAll();
 
             ObjectMapper.Map<UpdatePlanDto, Plan>(data, plan);
+
+
+            foreach (var planProduct in plan.PlanProducts)
+            {
+                if (!planProducts.Any(x=>x.ProductId == planProduct.ProductId && x.PlanId == planProduct.PlanId))
+                {
+                    var createdPlanProduct = _planProductManager.InsertAsync(planProduct);
+                }
+                
+            }            
 
             var update = _planManager.UpdatePlan(plan);
 
@@ -200,8 +231,6 @@ namespace Souccar.Hcpc.Plans.Services
 
             return InitPlanDetails(dto);
         }
-
-
         #endregion
     }
 }
