@@ -235,7 +235,7 @@ namespace Souccar.Hcpc.Plans.Services
             {
                 if (!planProducts.Any(x=>x.ProductId == planProduct.ProductId && x.PlanId == planProduct.PlanId))
                 {
-                    var createdPlanProduct = _planProductManager.InsertAsync(planProduct);
+                    var createdPlanProduct = AsyncHelper.RunSync(() => _planProductManager.InsertAsync(planProduct));
                 }
                 
             }            
