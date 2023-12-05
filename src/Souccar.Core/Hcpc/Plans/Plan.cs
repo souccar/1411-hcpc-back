@@ -20,6 +20,7 @@ namespace Souccar.Hcpc.Plans
         public int? TenantId { get; set; }
         public string Title { get; set; }
         public int Duration { get; set; }
+        public PlanStatus Status { get; set; }
         public int TotalItems { get; set; }
         public DateTime? StartDate { get; set; }
         public virtual IList<PlanProduct> PlanProducts { get; set; }

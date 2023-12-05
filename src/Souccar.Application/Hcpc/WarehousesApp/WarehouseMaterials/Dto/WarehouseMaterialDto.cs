@@ -12,7 +12,7 @@ namespace Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Dto
     {
         public WarehouseMaterialDto()
         {
-            OutputRequestMaterilas =new List<OutputRequestMaterialDto>();
+            //OutputRequestMaterilas =new List<OutputRequestMaterialDto>();
         }
         public int Id { get; set; }
         public string EntryDate { get; set; }
@@ -36,6 +36,6 @@ namespace Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Dto
         public SupplierDto Supplier { get; set; }
         public WarehouseDto Warehouse { get; set; }
 
-        public IList<OutputRequestMaterialDto> OutputRequestMaterilas { get; set; }
+        //public IList<OutputRequestMaterialDto> OutputRequestMaterilas { get; set; }
     }
 }
