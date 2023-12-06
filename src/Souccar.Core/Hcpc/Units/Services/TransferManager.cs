@@ -1,6 +1,11 @@
 ﻿using Abp.Domain.Repositories;
+using Abp.ObjectMapping;
+using Abp.Threading;
 using Abp.UI;
+using AutoMapper.Internal.Mappers;
 using Souccar.Core.Services.Implements;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Souccar.Hcpc.Units.Services
@@ -8,6 +13,7 @@ namespace Souccar.Hcpc.Units.Services
     public class TransferManager : SouccarDomainService<Transfer, int>, ITransferManager
     {
         private readonly IRepository<Transfer, int> _transferRepository;
+        
         public TransferManager(IRepository<Transfer, int> transferRepository) : base(transferRepository)
         {
             _transferRepository = transferRepository;
@@ -35,6 +41,41 @@ namespace Souccar.Hcpc.Units.Services
 
             return 0;
             
+        }
+
+        public IDictionary<string, object> ConvertToGreaterUnit(int unitId, double value)
+        {
+            var result = new Dictionary<string, object>() {
+                {"UnitId", unitId},
+                {"Value", value},
+            };
+
+            var transfer = GetByDestinationUnitId(unitId);
+            if (transfer is null || value <= transfer.Value)
+            {
+                return result;
+            }
+
+            var transferredValue = value > 0 ? value / transfer.Value : 0;
+            result["UnitId"] = transfer.FromId;
+            result["Value"] = transferredValue;
+            return result;
+        }
+
+        public Transfer GetBySourceUnitId(int? unitId)
+        {
+            var transfer =  _transferRepository.FirstOrDefault(x => x.FromId == unitId);
+             _transferRepository.EnsurePropertyLoaded(transfer, x => x.From);
+             _transferRepository.EnsurePropertyLoaded(transfer, x => x.To);
+            return transfer;
+        }
+
+        public Transfer GetByDestinationUnitId(int? unitId)
+        {
+            var transfer =  _transferRepository.FirstOrDefault(x => x.ToId == unitId);
+            _transferRepository.EnsurePropertyLoaded(transfer, x => x.From);
+            _transferRepository.EnsurePropertyLoaded(transfer, x => x.To);
+            return transfer;
         }
     }
 }
