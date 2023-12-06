@@ -2,7 +2,9 @@
 using Souccar.Authorization.Users;
 using Souccar.Core.Services;
 using Souccar.Hcpc.Warehouses;
+using Souccar.Hcpc.Warehouses.Services.OutputRequestServices;
 using Souccar.Hcpc.Warehouses.Services.WarehouseServices;
+using Souccar.Hcpc.WarehousesApp.OutputRequests.Dto;
 using Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Dto;
 using Souccar.Hcpc.WarehousesApp.Warehouses.Dto;
 using Souccar.Notification;
@@ -18,20 +20,36 @@ namespace Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Services
         private readonly IWarehouseMaterialManager _warehouseMaterialDomainService;
         private readonly IAppNotifier _notifier;
         private readonly INotificationAppService _notificationAppService;
+        private readonly IOutputRequestManager _outputRequestManager;
         public UserManager UserManager { get; set; }
 
-        public WarehouseMaterialAppService(IWarehouseMaterialManager warehouseMaterialDomainService, IAppNotifier notifier, INotificationAppService notificationAppService) : base(warehouseMaterialDomainService)
+        public WarehouseMaterialAppService(IWarehouseMaterialManager warehouseMaterialDomainService, IAppNotifier notifier, INotificationAppService notificationAppService, IOutputRequestManager outputRequestManager) : base(warehouseMaterialDomainService)
         {
             _warehouseMaterialDomainService = warehouseMaterialDomainService;
             _notifier = notifier;
             _notificationAppService = notificationAppService;
+            _outputRequestManager = outputRequestManager;
         }
 
         public override async Task<WarehouseMaterialDto> GetAsync(EntityDto<int> input)
         {
             var warehouseMaterial = await _warehouseMaterialDomainService.GetWithDetailsAsync(input.Id);
+            var outputRequests = _outputRequestManager.GetAllWithIncluding("OutputRequestMaterials").Where(x => x.OutputRequestMaterials.Any(y => y.WarehouseMaterialId == input.Id)).ToList();            
 
             var warehouseMaterialDto = MapToEntityDto(warehouseMaterial);
+
+            foreach (var outputRequest in outputRequests)
+            {
+                foreach (var OutputRequestMaterial in outputRequest.OutputRequestMaterials)
+                {
+                    if (OutputRequestMaterial.WarehouseMaterialId == input.Id)
+                    {
+                        warehouseMaterialDto.outputRequests
+                            .Add(new OutputRequestForWarehouseMaterialDto() { Id = outputRequest.Id, Title = outputRequest.Title, OutputDate = outputRequest.OutputDate.ToString(), Quantity = OutputRequestMaterial.Quantity });
+                    }
+                }
+                
+            }
 
             return warehouseMaterialDto;
         }

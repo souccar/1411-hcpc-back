@@ -2,7 +2,7 @@
 using Souccar.Hcpc.Materials.Dto;
 using Souccar.Hcpc.Suppliers.Dto;
 using Souccar.Hcpc.Units.Dto.Units;
-using Souccar.Hcpc.WarehousesApp.OutputRequests.Dto.OutputRequestMaterialDtos;
+using Souccar.Hcpc.WarehousesApp.OutputRequests.Dto;
 using Souccar.Hcpc.WarehousesApp.Warehouses.Dto;
 using System.Collections.Generic;
 
@@ -12,7 +12,7 @@ namespace Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Dto
     {
         public WarehouseMaterialDto()
         {
-            //OutputRequestMaterilas =new List<OutputRequestMaterialDto>();
+            outputRequests = new List<OutputRequestForWarehouseMaterialDto>();
         }
         public int Id { get; set; }
         public string EntryDate { get; set; }
@@ -36,6 +36,6 @@ namespace Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Dto
         public SupplierDto Supplier { get; set; }
         public WarehouseDto Warehouse { get; set; }
 
-        //public IList<OutputRequestMaterialDto> OutputRequestMaterilas { get; set; }
+        public IList<OutputRequestForWarehouseMaterialDto> outputRequests { get; set; }
     }
 }
