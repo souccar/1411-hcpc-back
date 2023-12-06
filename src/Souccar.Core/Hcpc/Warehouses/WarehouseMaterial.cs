@@ -14,7 +14,7 @@ namespace Souccar.Hcpc.Warehouses
 
         public WarehouseMaterial()
         {
-            OutputRequestMaterilas = new List<OutputRequestMaterial>();
+            //OutputRequestMaterilas = new List<OutputRequestMaterial>();
         }
         public int? TenantId { get; set; }
         public DateTime? EntryDate { get; set; }
@@ -60,7 +60,7 @@ namespace Souccar.Hcpc.Warehouses
         public virtual Warehouse Warehouse { get; set; }
         #endregion
 
-        public virtual IList<OutputRequestMaterial> OutputRequestMaterilas { get; set; }
+        //public virtual IList<OutputRequestMaterial> OutputRequestMaterilas { get; set; }
 
     }
 }
