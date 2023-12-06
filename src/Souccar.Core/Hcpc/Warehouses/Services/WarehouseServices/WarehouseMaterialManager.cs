@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Souccar.Core.Services.Implements;
 using Souccar.Hcpc.GeneralSettings.Services;
+using Souccar.Hcpc.Warehouses.Services.OutputRequestServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +15,13 @@ namespace Souccar.Hcpc.Warehouses.Services.WarehouseServices
     {
         private readonly IRepository<WarehouseMaterial> _warehouseMaterialRepository;
         private readonly IGeneralSettingManager _generalSettingManager;
+        private readonly IOutputRequestManager _outputRequestManager;
 
-        public WarehouseMaterialManager(IRepository<WarehouseMaterial> warehouseMaterialRepository, IGeneralSettingManager generalSettingManager): base(warehouseMaterialRepository)
+        public WarehouseMaterialManager(IRepository<WarehouseMaterial> warehouseMaterialRepository, IGeneralSettingManager generalSettingManager, IOutputRequestManager outputRequestManager) : base(warehouseMaterialRepository)
         {
             _warehouseMaterialRepository = warehouseMaterialRepository;
             _generalSettingManager = generalSettingManager;
+            _outputRequestManager = outputRequestManager;
         }
 
         public override Task<WarehouseMaterial> InsertAsync(WarehouseMaterial input)
@@ -29,7 +32,7 @@ namespace Souccar.Hcpc.Warehouses.Services.WarehouseServices
 
         public async Task<WarehouseMaterial> GetWithDetailsAsync(int id)
         {
-            var warehouseMaterial = await _warehouseMaterialRepository.GetAsync(id);
+            var warehouseMaterial = await _warehouseMaterialRepository.GetAsync(id);            
 
             if (warehouseMaterial != null)
             {

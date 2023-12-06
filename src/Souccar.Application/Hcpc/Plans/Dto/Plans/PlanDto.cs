@@ -19,6 +19,7 @@ namespace Souccar.Hcpc.Plans.Dto.Plans
         public string Title { get; set; }
         public int Duration { get; set; }
         public string StartDate { get; set; }
+        public int Status { get; set; }
 
         public int TotalItems => PlanProducts.Sum(x => x.NumberOfItems);
 

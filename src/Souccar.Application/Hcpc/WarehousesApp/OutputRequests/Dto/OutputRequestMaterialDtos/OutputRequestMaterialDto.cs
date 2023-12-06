@@ -12,7 +12,7 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Dto.OutputRequestMaterialDto
         public int? WarehouseMaterialId { get; set; }
 
         public UnitDto Unit { get; set; }
-        public WarehouseMaterialDto WarehouseMaterial { get; set; }
+        public WarehouseMaterialNameDto WarehouseMaterial { get; set; }
 
     }
 }
