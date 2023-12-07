@@ -8,6 +8,12 @@ namespace Souccar.Hcpc.Materials.Dto.MaterialDetailsDtos
 {
     public class MaterialDetailDto: EntityDto<int>
     {
+        public MaterialDetailDto()
+        {
+            WarehouseMaterials = new List<WarehouseMaterialDto>();
+            Suppliers = new List<MaterialSuppliersDto>();
+        }
+
         public string Name { get; set; }
         public string Description { get; set; }
         public double TotalQuantity => WarehouseMaterials !=null? WarehouseMaterials.Sum(x => x.CurrentQuantity) :0;
