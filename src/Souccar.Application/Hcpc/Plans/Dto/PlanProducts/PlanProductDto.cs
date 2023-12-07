@@ -28,6 +28,11 @@ namespace Souccar.Hcpc.Plans.Dto.PlanProducts
         public int CanProduce => PlanProductMaterials.Any() ? PlanProductMaterials.Min(x => x.CanProduce) : 0;
 
         /// <summary>
+        /// تكلفة انتاج عبوة واحدة
+        /// </summary>
+        public double ItemCost { get; set; }
+
+        /// <summary>
         /// عدد العبوات المنتجة
         /// </summary>
         public int TotalProduction { get; set; }
@@ -35,12 +40,12 @@ namespace Souccar.Hcpc.Plans.Dto.PlanProducts
         /// <summary>
         /// تكلفة تصنيع كل الكمية المطلوبة
         /// </summary>
-        public double TotalCost { get; set; } 
+        public double TotalCost => ItemCost * CanProduce;
 
         /// <summary>
         /// تكلفة تصنيع جميع العبوات المنتجة فقط
         /// </summary>
-        public double ProduceCost { get; set; }
+        public double ProduceCost => ItemCost * TotalProduction;
 
         /// <summary>
         /// قيمة المبلغ المهدور من عملية الإنتاج

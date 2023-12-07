@@ -130,9 +130,7 @@ namespace Souccar.Hcpc.Plans.Services
 
                 planProduct.TotalProduction = TotalProduction[(int)planProduct.ProductId];
 
-                planProduct.TotalCost = productCost.CostOfProduction * planProduct.NumberOfItems;
-
-                planProduct.ProduceCost = productCost.CostOfProduction * planProduct.TotalProduction;
+                planProduct.ItemCost = productCost.CostOfProduction;
 
             }
 

@@ -46,7 +46,7 @@ namespace Souccar.Hcpc.Materials.Services
                 var materialDetails = ObjectMapper.Map<MaterialDetailDto>(material);
 
                 //Get warehouse materials
-                var warehouseMaterials = _warehouseMaterialManager.GetAllWithIncluding("OutputRequestMaterilas,Warehouse").Where(x => x.MaterialId.Equals(materialId)).ToList();
+                var warehouseMaterials = _warehouseMaterialManager.GetAllWithIncluding("OutputRequestMaterilas,Warehouse,Unit").Where(x => x.MaterialId.Equals(materialId)).ToList();
 
                 materialDetails.WarehouseMaterials = ObjectMapper.Map<IList<WarehouseMaterialDto>>(warehouseMaterials);
 
