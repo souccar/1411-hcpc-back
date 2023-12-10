@@ -1,6 +1,7 @@
 ﻿using Abp.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Souccar.Core.Services.Implements;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Souccar.Hcpc.Products.Services
@@ -19,5 +20,13 @@ namespace Souccar.Hcpc.Products.Services
                 .Include(f => f.Formulas).ThenInclude(u => u.Unit)
                 .Include(f => f.Formulas).ThenInclude(m => m.Material);
         }
+
+        public IQueryable<Product> GetProductsFromMaterial(int materialId)
+        {
+           
+            return GetAllWithIncluding("Formulas").Where(x => x.Formulas.Select(y => y.MaterialId).Contains(materialId));
+           
+        }
+
     }
 }
