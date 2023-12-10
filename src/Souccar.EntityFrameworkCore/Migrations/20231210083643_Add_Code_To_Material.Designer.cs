@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Souccar.EntityFrameworkCore;
 
@@ -11,9 +12,11 @@ using Souccar.EntityFrameworkCore;
 namespace Souccar.Migrations
 {
     [DbContext(typeof(SouccarDbContext))]
-    partial class SouccarDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231210083643_Add_Code_To_Material")]
+    partial class Add_Code_To_Material
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1606,9 +1609,6 @@ namespace Souccar.Migrations
                     b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
 
-                    b.Property<int?>("OutputRequestId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("PlanId")
                         .HasColumnType("int");
 
@@ -1616,8 +1616,6 @@ namespace Souccar.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("OutputRequestId");
 
                     b.HasIndex("PlanId");
 
@@ -2165,13 +2163,10 @@ namespace Souccar.Migrations
                     b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
 
-                    b.Property<DateTime?>("OutputDate")
+                    b.Property<DateTime>("OutputDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("PlanId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<int?>("TenantId")
@@ -2219,32 +2214,6 @@ namespace Souccar.Migrations
                     b.HasIndex("WarehouseMaterialId");
 
                     b.ToTable("OutputRequestMaterials");
-                });
-
-            modelBuilder.Entity("Souccar.Hcpc.Warehouses.OutputRequestProduct", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("OutputRequestId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TenantId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OutputRequestId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("OutputRequestProduct");
                 });
 
             modelBuilder.Entity("Souccar.Hcpc.Warehouses.Warehouse", b =>
@@ -2660,15 +2629,9 @@ namespace Souccar.Migrations
 
             modelBuilder.Entity("Souccar.Hcpc.DailyProductions.DailyProduction", b =>
                 {
-                    b.HasOne("Souccar.Hcpc.Warehouses.OutputRequest", "OutputRequest")
-                        .WithMany()
-                        .HasForeignKey("OutputRequestId");
-
                     b.HasOne("Souccar.Hcpc.Plans.Plan", "Plan")
                         .WithMany()
                         .HasForeignKey("PlanId");
-
-                    b.Navigation("OutputRequest");
 
                     b.Navigation("Plan");
                 });
@@ -2809,7 +2772,7 @@ namespace Souccar.Migrations
 
             modelBuilder.Entity("Souccar.Hcpc.Warehouses.OutputRequestMaterial", b =>
                 {
-                    b.HasOne("Souccar.Hcpc.Warehouses.OutputRequest", "OutputRequest")
+                    b.HasOne("Souccar.Hcpc.Warehouses.OutputRequest", null)
                         .WithMany("OutputRequestMaterials")
                         .HasForeignKey("OutputRequestId");
 
@@ -2821,26 +2784,9 @@ namespace Souccar.Migrations
                         .WithMany()
                         .HasForeignKey("WarehouseMaterialId");
 
-                    b.Navigation("OutputRequest");
-
                     b.Navigation("Unit");
 
                     b.Navigation("WarehouseMaterial");
-                });
-
-            modelBuilder.Entity("Souccar.Hcpc.Warehouses.OutputRequestProduct", b =>
-                {
-                    b.HasOne("Souccar.Hcpc.Warehouses.OutputRequest", "OutputRequest")
-                        .WithMany("OutputRequestProducts")
-                        .HasForeignKey("OutputRequestId");
-
-                    b.HasOne("Souccar.Hcpc.Products.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
-
-                    b.Navigation("OutputRequest");
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Souccar.Hcpc.Warehouses.WarehouseMaterial", b =>
@@ -3009,8 +2955,6 @@ namespace Souccar.Migrations
             modelBuilder.Entity("Souccar.Hcpc.Warehouses.OutputRequest", b =>
                 {
                     b.Navigation("OutputRequestMaterials");
-
-                    b.Navigation("OutputRequestProducts");
                 });
 
             modelBuilder.Entity("Souccar.Hcpc.Warehouses.Warehouse", b =>

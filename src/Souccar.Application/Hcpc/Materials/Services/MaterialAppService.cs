@@ -4,8 +4,12 @@ using AutoMapper;
 using Souccar.Core.Services;
 using Souccar.Hcpc.Materials.Dto;
 using Souccar.Hcpc.Materials.Dto.MaterialDetailsDtos;
+using Souccar.Hcpc.Products.Dto.Products;
+using Souccar.Hcpc.Products.Services;
 using Souccar.Hcpc.Warehouses;
+using Souccar.Hcpc.Warehouses.Services.OutputRequestServices;
 using Souccar.Hcpc.Warehouses.Services.WarehouseServices;
+using Souccar.Hcpc.WarehousesApp.OutputRequests.Dto;
 using Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Dto;
 using System;
 using System.Collections.Generic;
@@ -17,12 +21,16 @@ namespace Souccar.Hcpc.Materials.Services
     public class MaterialAppService : AsyncSouccarAppService<Material, MaterialDto, int, PagedMaterialRequestDto, CreateMaterialDto, UpdateMaterialDto>, IMaterialAppService
     {
         private readonly IMaterialManager _materialManager;
-
         private readonly IWarehouseMaterialManager _warehouseMaterialManager;
-        public MaterialAppService(IMaterialManager materialDomainService, IWarehouseMaterialManager warehouseMaterialManager) : base(materialDomainService)
+        private readonly IProductManager _productManager;
+        private readonly IOutputRequestManager _outputRequestManager;
+
+        public MaterialAppService(IMaterialManager materialDomainService, IWarehouseMaterialManager warehouseMaterialManager, IOutputRequestManager outputRequestManager, IProductManager productManager) : base(materialDomainService)
         {
             _materialManager = materialDomainService;
             _warehouseMaterialManager = warehouseMaterialManager;
+            _productManager = productManager;
+            _outputRequestManager = outputRequestManager;
         }
         public IList<MaterialNameForDropdownDto> GetNameForDropdown()
         {
@@ -42,13 +50,39 @@ namespace Souccar.Hcpc.Materials.Services
             try
             {
                 //Get Material
+                if(materialId == 0)
+                {
+                    throw new UserFriendlyException("PleaseEnterMaterialId");
+                }
                 var material = _materialManager.GetWithDetails(materialId);
                 var materialDetails = ObjectMapper.Map<MaterialDetailDto>(material);
+                var products = ObjectMapper.Map<List<ProductOfMaterialDto>>(_productManager.GetProductsFromMaterial(materialId).ToList());
 
                 //Get warehouse materials
-                var warehouseMaterials = _warehouseMaterialManager.GetAllWithIncluding("OutputRequestMaterilas,Warehouse,Unit").Where(x => x.MaterialId.Equals(materialId)).ToList();
+                var warehouseMaterials = _warehouseMaterialManager.GetAllWithIncluding("Warehouse,Unit").Where(x => x.MaterialId.Equals(materialId)).ToList();
 
-                materialDetails.WarehouseMaterials = ObjectMapper.Map<IList<WarehouseMaterialDto>>(warehouseMaterials);
+                foreach (var warehouseMaterial in warehouseMaterials)
+                {
+                    var outputRequests = _outputRequestManager.GetAllWithIncluding("OutputRequestMaterials").Where(x => x.OutputRequestMaterials.Any(y => y.WarehouseMaterialId == warehouseMaterial.Id)).ToList();
+
+                    var warehouseMaterialDto = ObjectMapper.Map<WarehouseMaterialDto>(warehouseMaterial);
+
+                    foreach (var outputRequest in outputRequests)
+                    {
+                        foreach (var OutputRequestMaterial in outputRequest.OutputRequestMaterials)
+                        {
+                            if (OutputRequestMaterial.WarehouseMaterialId == warehouseMaterial.Id)
+                            {
+                                warehouseMaterialDto.outputRequests
+                                    .Add(new OutputRequestForWarehouseMaterialDto() { Id = outputRequest.Id, Title = outputRequest.Title, OutputDate = outputRequest.OutputDate.ToString(), Quantity = OutputRequestMaterial.Quantity });
+                            }
+                        }
+
+                    }                 
+                    materialDetails.WarehouseMaterials.Add(warehouseMaterialDto);
+                }
+               
+                materialDetails.RelatedProducts = products;
 
                 return materialDetails;
             }
@@ -56,9 +90,14 @@ namespace Souccar.Hcpc.Materials.Services
             {
                 throw new UserFriendlyException(ex.Message);
             }
-           
+
 
         }
+
+
+
+
+
 
 
     }
