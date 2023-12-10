@@ -3,6 +3,7 @@ using Abp.Domain.Entities;
 using Souccar.Hcpc.Plans;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections.Generic;
+using Souccar.Hcpc.Warehouses;
 
 namespace Souccar.Hcpc.DailyProductions
 {
@@ -18,6 +19,12 @@ namespace Souccar.Hcpc.DailyProductions
         [ForeignKey("PlanId")]
         public virtual Plan Plan { get; set; }
         public int? PlanId { get; set; }
+        #endregion
+
+        #region Output request
+        [ForeignKey("OutputRequestId")]
+        public virtual OutputRequest OutputRequest { get; set; }
+        public int? OutputRequestId { get; set; }
         #endregion
 
         #region Details

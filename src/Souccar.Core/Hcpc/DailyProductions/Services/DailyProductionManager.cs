@@ -27,7 +27,6 @@ namespace Souccar.Hcpc.DailyProductions.Services
             return dailyProductions;
         }
 
-
         public DailyProduction GetWithDetails(int id)
         {
             var dailyProduction = _dailyProductionRepository.GetAllIncluding().Include(x => x.DailyProductionDetails).ThenInclude(p => p.Product)

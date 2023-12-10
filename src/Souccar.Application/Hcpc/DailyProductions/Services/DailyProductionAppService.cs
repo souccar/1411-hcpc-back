@@ -44,6 +44,7 @@ namespace Souccar.Hcpc.DailyProductions.Services
 
         public override async Task<DailyProductionDto> CreateAsync(CreateDailyProductionDto input)
         {
+            //output request id that status is in prodution
             var createdDailyProductionDto = await base.CreateAsync(input);
 
             var id= new EntityDto<int>(createdDailyProductionDto.Id);
@@ -70,5 +71,6 @@ namespace Souccar.Hcpc.DailyProductions.Services
 
             return result;
         }
+
     }
 }

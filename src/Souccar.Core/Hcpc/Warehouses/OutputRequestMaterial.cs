@@ -23,5 +23,12 @@ namespace Souccar.Hcpc.Warehouses
         [ForeignKey("WarehouseMaterialId")]
         public virtual WarehouseMaterial WarehouseMaterial { get; set; }
         #endregion
+
+        #region OutputRequest
+        public int? OutputRequestId { get; set; }
+
+        [ForeignKey("OutputRequestId")]
+        public virtual OutputRequest OutputRequest { get; set; }
+        #endregion
     }
 }
