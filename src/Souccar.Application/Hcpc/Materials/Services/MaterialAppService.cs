@@ -4,6 +4,8 @@ using AutoMapper;
 using Souccar.Core.Services;
 using Souccar.Hcpc.Materials.Dto;
 using Souccar.Hcpc.Materials.Dto.MaterialDetailsDtos;
+using Souccar.Hcpc.Products.Dto.Products;
+using Souccar.Hcpc.Products.Services;
 using Souccar.Hcpc.Warehouses;
 using Souccar.Hcpc.Warehouses.Services.OutputRequestServices;
 using Souccar.Hcpc.Warehouses.Services.WarehouseServices;
@@ -20,12 +22,14 @@ namespace Souccar.Hcpc.Materials.Services
     {
         private readonly IMaterialManager _materialManager;
         private readonly IWarehouseMaterialManager _warehouseMaterialManager;
+        private readonly IProductManager _productManager;
         private readonly IOutputRequestManager _outputRequestManager;
 
-        public MaterialAppService(IMaterialManager materialDomainService, IWarehouseMaterialManager warehouseMaterialManager, IOutputRequestManager outputRequestManager) : base(materialDomainService)
+        public MaterialAppService(IMaterialManager materialDomainService, IWarehouseMaterialManager warehouseMaterialManager, IOutputRequestManager outputRequestManager, IProductManager productManager) : base(materialDomainService)
         {
             _materialManager = materialDomainService;
             _warehouseMaterialManager = warehouseMaterialManager;
+            _productManager = productManager;
             _outputRequestManager = outputRequestManager;
         }
         public IList<MaterialNameForDropdownDto> GetNameForDropdown()
@@ -46,8 +50,13 @@ namespace Souccar.Hcpc.Materials.Services
             try
             {
                 //Get Material
+                if(materialId == 0)
+                {
+                    throw new UserFriendlyException("PleaseEnterMaterialId");
+                }
                 var material = _materialManager.GetWithDetails(materialId);
                 var materialDetails = ObjectMapper.Map<MaterialDetailDto>(material);
+                var products = ObjectMapper.Map<List<ProductOfMaterialDto>>(_productManager.GetProductsFromMaterial(materialId).ToList());
 
                 //Get warehouse materials
                 var warehouseMaterials = _warehouseMaterialManager.GetAllWithIncluding("Warehouse,Unit").Where(x => x.MaterialId.Equals(materialId)).ToList();
@@ -69,10 +78,11 @@ namespace Souccar.Hcpc.Materials.Services
                             }
                         }
 
-                    }
-
+                    }                 
                     materialDetails.WarehouseMaterials.Add(warehouseMaterialDto);
                 }
+               
+                materialDetails.RelatedProducts = products;
 
                 return materialDetails;
             }

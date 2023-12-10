@@ -8,6 +8,7 @@ namespace Souccar.Hcpc.Products.Map
         public ProductMapProfile()
         {
             CreateMap<Product, ProductDto>();
+            CreateMap<Product, ProductOfMaterialDto>();
             CreateMap<Product, ReadProductDto>();
             CreateMap<CreateProductDto, Product>();
             CreateMap<UpdateProductDto, Product>();
