@@ -23,7 +23,7 @@ namespace Souccar.Hcpc.Warehouses.Services.OutputRequestServices
 
         public OutputRequest GetOutputRequestWithDetails(int id)
         {
-            var outputRequest = _outputRequestRepository.GetAllIncluding(x => x.Plan)
+            var outputRequest = _outputRequestRepository.GetAllIncluding(x => x.Plan).Include(x=>x.OutputRequestProducts).ThenInclude(y=>y.Product)
                 .Include(x => x.OutputRequestMaterials).ThenInclude(y => y.WarehouseMaterial)
                 .FirstOrDefault(x=>x.Id== id);
 
@@ -50,7 +50,7 @@ namespace Souccar.Hcpc.Warehouses.Services.OutputRequestServices
 
         public IQueryable<OutputRequest> GetPlanOutputRequests(int planId)
         {
-          return GetAllWithIncluding("Plan,OutputRequestProducts").Where(x=>x.PlanId== planId);
+            return GetAllWithIncluding("Plan,OutputRequestProducts").Where(x=>x.PlanId== planId);
         }
     }
 }

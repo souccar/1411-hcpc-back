@@ -53,6 +53,10 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
             return ObjectMapper.Map<OutputRequestDto>(outputRequestWithDetails);
         }
 
+        public override Task<PagedResultDto<OutputRequestDto>> GetAllAsync(PagedOutputRequestDto input)
+        {
+            return base.GetAllAsync(input);
+        }
         public IList<OutputRequestDto> GetPlanOutputRequests(int planId)
         {
            
