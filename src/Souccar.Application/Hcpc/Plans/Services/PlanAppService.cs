@@ -154,17 +154,17 @@ namespace Souccar.Hcpc.Plans.Services
 
                 //////////
 
-                double allBookingQuantities = 0;
+                double allReservedQuantities = 0;
 
                 foreach (var previousActualPlan in previousActualPlans)
                 {
                     if (previousActualPlan.PlanMaterials.Any())
                     {
-                        allBookingQuantities += previousActualPlan.PlanMaterials.Where(x => x.MaterialId == materialId).FirstOrDefault().TotalQuantity;
+                        allReservedQuantities += previousActualPlan.PlanMaterials.Where(x => x.MaterialId == materialId).FirstOrDefault().TotalQuantity;
                     }
                 }
 
-                var stockWithoutBooking = stock != null ? stock.Sum(x => x.CurrentQuantity) - allBookingQuantities : 0;
+                var stockWithoutReserved = stock != null ? stock.Sum(x => x.CurrentQuantity) - allReservedQuantities : 0;
 
                 //////////
 
@@ -176,8 +176,9 @@ namespace Souccar.Hcpc.Plans.Services
                         UnitId = stock.FirstOrDefault().UnitId,
                         Unit = ObjectMapper.Map<UnitDto>(stock.FirstOrDefault().Unit),
                         TotalQuantity = totalQuantityAfterTranfer,
-                        InventoryQuantity = stockWithoutBooking < 0 ? 0 : stockWithoutBooking, ///////
+                        InventoryQuantity = stockWithoutReserved < 0 ? 0 : stockWithoutReserved, ///////
                         Material = material,
+                        ReservedQuantities = allReservedQuantities
                     };
 
                     rate = planMaterial.TotalQuantity != 0 ? (planMaterial.InventoryQuantity / planMaterial.TotalQuantity) : 0;                    
