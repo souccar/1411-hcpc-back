@@ -4,6 +4,7 @@ using Abp.Events.Bus;
 using Abp.UI;
 using Microsoft.EntityFrameworkCore;
 using Souccar.Core.Services.Implements;
+using Souccar.Hcpc.Plans;
 using Souccar.Hcpc.Warehouses.Events;
 using System;
 using System.Linq;
@@ -45,6 +46,11 @@ namespace Souccar.Hcpc.Warehouses.Services.OutputRequestServices
             }
 
             return await _outputRequestRepository.UpdateAsync(outputRequest);
+        }
+
+        public IQueryable<OutputRequest> GetPlanOutputRequests(int planId)
+        {
+          return GetAllWithIncluding("Plan,OutputRequestProducts").Where(x=>x.PlanId== planId);
         }
     }
 }

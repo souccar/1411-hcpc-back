@@ -9,6 +9,7 @@ using Souccar.Hcpc.Warehouses.Events;
 using Souccar.Hcpc.Warehouses.Services.OutputRequestServices;
 using Souccar.Hcpc.WarehousesApp.OutputRequests.Dto;
 using Souccar.Notification;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
@@ -51,5 +52,12 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
 
             return ObjectMapper.Map<OutputRequestDto>(outputRequestWithDetails);
         }
+
+        public IList<OutputRequestDto> GetPlanOutputRequests(int planId)
+        {
+           
+            return ObjectMapper.Map<List<OutputRequestDto>>(_outputRequestManager.GetPlanOutputRequests(planId)); ;
+        }
+
     }
-    }
+}

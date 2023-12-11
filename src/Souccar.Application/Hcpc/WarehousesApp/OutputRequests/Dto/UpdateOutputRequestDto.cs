@@ -11,7 +11,7 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Dto
         public UpdateOutputRequestDto()
         {
             OutputRequestMaterials = new List<UpdateOutputRequestMaterialDto>();
-            Products = new List<OutputRequestProductDto>();
+            Products = new List<UpdateOutputRequestProductDto>();
         }
 
         public int Id { get; set; }
@@ -19,7 +19,7 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Dto
         public int? PlanId { get; set; }
 
         public List<UpdateOutputRequestMaterialDto> OutputRequestMaterials { get; set; }
-        public List<OutputRequestProductDto> Products { get; set; }
+        public List<UpdateOutputRequestProductDto> Products { get; set; }
 
     }
 }

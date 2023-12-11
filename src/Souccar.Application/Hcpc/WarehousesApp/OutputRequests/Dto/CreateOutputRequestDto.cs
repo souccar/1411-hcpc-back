@@ -10,13 +10,13 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Dto
         public CreateOutputRequestDto()
         {
             OutputRequestMaterials = new List<CreateOutputRequestMaterialDto>();
-            Products = new List<OutputRequestProductDto>();
+            Products = new List<CreateOutputRequestProductDto>();
         }
 
         public string Title { get; set; }
         public int? PlanId { get; set; }
 
         public List<CreateOutputRequestMaterialDto> OutputRequestMaterials { get; set; }
-        public List<OutputRequestProductDto> Products { get; set; }
+        public List<CreateOutputRequestProductDto> Products { get; set; }
     }
 }
