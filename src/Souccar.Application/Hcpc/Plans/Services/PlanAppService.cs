@@ -22,16 +22,19 @@ namespace Souccar.Hcpc.Plans.Services
     {
         private readonly IPlanManager _planManager;
         private readonly IPlanProductManager _planProductManager;
-        private readonly IProductManager _productManager;
         private readonly IFormulaManager _formulaManager;
         private readonly IWarehouseMaterialManager _warehouseMaterialManager;
         private readonly IDailyProductionManager _dailyProductionManager;
         private readonly ITransferManager _transferManager;
-        public PlanAppService(IFormulaManager formulaManager, IWarehouseMaterialManager warehouseMaterialManager, IProductManager productManager, IPlanManager planManager, IDailyProductionManager dailyProductionManager, IPlanProductManager planProductManager, ITransferManager transferManager) : base(planManager)
+        public PlanAppService(IFormulaManager formulaManager,
+            IWarehouseMaterialManager warehouseMaterialManager,
+            IPlanManager planManager,
+            IDailyProductionManager dailyProductionManager,
+            IPlanProductManager planProductManager,
+            ITransferManager transferManager) : base(planManager)
         {
             _formulaManager = formulaManager;
             _warehouseMaterialManager = warehouseMaterialManager;
-            _productManager = productManager;
             _planManager = planManager;
             _dailyProductionManager = dailyProductionManager;
             _planProductManager = planProductManager;
@@ -54,7 +57,7 @@ namespace Souccar.Hcpc.Plans.Services
         {
             var insertedPlanDto = await base.CreateAsync(input);
 
-            return InitPlanDetails(insertedPlanDto);
+            return InitCreatePlanDetails(insertedPlanDto);
 
         }
 
@@ -100,6 +103,7 @@ namespace Souccar.Hcpc.Plans.Services
             return MapToEntityDto(UpdatedPlan);
         }
 
+
         #region Helper Methods
         private PlanDto InitPlanDetails(PlanDto planDto)
         {
@@ -137,7 +141,8 @@ namespace Souccar.Hcpc.Plans.Services
             var planProductMaterials = planDto.PlanProducts.SelectMany(x => x.PlanProductMaterials);
             var materialIds = planProductMaterials.Select(x => x.MaterialId).Distinct();
             var materials = planDto.PlanProducts.Select(x => x.Product).SelectMany(x => x.Formulas).Select(x => x.Material);
-            
+            var previousActualPlans = GetActualPlans().Where(x=>x.Id < planDto.Id); /////
+
             foreach (var materialId in materialIds)
             {
                 double rate = 0;
@@ -147,6 +152,22 @@ namespace Souccar.Hcpc.Plans.Services
                 var totalQuantity = items.Sum(x => x.RequiredQuantity);
                 var totalQuantityAfterTranfer = AsyncHelper.RunSync(()=> _transferManager.ConvertTo(items.FirstOrDefault().UnitId, stock.FirstOrDefault().UnitId, totalQuantity));
 
+                //////////
+
+                double allBookingQuantities = 0;
+
+                foreach (var previousActualPlan in previousActualPlans)
+                {
+                    if (previousActualPlan.PlanMaterials.Any())
+                    {
+                        allBookingQuantities += previousActualPlan.PlanMaterials.Where(x => x.MaterialId == materialId).FirstOrDefault().TotalQuantity;
+                    }
+                }
+
+                var stockWithoutBooking = stock != null ? stock.Sum(x => x.CurrentQuantity) - allBookingQuantities : 0;
+
+                //////////
+
                 if (items.Any())
                 {
                     var planMaterial = new PlanMaterialDto()
@@ -155,17 +176,14 @@ namespace Souccar.Hcpc.Plans.Services
                         UnitId = stock.FirstOrDefault().UnitId,
                         Unit = ObjectMapper.Map<UnitDto>(stock.FirstOrDefault().Unit),
                         TotalQuantity = totalQuantityAfterTranfer,
-                        InventoryQuantity = stock != null ? stock.Sum(x=>x.CurrentQuantity) : 0,
+                        InventoryQuantity = stockWithoutBooking < 0 ? 0 : stockWithoutBooking, ///////
                         Material = material,
-                        //InventoryUnitId = stock.FirstOrDefault().UnitId,
-                        //InventoryUnit = ObjectMapper.Map<UnitDto>(stock.FirstOrDefault().Unit),
                     };
 
                     rate = planMaterial.TotalQuantity != 0 ? (planMaterial.InventoryQuantity / planMaterial.TotalQuantity) : 0;                    
                     
                     planDto.PlanMaterials.Add(planMaterial);
                 }
-                //var plm = planProductMaterials.Where(x => x.MaterialId == materialId).ToList();
 
 
                 foreach (var planProductMaterial in items)
@@ -187,13 +205,9 @@ namespace Souccar.Hcpc.Plans.Services
                         planProductMaterial.CanProduce = pl.NumberOfItems;
                     }
                 }
-
-                
-
             }
             return planDto;
         }
-
         private IList<ProductCostDto> GetProductsCostForPlan(int planId)
         {
             IList<ProductCostDto> productsCost = new List<ProductCostDto>();
@@ -220,7 +234,6 @@ namespace Souccar.Hcpc.Plans.Services
 
             return productsCost;
         }
-
         private PlanDto UpdatePlan(UpdatePlanDto data)
         {
             var plan = _planManager.GetWithDetails(data.Id);
@@ -242,9 +255,318 @@ namespace Souccar.Hcpc.Plans.Services
 
             var dto = ObjectMapper.Map<PlanDto>(update);
 
-            return InitPlanDetails(dto);
+            return InitUpdatePlanDetails(dto);
         }
-        
+
+        /////
+        private PlanDto InitCreatePlanDetails(PlanDto planDto)
+        {
+            //If there is no plan
+            if (planDto.Id == 0)
+                return new PlanDto();
+
+            var formulas = _formulaManager.GetAllWithIncluding("Unit,Material");
+            var warehouseMaterials = _warehouseMaterialManager.GetAllWithIncluding("Unit,Material");
+            var TotalProduction = _dailyProductionManager.GetAllProductionsCountForPlan(planDto.Id);
+            var costs = GetProductsCostForPlan(planDto.Id);
+
+            foreach (var planProduct in planDto.PlanProducts)
+            {
+                var productCost = costs.Where(x => x.ProductId == planProduct.ProductId).FirstOrDefault();
+                var productFormula = formulas.Where(x => x.ProductId == planProduct.ProductId);
+                foreach (var formula in productFormula)
+                {
+                    var planProductMaterial = new PlanProductMaterialDto()
+                    {
+                        MaterialId = formula.MaterialId,
+                        UnitId = formula.UnitId,
+                        RequiredQuantity = planProduct.NumberOfItems * formula.Quantity,
+                        PlanProductId = planProduct.Id
+                    };
+                    planProduct.PlanProductMaterials.Add(planProductMaterial);
+                }
+
+                planProduct.TotalProduction = TotalProduction[(int)planProduct.ProductId];
+
+                planProduct.ItemCost = productCost.CostOfProduction;
+
+            }
+
+            var planProductMaterials = planDto.PlanProducts.SelectMany(x => x.PlanProductMaterials);
+            var materialIds = planProductMaterials.Select(x => x.MaterialId).Distinct();
+            var materials = planDto.PlanProducts.Select(x => x.Product).SelectMany(x => x.Formulas).Select(x => x.Material);
+            var previousActualPlans = GetActualPlans(); /////
+
+            foreach (var materialId in materialIds)
+            {
+                double rate = 0;
+                var items = planProductMaterials.Where(x => x.MaterialId == materialId).ToList();
+                var material = materials.FirstOrDefault(x => x.Id == materialId);
+                var stock = warehouseMaterials.Where(x => x.MaterialId == materialId && x.CurrentQuantity != 0).ToList();
+                var totalQuantity = items.Sum(x => x.RequiredQuantity);
+                var totalQuantityAfterTranfer = AsyncHelper.RunSync(() => _transferManager.ConvertTo(items.FirstOrDefault().UnitId, stock.FirstOrDefault().UnitId, totalQuantity));
+
+                //////////
+
+                double allBookingQuantities = 0;
+
+                foreach (var previousActualPlan in previousActualPlans)
+                {
+                    if (previousActualPlan.PlanMaterials.Any())
+                    {
+                        allBookingQuantities += previousActualPlan.PlanMaterials.Where(x => x.MaterialId == materialId).FirstOrDefault().TotalQuantity;
+                    }
+                }
+
+                var stockWithoutBooking = stock != null ? stock.Sum(x => x.CurrentQuantity) - allBookingQuantities : 0;
+
+                //////////
+
+                if (items.Any())
+                {
+                    var planMaterial = new PlanMaterialDto()
+                    {
+                        MaterialId = materialId,
+                        UnitId = stock.FirstOrDefault().UnitId,
+                        Unit = ObjectMapper.Map<UnitDto>(stock.FirstOrDefault().Unit),
+                        TotalQuantity = totalQuantityAfterTranfer,
+                        InventoryQuantity = stockWithoutBooking < 0 ? 0 : stockWithoutBooking, ///////
+                        Material = material,
+                        //InventoryUnitId = stock.FirstOrDefault().UnitId,
+                        //InventoryUnit = ObjectMapper.Map<UnitDto>(stock.FirstOrDefault().Unit),
+                    };
+
+                    rate = planMaterial.TotalQuantity != 0 ? (planMaterial.InventoryQuantity / planMaterial.TotalQuantity) : 0;
+
+                    planDto.PlanMaterials.Add(planMaterial);
+                }
+                //var plm = planProductMaterials.Where(x => x.MaterialId == materialId).ToList();
+
+
+                foreach (var planProductMaterial in items)
+                {
+                    var pl = planDto.PlanProducts
+                        .FirstOrDefault(x => x.PlanProductMaterials.Any(f => f.MaterialId == materialId) && x.Id == planProductMaterial.PlanProductId);
+
+                    if (rate < 1)
+                    {
+                        var tempCount = (int)(pl.NumberOfItems * rate);
+
+                        if ((planProductMaterial.CanProduce != 0 && planProductMaterial.CanProduce > tempCount) || planProductMaterial.CanProduce == 0)
+                        {
+                            planProductMaterial.CanProduce = tempCount;
+                        }
+                    }
+                    else
+                    {
+                        planProductMaterial.CanProduce = pl.NumberOfItems;
+                    }
+                }
+            }
+            return planDto;
+        }
+
+        private PlanDto InitUpdatePlanDetails(PlanDto planDto)
+        {
+            //If there is no plan
+            if (planDto.Id == 0)
+                return new PlanDto();
+
+            var formulas = _formulaManager.GetAllWithIncluding("Unit,Material");
+            var warehouseMaterials = _warehouseMaterialManager.GetAllWithIncluding("Unit,Material");
+            var TotalProduction = _dailyProductionManager.GetAllProductionsCountForPlan(planDto.Id);
+            var costs = GetProductsCostForPlan(planDto.Id);
+
+            foreach (var planProduct in planDto.PlanProducts)
+            {
+                var productCost = costs.Where(x => x.ProductId == planProduct.ProductId).FirstOrDefault();
+                var productFormula = formulas.Where(x => x.ProductId == planProduct.ProductId);
+                foreach (var formula in productFormula)
+                {
+                    var planProductMaterial = new PlanProductMaterialDto()
+                    {
+                        MaterialId = formula.MaterialId,
+                        UnitId = formula.UnitId,
+                        RequiredQuantity = planProduct.NumberOfItems * formula.Quantity,
+                        PlanProductId = planProduct.Id
+                    };
+                    planProduct.PlanProductMaterials.Add(planProductMaterial);
+                }
+
+                planProduct.TotalProduction = TotalProduction[(int)planProduct.ProductId];
+
+                planProduct.ItemCost = productCost.CostOfProduction;
+
+            }
+
+            var planProductMaterials = planDto.PlanProducts.SelectMany(x => x.PlanProductMaterials);
+            var materialIds = planProductMaterials.Select(x => x.MaterialId).Distinct();
+            var materials = planDto.PlanProducts.Select(x => x.Product).SelectMany(x => x.Formulas).Select(x => x.Material);
+            var previousActualPlans = GetActualPlans().Where(x => x.Id != planDto.Id); /////
+
+            foreach (var materialId in materialIds)
+            {
+                double rate = 0;
+                var items = planProductMaterials.Where(x => x.MaterialId == materialId).ToList();
+                var material = materials.FirstOrDefault(x => x.Id == materialId);
+                var stock = warehouseMaterials.Where(x => x.MaterialId == materialId && x.CurrentQuantity != 0).ToList();
+                var totalQuantity = items.Sum(x => x.RequiredQuantity);
+                var totalQuantityAfterTranfer = AsyncHelper.RunSync(() => _transferManager.ConvertTo(items.FirstOrDefault().UnitId, stock.FirstOrDefault().UnitId, totalQuantity));
+
+                //////////
+
+                double allBookingQuantities = 0;
+
+                foreach (var previousActualPlan in previousActualPlans)
+                {
+                    if (previousActualPlan.PlanMaterials.Any())
+                    {
+                        allBookingQuantities += previousActualPlan.PlanMaterials.Where(x => x.MaterialId == materialId).FirstOrDefault().TotalQuantity;
+                    }
+                }
+
+                var stockWithoutBooking = stock != null ? stock.Sum(x => x.CurrentQuantity) - allBookingQuantities : 0;
+
+                //////////
+
+                if (items.Any())
+                {
+                    var planMaterial = new PlanMaterialDto()
+                    {
+                        MaterialId = materialId,
+                        UnitId = stock.FirstOrDefault().UnitId,
+                        Unit = ObjectMapper.Map<UnitDto>(stock.FirstOrDefault().Unit),
+                        TotalQuantity = totalQuantityAfterTranfer,
+                        InventoryQuantity = stockWithoutBooking < 0 ? 0 : stockWithoutBooking, ///////
+                        Material = material,
+                        //InventoryUnitId = stock.FirstOrDefault().UnitId,
+                        //InventoryUnit = ObjectMapper.Map<UnitDto>(stock.FirstOrDefault().Unit),
+                    };
+
+                    rate = planMaterial.TotalQuantity != 0 ? (planMaterial.InventoryQuantity / planMaterial.TotalQuantity) : 0;
+
+                    planDto.PlanMaterials.Add(planMaterial);
+                }
+                //var plm = planProductMaterials.Where(x => x.MaterialId == materialId).ToList();
+
+
+                foreach (var planProductMaterial in items)
+                {
+                    var pl = planDto.PlanProducts
+                        .FirstOrDefault(x => x.PlanProductMaterials.Any(f => f.MaterialId == materialId) && x.Id == planProductMaterial.PlanProductId);
+
+                    if (rate < 1)
+                    {
+                        var tempCount = (int)(pl.NumberOfItems * rate);
+
+                        if ((planProductMaterial.CanProduce != 0 && planProductMaterial.CanProduce > tempCount) || planProductMaterial.CanProduce == 0)
+                        {
+                            planProductMaterial.CanProduce = tempCount;
+                        }
+                    }
+                    else
+                    {
+                        planProductMaterial.CanProduce = pl.NumberOfItems;
+                    }
+                }
+            }
+            return planDto;
+        }
+
+        private IList<PlanDto> GetActualPlans()
+        {
+            IList<PlanDto> planDtos = new List<PlanDto>();
+            var actualPlans = _planManager.GetActualPlans();
+            var actualPlansDtos = ObjectMapper.Map<IList<PlanDto>>(actualPlans);
+            foreach (var actualPlansDto in actualPlansDtos)
+            {
+                var formulas = _formulaManager.GetAllWithIncluding("Unit,Material");
+                var warehouseMaterials = _warehouseMaterialManager.GetAllWithIncluding("Unit,Material");
+                var TotalProduction = _dailyProductionManager.GetAllProductionsCountForPlan(actualPlansDto.Id);
+                var costs = GetProductsCostForPlan(actualPlansDto.Id);
+
+                foreach (var planProduct in actualPlansDto.PlanProducts)
+                {
+                    var productCost = costs.Where(x => x.ProductId == planProduct.ProductId).FirstOrDefault();
+                    var productFormula = formulas.Where(x => x.ProductId == planProduct.ProductId);
+                    foreach (var formula in productFormula)
+                    {
+                        var planProductMaterial = new PlanProductMaterialDto()
+                        {
+                            MaterialId = formula.MaterialId,
+                            UnitId = formula.UnitId,
+                            RequiredQuantity = planProduct.NumberOfItems * formula.Quantity,
+                            PlanProductId = planProduct.Id
+                        };
+                        planProduct.PlanProductMaterials.Add(planProductMaterial);
+                    }
+
+                    planProduct.TotalProduction = TotalProduction[(int)planProduct.ProductId];
+
+                    planProduct.ItemCost = productCost.CostOfProduction;
+
+                }
+
+                var planProductMaterials = actualPlansDto.PlanProducts.SelectMany(x => x.PlanProductMaterials);
+                var materialIds = planProductMaterials.Select(x => x.MaterialId).Distinct();
+                var materials = actualPlansDto.PlanProducts.Select(x => x.Product).SelectMany(x => x.Formulas).Select(x => x.Material);
+
+                foreach (var materialId in materialIds)
+                {
+                    double rate = 0;
+                    var items = planProductMaterials.Where(x => x.MaterialId == materialId).ToList();
+                    var material = materials.FirstOrDefault(x => x.Id == materialId);
+                    var stock = warehouseMaterials.Where(x => x.MaterialId == materialId && x.CurrentQuantity != 0).ToList();
+                    var totalQuantity = items.Sum(x => x.RequiredQuantity);
+                    var totalQuantityAfterTranfer = AsyncHelper.RunSync(() => _transferManager.ConvertTo(items.FirstOrDefault().UnitId, stock.FirstOrDefault().UnitId, totalQuantity));
+
+                    if (items.Any())
+                    {
+                        var planMaterial = new PlanMaterialDto()
+                        {
+                            MaterialId = materialId,
+                            UnitId = stock.FirstOrDefault().UnitId,
+                            Unit = ObjectMapper.Map<UnitDto>(stock.FirstOrDefault().Unit),
+                            TotalQuantity = totalQuantityAfterTranfer,
+                            InventoryQuantity = stock != null ? stock.Sum(x => x.CurrentQuantity) : 0,
+                            Material = material,
+                            //InventoryUnitId = stock.FirstOrDefault().UnitId,
+                            //InventoryUnit = ObjectMapper.Map<UnitDto>(stock.FirstOrDefault().Unit),
+                        };
+
+                        rate = planMaterial.TotalQuantity != 0 ? (planMaterial.InventoryQuantity / planMaterial.TotalQuantity) : 0;
+
+                        actualPlansDto.PlanMaterials.Add(planMaterial);
+                    }
+                    //var plm = planProductMaterials.Where(x => x.MaterialId == materialId).ToList();
+
+
+                    foreach (var planProductMaterial in items)
+                    {
+                        var pl = actualPlansDto.PlanProducts
+                            .FirstOrDefault(x => x.PlanProductMaterials.Any(f => f.MaterialId == materialId) && x.Id == planProductMaterial.PlanProductId);
+
+                        if (rate < 1)
+                        {
+                            var tempCount = (int)(pl.NumberOfItems * rate);
+
+                            if ((planProductMaterial.CanProduce != 0 && planProductMaterial.CanProduce > tempCount) || planProductMaterial.CanProduce == 0)
+                            {
+                                planProductMaterial.CanProduce = tempCount;
+                            }
+                        }
+                        else
+                        {
+                            planProductMaterial.CanProduce = pl.NumberOfItems;
+                        }
+                    }
+                }
+            }
+            return actualPlansDtos;
+        }
+
+        /////
+
         #endregion
     }
 }
