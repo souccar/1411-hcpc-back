@@ -121,7 +121,10 @@ namespace Souccar.Hcpc.Plans.Services
 
         public IList<Plan> GetActualPlans()
         {
-            var actualPlans = _planRepository.GetAll().Where(x => x.Status == PlanStatus.Actual).ToList();
+            var actualPlans = _planRepository.GetAllIncluding()
+                .Include(x => x.PlanProducts).ThenInclude(p => p.Product).ThenInclude(f => f.Formulas).ThenInclude(u => u.Unit)
+                .Include(x => x.PlanProducts).ThenInclude(p => p.Product).ThenInclude(f => f.Formulas).ThenInclude(m => m.Material)
+                .Where(x => x.Status == PlanStatus.Actual).ToList();
             return actualPlans;
         }
     }
