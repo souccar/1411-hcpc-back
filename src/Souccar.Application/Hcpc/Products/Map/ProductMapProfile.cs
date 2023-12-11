@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Souccar.Hcpc.Products.Dto.Products;
+using Souccar.Hcpc.Products.Dto.Products.OutputRequestProductDtos;
 
 namespace Souccar.Hcpc.Products.Map
 {
@@ -8,6 +9,8 @@ namespace Souccar.Hcpc.Products.Map
         public ProductMapProfile()
         {
             CreateMap<Product, ProductDto>();
+            CreateMap<Product, OutputRequestProductDto>();
+            CreateMap<OutputRequestProductDto, Product>();
             CreateMap<Product, ProductOfMaterialDto>();
             CreateMap<Product, ReadProductDto>();
             CreateMap<CreateProductDto, Product>();

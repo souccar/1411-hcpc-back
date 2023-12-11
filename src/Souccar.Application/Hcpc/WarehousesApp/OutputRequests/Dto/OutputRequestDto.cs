@@ -1,5 +1,6 @@
 ﻿using Abp.Application.Services.Dto;
 using Souccar.Hcpc.Plans.Dto.Plans;
+using Souccar.Hcpc.Products.Dto.Products;
 using Souccar.Hcpc.WarehousesApp.OutputRequests.Dto.OutputRequestMaterialDtos;
 using System.Collections.Generic;
 
@@ -10,6 +11,7 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Dto
         public OutputRequestDto()
         {
             OutputRequestMaterials = new List<OutputRequestMaterialDto>();
+            Products = new List<ProductDto>();
         }
 
         public int Id { get; set; }
@@ -20,6 +22,7 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Dto
         public PlanNameDto Plan { get; set; }
 
         public List<OutputRequestMaterialDto> OutputRequestMaterials { get; set; }
+        public List<ProductDto> Products { get; set; }
 
     }
 }
