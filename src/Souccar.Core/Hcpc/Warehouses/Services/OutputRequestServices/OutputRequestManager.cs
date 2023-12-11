@@ -7,6 +7,7 @@ using Souccar.Core.Services.Implements;
 using Souccar.Hcpc.Plans;
 using Souccar.Hcpc.Warehouses.Events;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -52,5 +53,12 @@ namespace Souccar.Hcpc.Warehouses.Services.OutputRequestServices
         {
             return GetAllWithIncluding("Plan,OutputRequestProducts").Where(x=>x.PlanId== planId);
         }
+
+        public List<OutputRequest> GetAllIncluding()
+        {
+            var putputRequests = _outputRequestRepository.GetAllIncluding().Include(x => x.OutputRequestProducts).ThenInclude(p => p.Product).ToList();
+            return putputRequests;
+        }
+
     }
 }
