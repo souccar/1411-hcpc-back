@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<localizationDictionary culture="en">
+<localizationDictionary culture="ar">
 	<texts>
 		<text name="HomePage" value="Home page" />
 		<text name="About" value="About" />
@@ -118,90 +118,90 @@
 		<text name="ResetPasswordStepTwoInfo">2. Copy this random password so you can send it to the user</text>
 		<text name="UsersActivation">Users activation</text>
 		<text name="The{0}MaterialWillExpireOn{1}" value="The {0} material will expire on {1}"></text>
-		<text name="Description" value="Description"></text>
-		<text name="Suppliers" value="Suppliers"></text>
-		<text name="AddSupplier" value="Add Supplier"></text>
-		<text name="leadTime" value="lead Time"></text>
-		<text name="Quantity" value="Quantity"></text>
-		<text name="Code" value="Code"></text>
-		<text name="ExpirationDate" value="Expiration Date"></text>
-		<text name="OutputRequest" value="Output Request"></text>
-		<text name="Supplier" value="Supplier"></text>
-		<text name="NewProduct" value="New Product"></text>
-		<text name="TotalQuantity" value="Total Quantity"></text>
-		<text name="Price" value="Price"></text>
-		<text name="Action" value="Action"></text>
-		<text name="From" value="From"></text>
-		<text name="To" value="To"></text>
-		<text name="Value" value="Value"></text>
-		<text name="ExpiryDurationNotify" value="Expiry Duration Notify"></text>
-		<text name="Stock" value="Stock"></text>
-		<text name="Material" value="Material"></text>
-		<text name="Warehouse" value="Warehouse"></text>
-		<text name="WarehouseMaterialCode" value="Warehouse Material Code"></text>
-		<text name="Withdrawn" value="Withdrawn"></text>
-		<text name="EntryDate" value="Entry Date"></text>
-		<text name="Unit" value="Unit"></text>
-		<text name="InitialQuantity" value="Initial Quantity"></text>
-		<text name="CurrentQuantity" value="Current Quantity"></text>
-		<text name="PriceUnit" value="Price Unit"></text>
-		<text name="RequiredQuantity" value="Required Quantity"></text>
-		<text name="Place" value="Place"></text>
-		<text name="Storekeeper" value="Storekeeper"></text>
-		<text name="Title" value="Title"></text>
-		<text name="DailyProduction" value="Daily Production"></text>
-		<text name="Duration" value="Duration"></text>
-		<text name="ProductionRatio" value="Production Ratio"></text>
-		<text name="StartDate" value="Start Date"></text>
-		<text name="NumberOfItems" value="Number Of Items"></text>
-		<text name="Plan" value="Plan"></text>
-		<text name="Products" value="Products"></text>
-		<text name="Status" value="Status"></text>
-		<text name="Pending" value="Pending"></text>
-		<text name="CanProduce" value="Can Produce"></text>
-		<text name="DurationInDays" value="Duration In Days"></text>
-		<text name="InProduction" value="In Production"></text>
-		<text name="Inventory" value="Inventory"></text>
-		<text name="Finished" value="Finished"></text>
-		<text name="PlanLogs" value="Plan Logs"></text>
-		<text name="OutputDate" value="Output Date"></text>
-		<text name="LastLogins" value="Last Logins"></text>
-		<text name="NewOutputRequest" value="New Output Request"></text>
-		<text name="NewOutputRequestMaterial" value="New Output Request Material"></text>
-		<text name="OutputRequestMaterial" value="Output Request Material"></text>
-		<text name="EditOutputRequest" value="Edit Output Request"></text>
-		<text name="EditProduct" value="Edit Product"></text>
-		<text name="ExpiryDurationNotifyInDays" value="Expiry Duration Notify In Days"></text>
-		<text name="GeneralSetting" value="General Setting"></text>
-		<text name="AddGeneralSetting" value="Add General Setting"></text>
-		<text name="EditGeneralSetting" value="Edit General Setting"></text>
-		<text name="CreateNewTransfer" value="Create New Transfer"></text>
-		<text name="EditTransfer" value="Edit Transfer"></text>
-		<text name="ViewMoreDetails" value="View More Details"></text>
-		<text name="CreateNewUnit" value="Create New Unit"></text>
-		<text name="EditUnit" value="Edit Unit"></text>
-		<text name="CreateNewMaterial" value="Create New Material"></text>
-		<text name="EditMaterial" value="Edit Material"></text>
-		<text name="CreateNewPlan" value="Create New Plan"></text>
-		<text name="EditPlan" value="Edit Plan"></text>
-		<text name="CreateNewSupplier" value="Create New Supplier"></text>
-		<text name="EditSupplier" value="Edit Supplier"></text>
-		<text name="AddNewWarehouse" value="Add New Warehouse"></text>
-		<text name="EditWarehouse" value="Edit Warehouse"></text>
-		<text name="AddNewItemInWarehouse" value="Add New Item In Warehouse"></text>
-		<text name="EditItemInWarehouse" value="Edit Item In Warehouse"></text>
-		<text name="ThereIsNoPlan,PleaseAddANewPlan" value="There Is No Plan,Please Add A New Plan"></text>
-		<text name="GoToPlanList" value="Go To Plan List"></text>
-		<text name="TotalQuentity" value="Total Quentity"></text>
-		<text name="AddDailyProduction" value="Add Daily Production"></text>
-		<text name="AmountWasted" value="Amount Wasted"></text>
-		<text name="TotalSalesAmount" value="Total Sales Amount"></text>
-		<text name="ProduceCost" value="Produce Cost"></text>
-		<text name="Arbitrage" value="Arbitrage"></text>
-		<text name="Cost" value="Cost"></text>
-		<text name="SellingPrice" value="Selling Price"></text>
-		<text name="AddNew" value="Add New"></text>
-		<text name="OrderBy" value="Order By"></text>
-		<text name="PerPage" value="Per Page"></text>
+		<text name="Description" value="وصف"></text>
+		<text name="Suppliers" value="الموردين"></text>
+		<text name="AddSupplier" value="إضافة مورد"></text>
+		<text name="leadTime" value="مهلة"></text>
+		<text name="Quantity" value="الكمية"></text>
+		<text name="Code" value="رمز"></text>
+		<text name="ExpirationDate" value="تاريخ انتهاء الصلاحية"></text>
+		<text name="OutputRequest" value="طلب الإخراج"></text>
+		<text name="Supplier" value="مورد"></text>
+		<text name="NewProduct" value="منتج جديد"></text>
+		<text name="TotalQuantity" value="الكمية الإجمالية"></text>
+		<text name="Price" value="السعر"></text>
+		<text name="Action" value="العملية"></text>
+		<text name="From" value="من"></text>
+		<text name="To" value="إلى"></text>
+		<text name="Value" value="القيمة"></text>
+		<text name="ExpiryDurationNotify" value="إشعار انتهاء الصلاحية"></text>
+		<text name="Stock" value="المخزون"></text>
+		<text name="Material" value="مادة"></text>
+		<text name="Warehouse" value="مستودع"></text>
+		<text name="WarehouseMaterialCode" value="كود مواد المستودع"></text>
+		<text name="Withdrawn" value="المنسحب"></text>
+		<text name="EntryDate" value="تاريخ الإدخال"></text>
+		<text name="Unit" value="وحدة"></text>
+		<text name="InitialQuantity" value="الكمية الأولية"></text>
+		<text name="CurrentQuantity" value="الكمية الحالية"></text>
+		<text name="PriceUnit" value="واحدة السعر"></text>
+		<text name="RequiredQuantity" value="الكمية المطلوبة"></text>
+		<text name="Place" value="مكان"></text>
+		<text name="Storekeeper" value="امين المخزن"></text>
+		<text name="Title" value="عنوان"></text>
+		<text name="DailyProduction" value="الإنتاج اليومي"></text>
+		<text name="Duration" value="المدة"></text>
+		<text name="ProductionRatio" value="نسبة الإنتاج"></text>
+		<text name="StartDate" value="تاريخ البدء"></text>
+		<text name="NumberOfItems" value="عدد العناصر"></text>
+		<text name="Plan" value="خطة"></text>
+		<text name="Products" value="منتجات"></text>
+		<text name="Status" value="حالة"></text>
+		<text name="Pending" value="قيد الانتظار"></text>
+		<text name="CanProduce" value="يمكن أن تنتج"></text>
+		<text name="DurationInDays" value="المدة بالأيام"></text>
+		<text name="InProduction" value="في الانتاج"></text>
+		<text name="Inventory" value="موجودات المخزون"></text>
+		<text name="Finished" value="انتهى"></text>
+		<text name="PlanLogs" value="سجلات الخطة"></text>
+		<text name="OutputDate" value="تاريخ الإخراج"></text>
+		<text name="LastLogins" value="آخر تسجيلات الدخول"></text>
+		<text name="NewOutputRequest" value="طلب إخراج جديد"></text>
+		<text name="NewOutputRequestMaterial" value=" طلب إخراج مادة جديدة"></text>
+		<text name="OutputRequestMaterial" value="طلب إخراج المواد "></text>
+		<text name="EditOutputRequest" value="تعديل طلب الإخراج"></text>
+		<text name="EditProduct" value="تعديل المنتج"></text>
+		<text name="ExpiryDurationNotifyInDays" value="إشعار مدة انتهاء الصلاحية بالأيام"></text>
+		<text name="GeneralSetting" value="الإعدادات العامة"></text>
+		<text name="AddGeneralSetting" value="إضافة إعدادات جديدة"></text>
+		<text name="EditGeneralSetting" value="تعديل الإعدادات"></text>
+		<text name="CreateNewTransfer" value="إنشاء تحويل جديد"></text>
+		<text name="EditTransfer" value="تعديل التحويل"></text>
+		<text name="ViewMoreDetails" value="عرض المزيد من التفاصيل"></text>
+		<text name="CreateNewUnit" value="إنشاء وحدة جديدة"></text>
+		<text name="EditUnit" value="تعديل الوحدة"></text>
+		<text name="CreateNewMaterial" value="إنشاء مادة جديدة"></text>
+		<text name="EditMaterial" value="تعديل المواد"></text>
+		<text name="CreateNewPlan" value="إنشاء خطة جديدة"></text>
+		<text name="EditPlan" value="تعديل الخطة"></text>
+		<text name="CreateNewSupplier" value="إضافة مورد جديد"></text>
+		<text name="EditSupplier" value="تعديل المورد"></text>
+		<text name="AddNewWarehouse" value="إضافة مستودع جديد"></text>
+		<text name="EditWarehouse" value="تعديل المستودع"></text>
+		<text name="AddNewItemInWarehouse" value="إضافة عنصر جديد في المستودع"></text>
+		<text name="EditItemInWarehouse" value="تحرير العنصر في المستودع"></text>
+		<text name="ThereIsNoPlan,PleaseAddANewPlan" value="لا توجد خطة، الرجاء إضافة خطة جديدة"></text>
+		<text name="GoToPlansList" value="انتقل إلى قائمة الخطط"></text>
+		<text name="TotalQuentity" value="الكمية الإجمالية"></text>
+		<text name="AddDailyProduction" value="إضافة الإنتاج اليومي"></text>
+		<text name="AmountWasted" value="الكمية الضائع"></text>
+		<text name="TotalSalesAmount" value="إجمالي مبلغ المبيعات"></text>
+		<text name="ProduceCost" value="تكلفة الإنتاج"></text>
+		<text name="Arbitrage" value="الموازنة"></text>
+		<text name="Cost" value="كلفة"></text>
+		<text name="SellingPrice" value="سعر البيع"></text>
+		<text name="AddNew" value="اضف جديد"></text>
+		<text name="OrderBy" value="ترتيب حسب"></text>
+		<text name="PerPage" value="لكل صفحة"></text>
 	</texts>
 </localizationDictionary>
