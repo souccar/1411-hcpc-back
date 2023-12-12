@@ -12,6 +12,7 @@ namespace Souccar.Hcpc.Plans.Maps
             CreateMap<UpdatePlanDto, Plan>();
             CreateMap<Plan, UpdatePlanDto>();
             CreateMap<Plan, PlanNameDto>();
+            CreateMap<Plan, PlanNameForDropdownDto>();
         }
     }
 }

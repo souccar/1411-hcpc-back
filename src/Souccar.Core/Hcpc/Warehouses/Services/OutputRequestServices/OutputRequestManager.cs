@@ -4,8 +4,10 @@ using Abp.Events.Bus;
 using Abp.UI;
 using Microsoft.EntityFrameworkCore;
 using Souccar.Core.Services.Implements;
+using Souccar.Hcpc.Plans;
 using Souccar.Hcpc.Warehouses.Events;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,7 +24,7 @@ namespace Souccar.Hcpc.Warehouses.Services.OutputRequestServices
 
         public OutputRequest GetOutputRequestWithDetails(int id)
         {
-            var outputRequest = _outputRequestRepository.GetAllIncluding(x => x.Plan)
+            var outputRequest = _outputRequestRepository.GetAllIncluding(x => x.Plan).Include(x=>x.OutputRequestProducts).ThenInclude(y=>y.Product)
                 .Include(x => x.OutputRequestMaterials).ThenInclude(y => y.WarehouseMaterial)
                 .FirstOrDefault(x=>x.Id== id);
 
@@ -58,5 +60,17 @@ namespace Souccar.Hcpc.Warehouses.Services.OutputRequestServices
             return outputRequest.OrderByDescending(x=>x.Id);
                 
         }
+
+        public IQueryable<OutputRequest> GetPlanOutputRequests(int planId)
+        {
+            return _outputRequestRepository.GetAllIncluding().Include(x => x.OutputRequestProducts).ThenInclude(y => y.Product).Include(x => x.Plan);
+        }
+
+        public List<OutputRequest> GetAllIncluding()
+        {
+            var outputRequests = _outputRequestRepository.GetAllIncluding().Include(x => x.OutputRequestProducts).ThenInclude(p => p.Product).Include(p=>p.Plan).ToList();
+            return outputRequests;
+        }
+
     }
 }

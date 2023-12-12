@@ -1,5 +1,5 @@
-﻿using Abp.Application.Services.Dto;
-using Souccar.Core.Services;
+﻿using Souccar.Core.Services;
+using Souccar.Hcpc.Warehouses;
 using Souccar.Hcpc.WarehousesApp.OutputRequests.Dto;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -9,5 +9,7 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
     public interface IOutputRequestAppService : IAsyncSouccarAppService<OutputRequestDto, int, PagedOutputRequestDto, CreateOutputRequestDto, UpdateOutputRequestDto>
     {
         Task<List<OutputRequestWithDetailDto>> GetWithDetail(int plan);
+        public IList<OutputRequestDto> GetPlanOutputRequests(int planId);
+        
     }
 }
