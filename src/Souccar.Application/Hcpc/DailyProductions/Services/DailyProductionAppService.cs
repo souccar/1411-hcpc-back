@@ -1,9 +1,12 @@
 ﻿using Abp.Application.Services.Dto;
 using Souccar.Core.Services;
 using Souccar.Hcpc.DailyProductions.Dto.DailyProductionDtos;
+using Souccar.Hcpc.Plans.Dto.Plans;
+using Souccar.Hcpc.Plans;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Souccar.Hcpc.DailyProductions.Services
 {
@@ -56,13 +59,13 @@ namespace Souccar.Hcpc.DailyProductions.Services
 
         public override async Task<DailyProductionDto> UpdateAsync(UpdateDailyProductionDto input)
         {
-            var updatedDailyProductionDto = await base.UpdateAsync(input);
+            var dailyProduction = _dailyProductionManager.GetWithDetails(input.Id);
 
-            var id = new EntityDto<int>(updatedDailyProductionDto.Id);
+            ObjectMapper.Map<UpdateDailyProductionDto, DailyProduction>(input, dailyProduction);
 
-            var DailyProductionDto = await GetAsync(id);
+            var updatedDailyProduction = await _dailyProductionManager.UpdateAsync(dailyProduction);
 
-            return DailyProductionDto;
+            return ObjectMapper.Map<DailyProductionDto>(updatedDailyProduction);
         }
 
         public Dictionary<int, int> GetAllProductionsCountForPlan(int PlanId)
