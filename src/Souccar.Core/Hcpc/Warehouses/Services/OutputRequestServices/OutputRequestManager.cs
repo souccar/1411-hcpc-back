@@ -46,5 +46,17 @@ namespace Souccar.Hcpc.Warehouses.Services.OutputRequestServices
 
             return await _outputRequestRepository.UpdateAsync(outputRequest);
         }
+
+        public IQueryable<OutputRequest> GetWithDetails(int planId)
+        {
+            var outputRequest = _outputRequestRepository.GetAllIncluding()
+                .Include(dp => dp.DailyProductions).ThenInclude(dpd => dpd.DailyProductionDetails)
+                .Include(om => om.OutputRequestMaterials).ThenInclude(wm => wm.WarehouseMaterial)
+                .Include(op => op.OutputRequestProducts).ThenInclude(p => p.Product).ThenInclude(f => f.Formulas)
+                .Where(x => x.PlanId == planId);
+
+            return outputRequest.OrderByDescending(x=>x.Id);
+                
+        }
     }
 }
