@@ -15,12 +15,6 @@
     <EmbeddedResource Include="Localization\SourceFiles\*.xml" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="Localization\SourceFiles\Souccar-ar.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Localization\SourceFiles\Souccar-ar.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Abp.AutoMapper" Version="8.4.0" />
     <PackageReference Include="Abp.ZeroCore.EntityFrameworkCore" Version="8.4.0" />
     <PackageReference Include="Castle.Windsor.MsDependencyInjection" Version="4.1.0" />
