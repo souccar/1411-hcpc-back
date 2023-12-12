@@ -43,14 +43,15 @@ namespace Souccar.Hcpc.Plans.Services
 
         public IList<PlanNameForDropdownDto> GetNameForDropdown()
         {
-            return _planManager.GetAll()
-                .Select(x => new PlanNameForDropdownDto(x.Id, x.Title)).ToList();
+            var plans = _planManager.GetAllWithIncluding("OutputRequests");
+            return ObjectMapper.Map<List<PlanNameForDropdownDto>>(plans);
         }
 
         public IList<PlanNameForDropdownDto> GetActualPlansNameForDropdown()
         {
-            return _planManager.GetActualPlans()
-                .Select(x => new PlanNameForDropdownDto(x.Id, x.Title)).ToList();
+            var plans = _planManager.GetAllWithIncluding("OutputRequests")
+                .Where(x => x.Status == PlanStatus.Actual).ToList();
+            return ObjectMapper.Map<List<PlanNameForDropdownDto>>(plans);
         }
 
         public override async Task<PlanDto> CreateAsync(CreatePlanDto input)
@@ -154,17 +155,17 @@ namespace Souccar.Hcpc.Plans.Services
 
                 //////////
 
-                double allBookingQuantities = 0;
+                double allReservedQuantities = 0;
 
                 foreach (var previousActualPlan in previousActualPlans)
                 {
                     if (previousActualPlan.PlanMaterials.Any())
                     {
-                        allBookingQuantities += previousActualPlan.PlanMaterials.Where(x => x.MaterialId == materialId).FirstOrDefault().TotalQuantity;
+                        allReservedQuantities += previousActualPlan.PlanMaterials.Where(x => x.MaterialId == materialId).FirstOrDefault().TotalQuantity;
                     }
                 }
 
-                var stockWithoutBooking = stock != null ? stock.Sum(x => x.CurrentQuantity) - allBookingQuantities : 0;
+                var stockWithoutReserved = stock != null ? stock.Sum(x => x.CurrentQuantity) - allReservedQuantities : 0;
 
                 //////////
 
@@ -176,8 +177,9 @@ namespace Souccar.Hcpc.Plans.Services
                         UnitId = stock.FirstOrDefault().UnitId,
                         Unit = ObjectMapper.Map<UnitDto>(stock.FirstOrDefault().Unit),
                         TotalQuantity = totalQuantityAfterTranfer,
-                        InventoryQuantity = stockWithoutBooking < 0 ? 0 : stockWithoutBooking, ///////
+                        InventoryQuantity = stockWithoutReserved < 0 ? 0 : stockWithoutReserved, ///////
                         Material = material,
+                        ReservedQuantities = allReservedQuantities
                     };
 
                     rate = planMaterial.TotalQuantity != 0 ? (planMaterial.InventoryQuantity / planMaterial.TotalQuantity) : 0;                    
