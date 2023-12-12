@@ -203,5 +203,7 @@
 		<text name="AddNew" value="Add New"></text>
 		<text name="OrderBy" value="Order By"></text>
 		<text name="PerPage" value="Per Page"></text>
+		<text name="PlanProduct" value="Plan Product"></text>
+
 	</texts>
 </localizationDictionary>
