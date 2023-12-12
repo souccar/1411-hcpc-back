@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<localizationDictionary culture="ar">
+	<texts>
+		<text name="HomePage" value="Home page" />
+		<text name="About" value="About" />
+		<text name="WelcomeMessage" value="Welcome to Souccar!" />
+		<text name="FormIsNotValidMessage" value="Form is not valid. Please check and fix errors." />
+		<text name="TenantNameCanNotBeEmpty" value="Tenant name can not be empty" />
+		<text name="InvalidUserNameOrPassword" value="Invalid user name or password" />
+		<text name="ThereIsNoTenantDefinedWithName{0}" value="There is no tenant defined with name {0}" />
+		<text name="TenantIsNotActive" value="Tenant {0} is not active." />
+		<text name="UserIsNotActiveAndCanNotLogin" value="User {0} is not active and can not log in." />
+		<text name="UserEmailIsNotConfirmedAndCanNotLogin">Your email address is not confirmed. You can not login.</text>
+		<text name="UserLockedOutMessage">The user account has been locked out. Please try again later.</text>
+		<text name="PleaseEnterLoginInformation" value="Please enter login information" />
+		<text name="TenancyName" value="Tenancy name" />
+		<text name="UserNameOrEmail" value="User name or email" />
+		<text name="Password" value="Password" />
+		<text name="ResetPassword" value="Reset Password" />
+		<text name="UpdatePassword" value="Update Password" />
+		<text name="RememberMe" value="Remember me" />
+		<text name="LogIn" value="Log in" />
+		<text name="LoginFailed" value="Login failed!" />
+		<text name="NameSurname" value="Name surname" />
+		<text name="UserName" value="User name" />
+		<text name="Name" value="Name" />
+		<text name="Surname" value="Surname" />
+		<text name="EmailAddress" value="Email address" />
+		<text name="Tenants" value="Tenants" />
+		<text name="SavedSuccessfully" value="Saved successfully" />
+		<text name="CreateNewTenant" value="Create new tenant" />
+		<text name="AdminEmailAddress" value="Admin email address" />
+		<text name="AdminPassword" value="Admin password" />
+		<text name="Save" value="Save" />
+		<text name="Cancel" value="Cancel" />
+		<text name="TenantName_Regex_Description" value="Tenant name must be at least 2 chars, starts with a letter and continue with letter, number, dash or underscore." />
+		<text name="DefaultPasswordIs" value="Default password is {0}" />
+		<text name="CanBeEmptyToLoginAsHost" value="Can be empty to login as host." />
+		<text name="Register" value="Register" />
+		<text name="OrLoginWith" value="Or login with" />
+		<text name="WaitingForActivationMessage" value="Your account is waiting to be activated by system admin." />
+		<text name="TenantSelection" value="Tenant Selection" />
+		<text name="TenantSelection_Detail" value="Please select one of the following tenants." />
+		<text name="Logout" value="Logout" />
+		<text name="RegisterFormUserNameInvalidMessage">Please don't enter an email address for username.</text>
+		<text name="DatabaseConnectionString" value="Database connection string" />
+		<text name="Users" value="Users" />
+		<text name="IsActive" value="Is active" />
+		<text name="FullName" value="Full name" />
+		<text name="CreateNewUser" value="Create new user" />
+		<text name="Yes" value="Yes" />
+		<text name="No" value="No" />
+		<text name="Optional" value="Optional" />
+		<text name="LeaveEmptyToSwitchToHost">Leave empty to switch to the host</text>
+		<text name="CurrentTenant">Current tenant</text>
+		<text name="NotSelected">Not selected</text>
+		<text name="Change">Change</text>
+		<text name="ChangeTenant">Change tenant</text>
+		<text name="MultiLevelMenu">Multi Level Menu</text>
+		<text name="Back">Back</text>
+		<text name="SuccessfullyRegistered">Successfully registered</text>
+		<text name="WaitingForEmailActivation">Your email address should be activated</text>
+		<text name="Roles">Roles</text>
+		<text name="DisplayName">Display Name</text>
+		<text name="Edit">Edit</text>
+		<text name="Delete">Delete</text>
+		<text name="CreateNewRole">Create new role</text>
+		<text name="RoleName">Role Name</text>
+		<text name="Actions">Actions</text>
+		<text name="CouldNotCompleteLoginOperation">Could not complete login operation. Please try again later.</text>
+		<text name="CouldNotValidateExternalUser">Could not validate external user</text>
+		<text name="EditRole">Edit role</text>
+		<text name="EditTenant">Edit tenant</text>
+		<text name="EditUser">Edit user</text>
+		<text name="TenantIdIsNotActive{0}">TenantId {0} is not active</text>
+		<text name="UnknownTenantId{0}">Unknown tenantId {0}</text>
+		<text name="ThisFieldIsRequired">This field is required</text>
+		<text name="PleaseWait">Please wait...</text>
+		<text name="Administration">Administration</text>
+		<text name="ClearAll">Clear all</text>
+		<text name="ClearOthers">Clear others</text>
+		<text name="LabelOptions">Label options</text>
+		<text name="Permissions">Permissions</text>
+		<text name="RoleDescription">Role description</text>
+		<text name="Refresh">Refresh</text>
+		<text name="Create">Create</text>
+		<text name="UserDetails">User details</text>
+		<text name="UserRoles">User roles</text>
+		<text name="ConfirmPassword">Confirm password</text>
+		<text name="Version">Version</text>
+		<text name="On">On</text>
+		<text name="Off">Off</text>
+		<text name="AreYouSureWantToDelete">Are you sure want to delete {0}?</text>
+		<text name="SuccessfullyDeleted">Successfully deleted</text>
+		<text name="StartTyping">Start Typing</text>
+		<text name="Skins">Skins</text>
+		<text name="Settings">Settings</text>
+		<text name="Filter">Filter</text>
+		<text name="CurrentPassword">Current Password</text>
+		<text name="NewPassword">New Password</text>
+		<text name="ConfirmNewPassword">Confirm New Password</text>
+		<text name="PasswordsDoNotMatch">Passwords do not match</text>
+		<text name="PasswordsMustBeAtLeast8CharactersContainLowercaseUppercaseNumber">Passwords must be at least 8 characters, contain a lowercase, uppercase, and number</text>
+		<text name="UserDeleteWarningMessage">User {0} will be deleted.</text>
+		<text name="RoleDeleteWarningMessage">Role {0} will be deleted and unassigned from all assigned users.</text>
+		<text name="TenantDeleteWarningMessage">Tenant {0} will be deleted.</text>
+		<text name="SearchWithThreeDot">Search...</text>
+		<text name="PleaseEnterAtLeastNCharacter">Please enter at least {0} characters</text>
+		<text name="PleaseEnterNoMoreThanNCharacter">Please enter no more than {0} characters</text>
+		<text name="InvalidEmailAddress">Invalid email address</text>
+		<text name="InvalidPattern">Invalid</text>
+		<text name="PairsDoNotMatch">Do not match</text>
+		<text name="All">All</text>
+		<text name="TotalRecordsCount">Total: {0}</text>
+		<text name="Search">Search</text>
+		<text name="Clear">Clear</text>
+		<text name="ResetPasswordStepOneInfo">1. Enter your administrator password</text>
+		<text name="ResetPasswordStepTwoInfo">2. Copy this random password so you can send it to the user</text>
+		<text name="UsersActivation">Users activation</text>
+		<text name="The{0}MaterialWillExpireOn{1}" value="The {0} material will expire on {1}"></text>
+		<text name="Description" value="وصف"></text>
+		<text name="Suppliers" value="الموردين"></text>
+		<text name="AddSupplier" value="إضافة مورد"></text>
+		<text name="leadTime" value="مهلة"></text>
+		<text name="Quantity" value="الكمية"></text>
+		<text name="Code" value="رمز"></text>
+		<text name="ExpirationDate" value="تاريخ انتهاء الصلاحية"></text>
+		<text name="OutputRequest" value="طلب الإخراج"></text>
+		<text name="Supplier" value="مورد"></text>
+		<text name="NewProduct" value="منتج جديد"></text>
+		<text name="TotalQuantity" value="الكمية الإجمالية"></text>
+		<text name="Price" value="السعر"></text>
+		<text name="Action" value="العملية"></text>
+		<text name="From" value="من"></text>
+		<text name="To" value="إلى"></text>
+		<text name="Value" value="القيمة"></text>
+		<text name="ExpiryDurationNotify" value="إشعار انتهاء الصلاحية"></text>
+		<text name="Stock" value="المخزون"></text>
+		<text name="Material" value="مادة"></text>
+		<text name="Warehouse" value="مستودع"></text>
+		<text name="WarehouseMaterialCode" value="كود مواد المستودع"></text>
+		<text name="Withdrawn" value="المنسحب"></text>
+		<text name="EntryDate" value="تاريخ الإدخال"></text>
+		<text name="Unit" value="وحدة"></text>
+		<text name="InitialQuantity" value="الكمية الأولية"></text>
+		<text name="CurrentQuantity" value="الكمية الحالية"></text>
+		<text name="PriceUnit" value="واحدة السعر"></text>
+		<text name="RequiredQuantity" value="الكمية المطلوبة"></text>
+		<text name="Place" value="مكان"></text>
+		<text name="Storekeeper" value="امين المخزن"></text>
+		<text name="Title" value="عنوان"></text>
+		<text name="DailyProduction" value="الإنتاج اليومي"></text>
+		<text name="Duration" value="المدة"></text>
+		<text name="ProductionRatio" value="نسبة الإنتاج"></text>
+		<text name="StartDate" value="تاريخ البدء"></text>
+		<text name="NumberOfItems" value="عدد العناصر"></text>
+		<text name="Plan" value="خطة"></text>
+		<text name="Products" value="منتجات"></text>
+		<text name="Status" value="حالة"></text>
+		<text name="Pending" value="قيد الانتظار"></text>
+		<text name="CanProduce" value="يمكن أن تنتج"></text>
+		<text name="DurationInDays" value="المدة بالأيام"></text>
+		<text name="InProduction" value="في الانتاج"></text>
+		<text name="Inventory" value="موجودات المخزون"></text>
+		<text name="Finished" value="انتهى"></text>
+		<text name="PlanLogs" value="سجلات الخطة"></text>
+		<text name="OutputDate" value="تاريخ الإخراج"></text>
+		<text name="LastLogins" value="آخر تسجيلات الدخول"></text>
+		<text name="NewOutputRequest" value="طلب إخراج جديد"></text>
+		<text name="NewOutputRequestMaterial" value=" طلب إخراج مادة جديدة"></text>
+		<text name="OutputRequestMaterial" value="طلب إخراج المواد "></text>
+		<text name="EditOutputRequest" value="تعديل طلب الإخراج"></text>
+		<text name="EditProduct" value="تعديل المنتج"></text>
+		<text name="ExpiryDurationNotifyInDays" value="إشعار مدة انتهاء الصلاحية بالأيام"></text>
+		<text name="GeneralSetting" value="الإعدادات العامة"></text>
+		<text name="AddGeneralSetting" value="إضافة إعدادات جديدة"></text>
+		<text name="EditGeneralSetting" value="تعديل الإعدادات"></text>
+		<text name="CreateNewTransfer" value="إنشاء تحويل جديد"></text>
+		<text name="EditTransfer" value="تعديل التحويل"></text>
+		<text name="ViewMoreDetails" value="عرض المزيد من التفاصيل"></text>
+		<text name="CreateNewUnit" value="إنشاء وحدة جديدة"></text>
+		<text name="EditUnit" value="تعديل الوحدة"></text>
+		<text name="CreateNewMaterial" value="إنشاء مادة جديدة"></text>
+		<text name="EditMaterial" value="تعديل المواد"></text>
+		<text name="CreateNewPlan" value="إنشاء خطة جديدة"></text>
+		<text name="EditPlan" value="تعديل الخطة"></text>
+		<text name="CreateNewSupplier" value="إضافة مورد جديد"></text>
+		<text name="EditSupplier" value="تعديل المورد"></text>
+		<text name="AddNewWarehouse" value="إضافة مستودع جديد"></text>
+		<text name="EditWarehouse" value="تعديل المستودع"></text>
+		<text name="AddNewItemInWarehouse" value="إضافة عنصر جديد في المستودع"></text>
+		<text name="EditItemInWarehouse" value="تحرير العنصر في المستودع"></text>
+		<text name="ThereIsNoPlan,PleaseAddANewPlan" value="لا توجد خطة، الرجاء إضافة خطة جديدة"></text>
+		<text name="GoToPlansList" value="انتقل إلى قائمة الخطط"></text>
+		<text name="TotalQuentity" value="الكمية الإجمالية"></text>
+		<text name="AddDailyProduction" value="إضافة الإنتاج اليومي"></text>
+		<text name="AmountWasted" value="الكمية الضائع"></text>
+		<text name="TotalSalesAmount" value="إجمالي مبلغ المبيعات"></text>
+		<text name="ProduceCost" value="تكلفة الإنتاج"></text>
+		<text name="Arbitrage" value="الموازنة"></text>
+		<text name="Cost" value="كلفة"></text>
+		<text name="SellingPrice" value="سعر البيع"></text>
+		<text name="AddNew" value="اضف جديد"></text>
+		<text name="OrderBy" value="ترتيب حسب"></text>
+		<text name="PerPage" value="لكل صفحة"></text>
+	</texts>
+</localizationDictionary>
