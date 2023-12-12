@@ -74,10 +74,10 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
             return result;
         }
         public IList<OutputRequestDto> GetPlanOutputRequests(int planId)
-        {
-           
-            return ObjectMapper.Map<List<OutputRequestDto>>(_outputRequestManager.GetPlanOutputRequests(planId)); ;
+        {          
+            return ObjectMapper.Map<List<OutputRequestDto>>(_outputRequestManager.GetPlanOutputRequests(planId));
         }
 
+        
     }
 }

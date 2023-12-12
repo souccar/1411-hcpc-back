@@ -43,14 +43,15 @@ namespace Souccar.Hcpc.Plans.Services
 
         public IList<PlanNameForDropdownDto> GetNameForDropdown()
         {
-            return _planManager.GetAll()
-                .Select(x => new PlanNameForDropdownDto(x.Id, x.Title)).ToList();
+            var plans = _planManager.GetAllWithIncluding("OutputRequests");
+            return ObjectMapper.Map<List<PlanNameForDropdownDto>>(plans);
         }
 
         public IList<PlanNameForDropdownDto> GetActualPlansNameForDropdown()
         {
-            return _planManager.GetActualPlans()
-                .Select(x => new PlanNameForDropdownDto(x.Id, x.Title)).ToList();
+            var plans = _planManager.GetAllWithIncluding("OutputRequests")
+                .Where(x => x.Status == PlanStatus.Actual).ToList();
+            return ObjectMapper.Map<List<PlanNameForDropdownDto>>(plans);
         }
 
         public override async Task<PlanDto> CreateAsync(CreatePlanDto input)
