@@ -206,5 +206,39 @@
 		<text name="PlanProduct" value="Plan Product"></text>
 		<text name="ArchivePlan" value="Archive Plan"></text>
 
+
+		<!--Permissions-->
+		<text name="DeleteUser" value="Delete user"></text>
+		<text name="ChangePermissions" value="Change permissions"></text>
+		<text name="DeleteRole" value="Delete role"></text>
+		<text name="DailyProductions" value="Daily productions"></text>
+		<text name="CreateNewDailyProduction" value="Create new daily production"></text>
+		<text name="EditDailyProduction" value="Edit daily production"></text>
+		<text name="DeleteDailyProduction" value="Delete daily production"></text>
+		<text name="GeneralSettings" value="General settings"></text>
+		<text name="CreateNewGeneralSetting" value="Create new general setting"></text>
+		<text name="DeleteGeneralSetting" value="Delete general setting"></text>
+		<text name="Materials" value="Materials"></text>
+		<text name="DeleteMaterial" value="Delete material"></text>
+		<text name="Plans" value="Plans"></text>
+		<text name="DeletePlan" value="Delete plan"></text>
+		<text name="CreateNewProduct" value="Create new product"></text>
+		<text name="DeleteProduct" value="Delete product"></text>
+		<text name="DeleteSupplier" value="Delete supplier"></text>
+		<text name="Units" value="Units"></text>
+		<text name="DeleteUnit" value="Delete unit"></text>
+		<text name="Transfers" value="Transfers"></text>
+		<text name="DeleteTransfer" value="Delete transfer"></text>
+		<text name="Warehouses" value="Warehouses"></text>
+		<text name="CreateNewWarehouse" value="Create new warehouse"></text>
+		<text name="DeleteWarehouse" value="Delete warehouse"></text>
+		<text name="WarehouseMaterials" value="Warehouse materials"></text>
+		<text name="CreateNewWarehouseMaterial" value="Create new warehouse material"></text>
+		<text name="EditWarehouseMaterial" value="Edit warehouse material"></text>
+		<text name="DeleteWarehouseMaterial" value="Delete warehouse material"></text>
+		<text name="OutputRquests" value="Output rquests"></text>
+		<text name="CreateNewOutputRquest" value="Create new output rquest"></text>
+		<text name="EditOutputRquest" value="Edit output rquest"></text>
+		<text name="DeleteOutputRquest" value="Delete output rquest"></text>
 	</texts>
 </localizationDictionary>

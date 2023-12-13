@@ -118,7 +118,7 @@
 		<text name="UsersActivation">Users activation</text>
 		<text name="The{0}MaterialWillExpireOn{1}" value="The {0} material will expire on {1}"></text>
 		<text name="Description" value="الوصف"></text>
-		<text name="Warehouses" value="المخازن"></text>
+		<text name="Warehouses" value="المستودعات"></text>
 		<text name="Production" value="الإنتاج"></text>
 		<text name="Settings" value="الإعدادات"></text>
 		<text name="Security" value="الأمن"></text>
@@ -217,6 +217,36 @@
 		<text name="Formula" value="التركيبة"></text>
 
 
-
+		<!--Permissions-->
+		<text name="DeleteUser" value="حذف مستخدم"></text>
+		<text name="ChangePermissions" value="تعديل الصلاحيات"></text>
+		<text name="DeleteRole" value="حذف دور"></text>
+		<text name="DailyProductions" value="الإنتاجات اليومية"></text>
+		<text name="CreateNewDailyProduction" value="إنشاء إنتاج يومي جديد"></text>
+		<text name="EditDailyProduction" value="تعديل إنتاج يومي"></text>
+		<text name="DeleteDailyProduction" value="حذف إنتاج يومي"></text>
+		<text name="GeneralSettings" value="الإعدادات العامة"></text>
+		<text name="CreateNewGeneralSetting" value="إنشاء إعداد عام جديد"></text>
+		<text name="DeleteGeneralSetting" value="حذف إعداد عام"></text>
+		<text name="Materials" value="المواد"></text>
+		<text name="DeleteMaterial" value="حذف مادة"></text>
+		<text name="DeletePlan" value="حذف خطة"></text>
+		<text name="CreateNewProduct" value="إنشاء منتج جديد"></text>
+		<text name="DeleteProduct" value="حذف منتج"></text>
+		<text name="DeleteSupplier" value="حذف مورد"></text>
+		<text name="Units" value="الواحدات"></text>
+		<text name="DeleteUnit" value="حذف واحدة"></text>
+		<text name="Transfers" value="التحويلات"></text>
+		<text name="DeleteTransfer" value="حذف تحويل"></text>
+		<text name="CreateNewWarehouse" value="إنشاء مستودع جديد"></text>
+		<text name="DeleteWarehouse" value="حذف مستودع"></text>
+		<text name="WarehouseMaterials" value="مواد المستودع"></text>
+		<text name="CreateNewWarehouseMaterial" value="إدخال مادة إالى المستودع"></text>
+		<text name="EditWarehouseMaterial" value="تعديل مادة ضمن المستودع"></text>
+		<text name="DeleteWarehouseMaterial" value="حذف مادة من المستودع"></text>
+		<text name="OutputRquests" value="طلبات الإخراج"></text>
+		<text name="CreateNewOutputRquest" value="إنشاء طلب إخراج جديد"></text>
+		<text name="EditOutputRquest" value="تعديل طلب إخراج"></text>
+		<text name="DeleteOutputRquest" value="حذف طلب إخراج"></text>
 	</texts>
 </localizationDictionary>
