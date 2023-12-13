@@ -12,6 +12,7 @@ namespace Souccar.Hcpc.DailyProductions
         public DailyProduction()
         {
             DailyProductionDetails = new List<DailyProductionDetail>();
+            DailyProductionNotes = new List<DailyProductionNote>();
         }
         public int? TenantId { get; set; }
 
@@ -27,8 +28,7 @@ namespace Souccar.Hcpc.DailyProductions
         public int? OutputRequestId { get; set; }
         #endregion
 
-        #region Details
         public virtual IList<DailyProductionDetail> DailyProductionDetails { get; set; }
-        #endregion
+        public virtual IList<DailyProductionNote> DailyProductionNotes { get; set; }
     }
 }
