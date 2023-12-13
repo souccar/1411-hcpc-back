@@ -1,5 +1,6 @@
 ﻿using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
+using Souccar.Hcpc.DailyProductions;
 using Souccar.Hcpc.Plans;
 using System;
 using System.Collections.Generic;
@@ -13,11 +14,12 @@ namespace Souccar.Hcpc.Warehouses
         {
             OutputRequestMaterials = new List<OutputRequestMaterial>();
             OutputRequestProducts = new List<OutputRequestProduct>();
+            DailyProductions = new List<DailyProduction>();
         }
         public int? TenantId { get; set; }
         public string Title { get; set; }
         public DateTime? OutputDate { get; set; }
-       public OutputRequestStatus Status { get; set; }
+        public OutputRequestStatus Status { get; set; }
 
         #region Plan
         public int? PlanId { get; set; }
@@ -29,5 +31,6 @@ namespace Souccar.Hcpc.Warehouses
         
         public virtual IList<OutputRequestProduct> OutputRequestProducts { get; set; }
         public virtual IList<OutputRequestMaterial> OutputRequestMaterials { get; set; }
+        public virtual IList<DailyProduction> DailyProductions { get; set; }
     }
 }

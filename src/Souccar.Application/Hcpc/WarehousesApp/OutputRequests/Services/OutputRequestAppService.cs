@@ -1,17 +1,19 @@
 ﻿using Abp.Application.Services.Dto;
-using Abp.Domain.Uow;
 using Abp.Events.Bus;
 using Abp.UI;
 using Souccar.Authorization.Users;
 using Souccar.Core.Services;
 using Souccar.Core.Services.Interfaces;
 using Souccar.Hcpc.DailyProductions.Dto.DailyProductionDtos;
+using Souccar.Hcpc.Units.Services;
 using Souccar.Hcpc.Warehouses;
 using Souccar.Hcpc.Warehouses.Events;
 using Souccar.Hcpc.Warehouses.Services.OutputRequestServices;
 using Souccar.Hcpc.WarehousesApp.OutputRequests.Dto;
 using Souccar.Notification;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
@@ -20,20 +22,22 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
         AsyncSouccarAppService<OutputRequest, OutputRequestDto, int, PagedOutputRequestDto, CreateOutputRequestDto, UpdateOutputRequestDto>, IOutputRequestAppService
     {
         private readonly IOutputRequestManager _outputRequestManager;
+        private readonly ITransferManager _transferManager;
         private readonly IAppNotifier _notifier;
         private readonly UserManager _userManager;
-        public OutputRequestAppService(IOutputRequestManager outputRequestManager, IAppNotifier notifier, UserManager userManager) : base(outputRequestManager)
+        public OutputRequestAppService(IOutputRequestManager outputRequestManager, IAppNotifier notifier, UserManager userManager, ITransferManager transferManager) : base(outputRequestManager)
         {
             _outputRequestManager = outputRequestManager;
             _notifier = notifier;
             _userManager = userManager;
+            _transferManager = transferManager;
         }
 
-        public override async Task<OutputRequestDto> GetAsync(EntityDto<int> input)
+        public override Task<OutputRequestDto> GetAsync(EntityDto<int> input)
         {
             var outputRequestWithDetails = _outputRequestManager.GetOutputRequestWithDetails(input.Id);
 
-            return ObjectMapper.Map<OutputRequestDto>(outputRequestWithDetails);
+            return Task.FromResult(ObjectMapper.Map<OutputRequestDto>(outputRequestWithDetails));
         }
 
         public override async Task<OutputRequestDto> CreateAsync(CreateOutputRequestDto input)
@@ -79,6 +83,50 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
             return ObjectMapper.Map<List<OutputRequestDto>>(_outputRequestManager.GetPlanOutputRequests(planId));
         }
 
+        
+
+        public async Task<List<OutputRequestWithDetailDto>> GetWithDetail(int planId)
+        {
+            var outputRequests = _outputRequestManager.GetWithDetails(planId);
+            var result = ObjectMapper.Map<List<OutputRequestWithDetailDto>>(outputRequests.ToList());
+
+            foreach (var outputRequestDto in result)
+            {
+                await InitialProduction(outputRequestDto);
+            }
+            return result;
+        }
+
+        private async Task InitialProduction(OutputRequestWithDetailDto outputRequestDto)
+        {
+            foreach (var requestProduct in outputRequestDto.OutputRequestProducts)
+            {
+                //Can produce
+                var numberOfProducts = new List<int>();
+                var formulas = requestProduct.Product.Formulas;
+                foreach (var requestMaterial in outputRequestDto.OutputRequestMaterials)
+                {
+                    var formulla = formulas.FirstOrDefault(x => x.MaterialId == requestMaterial.WarehouseMaterial.MaterialId);
+                    if (formulla != null)
+                    {
+                        var quantity = await _transferManager.ConvertTo(requestMaterial.UnitId, formulla.UnitId, requestMaterial.Quantity);
+                        var numberOfProduce = (int)(quantity / formulla.Quantity);
+                        numberOfProducts.Add(numberOfProduce);
+                    }
+                }
+                requestProduct.CanProduce = numberOfProducts.Min() / (outputRequestDto.OutputRequestMaterials.Count);
+
+                //Actual
+                if (outputRequestDto.DailyProductions.Any())
+                {
+                    var dailyProductionDetails = outputRequestDto.DailyProductions
+                        .SelectMany(x => x.DailyProductionDetails)
+                        .Where(x => x.ProductId == requestProduct.ProductId);
+
+                    requestProduct.ActualProduce = dailyProductionDetails.Sum(x => x.Quantity);
+                }
+            }
+        }
         public async Task<OutputRequestDto> ChangeStatusAsync(int status, int id)
         {
             var updatedOutputRequst = await _outputRequestManager.ChangeStatus((OutputRequestStatus)status, id);

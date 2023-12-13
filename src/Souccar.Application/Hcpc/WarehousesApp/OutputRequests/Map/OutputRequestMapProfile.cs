@@ -14,6 +14,7 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Map
             CreateMap<UpdateOutputRequestDto, OutputRequest>();
             CreateMap<OutputRequest, UpdateOutputRequestDto>();
             CreateMap<OutputRequest, OutputRequestNameForDropdownDto>();
+            CreateMap<OutputRequest, OutputRequestWithDetailDto>();
         }
     }
 }
