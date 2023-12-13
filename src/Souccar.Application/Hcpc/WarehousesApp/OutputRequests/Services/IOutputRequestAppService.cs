@@ -8,6 +8,9 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
 {
     public interface IOutputRequestAppService : IAsyncSouccarAppService<OutputRequestDto, int, PagedOutputRequestDto, CreateOutputRequestDto, UpdateOutputRequestDto>
     {
+        Task<List<OutputRequestWithDetailDto>> GetWithDetail(int plan);
+        public IList<OutputRequestDto> GetPlanOutputRequests(int planId);
+        
         IList<OutputRequestDto> GetPlanOutputRequests(int planId);
         Task<OutputRequestDto> ChangeStatusAsync(int status, int id);
     }
