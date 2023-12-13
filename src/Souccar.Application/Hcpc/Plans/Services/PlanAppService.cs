@@ -105,6 +105,23 @@ namespace Souccar.Hcpc.Plans.Services
         }
 
 
+        public IList<ProductNameForDropdownDto> GetProductsOfPlan(int planId)
+        {
+            IList<ProductNameForDropdownDto> productNameForDropdownDtos = new List<ProductNameForDropdownDto>();
+
+            var products = _planManager.GetProductsOfPlan(planId);
+
+            foreach (var product in products)
+            {
+                var productNameForDropdownDto = new ProductNameForDropdownDto(product.Id, product.Name);
+                productNameForDropdownDtos.Add(productNameForDropdownDto);
+            }
+
+            return productNameForDropdownDtos;
+        }
+
+
+
         #region Helper Methods
         private PlanDto InitPlanDetails(PlanDto planDto)
         {
