@@ -1,5 +1,6 @@
 ﻿using Abp.Application.Services.Dto;
 using Abp.Events.Bus;
+using Abp.UI;
 using Souccar.Authorization.Users;
 using Souccar.Core.Services;
 using Souccar.Core.Services.Interfaces;
@@ -125,6 +126,15 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
                     requestProduct.ActualProduce = dailyProductionDetails.Sum(x => x.Quantity);
                 }
             }
+        }
+        public async Task<OutputRequestDto> ChangeStatusAsync(int status, int id)
+        {
+            var updatedOutputRequst = await _outputRequestManager.ChangeStatus((OutputRequestStatus)status, id);
+            if (updatedOutputRequst == null)
+            {
+                throw new UserFriendlyException("Change Error");
+            }
+            return ObjectMapper.Map<OutputRequestDto>(updatedOutputRequst);
         }
     }
 }

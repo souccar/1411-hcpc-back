@@ -11,5 +11,7 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
         Task<List<OutputRequestWithDetailDto>> GetWithDetail(int plan);
         public IList<OutputRequestDto> GetPlanOutputRequests(int planId);
         
+        IList<OutputRequestDto> GetPlanOutputRequests(int planId);
+        Task<OutputRequestDto> ChangeStatusAsync(int status, int id);
     }
 }
