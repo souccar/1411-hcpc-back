@@ -204,6 +204,7 @@
 		<text name="OrderBy" value="Order By"></text>
 		<text name="PerPage" value="Per Page"></text>
 		<text name="PlanProduct" value="Plan Product"></text>
+		<text name="ArchivePlan" value="Archive Plan"></text>
 
 	</texts>
 </localizationDictionary>
