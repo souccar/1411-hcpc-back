@@ -11,6 +11,7 @@ namespace Souccar.Hcpc.DailyProductions.Dto.DailyProductionDtos
         }
         public int? PlanId { get; set; }
         public int? OutputRequestId { get; set; }
+        public string Note { get; set; }
         public IList<CreateDailyProductionDetailsDto> DailyProductionDetails { get; set; }
     }
 }

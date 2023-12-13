@@ -10,8 +10,8 @@ namespace Souccar.Hcpc.DailyProductions.Map
         public DailyProductionMapProfile()
         {
             CreateMap<DailyProduction, DailyProductionDto>();
-            CreateMap<CreateDailyProductionDto, DailyProduction>();
-            CreateMap<UpdateDailyProductionDto, DailyProduction>();
+            CreateMap<CreateDailyProductionDto, DailyProduction>().ForMember(x => x.DailyProductionNotes, m => m.Ignore());
+            CreateMap<UpdateDailyProductionDto, DailyProduction>().ForMember(x => x.DailyProductionNotes, m => m.Ignore());
             CreateMap<DailyProduction, UpdateDailyProductionDto>();
             CreateMap<List<DailyProduction>, PagedResultDto<DailyProductionDto>>();
         }
