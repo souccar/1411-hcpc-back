@@ -12,7 +12,7 @@ namespace Souccar.Hcpc.Warehouses.Services.OutputRequestServices
     {
         OutputRequest GetOutputRequestWithDetails(int id);
         IQueryable<OutputRequest> GetPlanOutputRequests(int planId);
-
+        Task<OutputRequest> ChangeStatus(OutputRequestStatus status, int id);
         public List<OutputRequest> GetAllIncluding();
     }
 }
