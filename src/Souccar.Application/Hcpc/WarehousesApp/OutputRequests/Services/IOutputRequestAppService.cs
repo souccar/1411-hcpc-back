@@ -9,7 +9,7 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
     public interface IOutputRequestAppService : IAsyncSouccarAppService<OutputRequestDto, int, PagedOutputRequestDto, CreateOutputRequestDto, UpdateOutputRequestDto>
     {
         Task<List<OutputRequestWithDetailDto>> GetWithDetail(int plan);
-        IList<OutputRequestDto> GetPlanOutputRequests(int planId);
+        IList<OutputRequestNameForDropdownDto> GetPlanOutputRequests(int planId);
         
         Task<OutputRequestDto> ChangeStatusAsync(int status, int id);
     }

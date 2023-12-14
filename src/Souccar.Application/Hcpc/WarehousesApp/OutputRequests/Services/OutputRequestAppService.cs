@@ -1,15 +1,20 @@
-﻿using Abp.Application.Services.Dto;
+﻿using Abp;
+using Abp.Application.Services.Dto;
+using Abp.Collections.Extensions;
 using Abp.Events.Bus;
 using Abp.UI;
 using Souccar.Authorization.Users;
 using Souccar.Core.Services;
 using Souccar.Core.Services.Interfaces;
 using Souccar.Hcpc.DailyProductions.Dto.DailyProductionDtos;
+using Souccar.Hcpc.Materials.Services;
 using Souccar.Hcpc.Units.Services;
 using Souccar.Hcpc.Warehouses;
 using Souccar.Hcpc.Warehouses.Events;
 using Souccar.Hcpc.Warehouses.Services.OutputRequestServices;
+using Souccar.Hcpc.Warehouses.Services.WarehouseServices;
 using Souccar.Hcpc.WarehousesApp.OutputRequests.Dto;
+using Souccar.Hcpc.WarehousesApp.OutputRequests.Dto.OutputRequestMaterialDtos;
 using Souccar.Notification;
 using System;
 using System.Collections.Generic;
@@ -22,15 +27,19 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
         AsyncSouccarAppService<OutputRequest, OutputRequestDto, int, PagedOutputRequestDto, CreateOutputRequestDto, UpdateOutputRequestDto>, IOutputRequestAppService
     {
         private readonly IOutputRequestManager _outputRequestManager;
+        private readonly IWarehouseMaterialManager _warehouseMaterialManager;
+        private readonly IMaterialManager _materialManager;
         private readonly ITransferManager _transferManager;
         private readonly IAppNotifier _notifier;
         private readonly UserManager _userManager;
-        public OutputRequestAppService(IOutputRequestManager outputRequestManager, IAppNotifier notifier, UserManager userManager, ITransferManager transferManager) : base(outputRequestManager)
+        public OutputRequestAppService(IOutputRequestManager outputRequestManager, IAppNotifier notifier, UserManager userManager, ITransferManager transferManager, IWarehouseMaterialManager warehouseMaterialManager, IMaterialManager materialManager) : base(outputRequestManager)
         {
             _outputRequestManager = outputRequestManager;
             _notifier = notifier;
             _userManager = userManager;
             _transferManager = transferManager;
+            _warehouseMaterialManager = warehouseMaterialManager;
+            _materialManager = materialManager;
         }
 
         public override Task<OutputRequestDto> GetAsync(EntityDto<int> input)
@@ -39,7 +48,6 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
 
             return Task.FromResult(ObjectMapper.Map<OutputRequestDto>(outputRequestWithDetails));
         }
-
         public override async Task<OutputRequestDto> CreateAsync(CreateOutputRequestDto input)
         {
             var admin = _userManager.GetUserById(1);
@@ -58,7 +66,6 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
 
             return ObjectMapper.Map<OutputRequestDto>(outputRequestWithDetails);
         }
-
         public override async Task<PagedResultDto<OutputRequestDto>> GetAllAsync(PagedOutputRequestDto input)
         {
             PagedResultDto<OutputRequestDto> result = new PagedResultDto<OutputRequestDto>();
@@ -78,13 +85,10 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
             result.Items = dtos;
             return result;
         }
-        public IList<OutputRequestDto> GetPlanOutputRequests(int planId)
-        {          
-            return ObjectMapper.Map<List<OutputRequestDto>>(_outputRequestManager.GetPlanOutputRequests(planId));
+        public IList<OutputRequestNameForDropdownDto> GetPlanOutputRequests(int planId)
+        {
+            return ObjectMapper.Map<List<OutputRequestNameForDropdownDto>>(_outputRequestManager.GetPlanOutputRequests(planId));
         }
-
-        
-
         public async Task<List<OutputRequestWithDetailDto>> GetWithDetail(int planId)
         {
             var outputRequests = _outputRequestManager.GetWithDetails(planId);
@@ -96,7 +100,6 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
             }
             return result;
         }
-
         private async Task InitialProduction(OutputRequestWithDetailDto outputRequestDto)
         {
             foreach (var requestProduct in outputRequestDto.OutputRequestProducts)
@@ -136,5 +139,6 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
             }
             return ObjectMapper.Map<OutputRequestDto>(updatedOutputRequst);
         }
+
     }
 }

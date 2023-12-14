@@ -63,7 +63,11 @@ namespace Souccar.Hcpc.Warehouses.Services.OutputRequestServices
 
         public IQueryable<OutputRequest> GetPlanOutputRequests(int planId)
         {
-            return _outputRequestRepository.GetAllIncluding().Include(x => x.OutputRequestProducts).ThenInclude(y => y.Product).Include(x => x.Plan);
+            return _outputRequestRepository.GetAllIncluding()
+                .Include(x => x.OutputRequestProducts)
+                .ThenInclude(y => y.Product)
+                .Include(x => x.Plan)
+                .Where(x => x.PlanId == planId && x.Status == OutputRequestStatus.InProduction);
         }
 
         public List<OutputRequest> GetAllIncluding()
