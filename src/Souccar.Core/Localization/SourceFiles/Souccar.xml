@@ -204,7 +204,10 @@
 		<text name="OrderBy" value="Order By"></text>
 		<text name="PerPage" value="Per Page"></text>
 		<text name="PlanProduct" value="Plan Product"></text>
+		<text name="AreYouSureYouWantToArchivedThisPlan" value="Are You Sure You Want To Archived This Plan?"></text>
+		<text name="Warning" value="Warning"></text>
 		<text name="ArchivePlan" value="Archive Plan"></text>
+		<text name="Confirmation" value="Confirmation"></text>
 
 
 		<!--Permissions-->

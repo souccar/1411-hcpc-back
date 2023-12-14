@@ -215,6 +215,11 @@
 		<text name="Transfer" value="المحول"></text>
 		<text name="PlanProduct" value="منتج الخطة"></text>
 		<text name="Formula" value="التركيبة"></text>
+		<text name="AreYouSureYouWantToArchivedThisPlan" value="هل أنت متأكد أنك تريد أرشفة الخطة؟"></text>
+		<text name="Warning" value="تحذير"></text>
+		<text name="ArchivePlan" value="أرشفة الخطة"></text>
+		<text name="Confirmation" value="تأكيد"></text>
+
 
 
 		<!--Permissions-->
