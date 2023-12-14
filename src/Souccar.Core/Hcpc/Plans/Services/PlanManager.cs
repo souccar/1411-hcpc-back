@@ -2,6 +2,7 @@
 using Abp.Domain.Uow;
 using Microsoft.EntityFrameworkCore;
 using Souccar.Core.Services.Implements;
+using Souccar.Hcpc.Products;
 using Souccar.Hcpc.Products.Services;
 using Souccar.Hcpc.Warehouses.Services.WarehouseServices;
 using System.Collections.Generic;
@@ -127,5 +128,13 @@ namespace Souccar.Hcpc.Plans.Services
                 .Where(x => x.Status == PlanStatus.Actual).ToList();
             return actualPlans;
         }
+
+        public IQueryable<Product> GetProductsOfPlan(int planId)
+        {
+            var plan = _planRepository.GetAllIncluding().Include(x=>x.PlanProducts).ThenInclude(y=>y.Product).FirstOrDefault(x=>x.Id ==planId);
+            var productsOfPlan = plan.PlanProducts.Select(x=>x.Product).AsQueryable();
+            return productsOfPlan;
+        }
+
     }
 }
