@@ -9,5 +9,6 @@ namespace Souccar.Hcpc.DailyProductions.Services
         DailyProduction GetWithDetails(int id);
         List<DailyProduction> GetAllIncluding();
         Dictionary<int, int> GetAllProductionsCountForPlan(int PlanId);
+        Task<DailyProductionNote> AddNoteForDailyProductionAsync(string note,int dailyProductionId);
     }
 }
