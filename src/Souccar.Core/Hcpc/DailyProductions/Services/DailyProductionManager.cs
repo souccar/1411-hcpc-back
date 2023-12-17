@@ -1,4 +1,6 @@
 ﻿using Abp.Domain.Repositories;
+using Abp.UI;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.EntityFrameworkCore;
 using Souccar.Core.Services.Implements;
 using Souccar.Hcpc.Plans;
@@ -12,24 +14,26 @@ namespace Souccar.Hcpc.DailyProductions.Services
     public class DailyProductionManager : SouccarDomainService<DailyProduction, int>, IDailyProductionManager
     {
         private readonly IRepository<DailyProduction> _dailyProductionRepository;
+        private readonly IRepository<DailyProductionNote> _dailyProductionNoteRepository;
         private readonly IPlanManager _planManager;
 
-        public DailyProductionManager(IRepository<DailyProduction> dailyProductionRepository, IPlanManager planManager) : base(dailyProductionRepository)
+        public DailyProductionManager(IRepository<DailyProduction> dailyProductionRepository, IPlanManager planManager, IRepository<DailyProductionNote> dailyProductionNoteRepository) : base(dailyProductionRepository)
         {
             _dailyProductionRepository = dailyProductionRepository;
             _planManager = planManager;
+            _dailyProductionNoteRepository = dailyProductionNoteRepository;
         }
 
         public List<DailyProduction> GetAllIncluding()
         {
-            var dailyProductions = _dailyProductionRepository.GetAllIncluding().Include(x => x.DailyProductionDetails).ThenInclude(p => p.Product)
+            var dailyProductions = _dailyProductionRepository.GetAllIncluding(x => x.DailyProductionNotes).Include(x => x.DailyProductionDetails).ThenInclude(p => p.Product)
                .Include(pl => pl.Plan).ToList();
             return dailyProductions;
         }
 
         public DailyProduction GetWithDetails(int id)
         {
-            var dailyProduction = _dailyProductionRepository.GetAllIncluding().Include(x => x.DailyProductionDetails).ThenInclude(p => p.Product)
+            var dailyProduction = _dailyProductionRepository.GetAllIncluding(x=>x.DailyProductionNotes).Include(x => x.DailyProductionDetails).ThenInclude(p => p.Product)
                 .Include(pl => pl.Plan)
                 .FirstOrDefault(x => x.Id == id);
             return dailyProduction;
@@ -65,6 +69,13 @@ namespace Souccar.Hcpc.DailyProductions.Services
             }
 
             return allProductionsForPlan;
+        }
+
+        public async Task<DailyProductionNote> AddNoteForDailyProductionAsync(string note,int dailyProductionId)
+        {
+            var newNote = new DailyProductionNote() { DailyProductionId = dailyProductionId,Note = note};
+            var createdNoteId = await _dailyProductionNoteRepository.InsertAndGetIdAsync(newNote);
+            return await _dailyProductionNoteRepository.GetAsync(createdNoteId);
         }
     }
 }

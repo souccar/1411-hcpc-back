@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using Souccar.Hcpc.DailyProductions.Dto.DailyProductionNoteDtos;
 
 namespace Souccar.Hcpc.DailyProductions.Services
 {
@@ -22,7 +23,7 @@ namespace Souccar.Hcpc.DailyProductions.Services
         public override async Task<DailyProductionDto> GetAsync(EntityDto<int> input)
         {
             var dailyProduction = _dailyProductionManager.GetWithDetails(input.Id);
-            return MapToEntityDto(dailyProduction);
+            return await Task.FromResult(MapToEntityDto(dailyProduction));
         }
 
         public override async Task<PagedResultDto<DailyProductionDto>> GetAllAsync(PagedDailyProductionRequestDto input)
@@ -42,7 +43,7 @@ namespace Souccar.Hcpc.DailyProductions.Services
             }
 
             result.Items = dtos;
-            return result;
+            return await Task.FromResult(result);
         }
 
         public override async Task<DailyProductionDto> CreateAsync(CreateDailyProductionDto input)
@@ -77,5 +78,10 @@ namespace Souccar.Hcpc.DailyProductions.Services
             return result;
         }
 
+        public async Task<DailyProductionNoteDto> AddNote(string note, int dailyProductionId)
+        {
+            var createdNote = await _dailyProductionManager.AddNoteForDailyProductionAsync(note, dailyProductionId);
+            return ObjectMapper.Map<DailyProductionNoteDto>(createdNote);
+        }
     }
 }
