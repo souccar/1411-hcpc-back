@@ -53,7 +53,7 @@ namespace Souccar.Hcpc.Plans.Services
 
             if (allplans.Any())
             {
-                var lastPlan = allplans.OrderByDescending(x => x.Id).FirstOrDefault();
+                var lastPlan = allplans.Where(x=>x.Status == PlanStatus.InProgress).OrderByDescending(x => x.Id).FirstOrDefault();
 
                 if (lastPlan != null)
                 {
