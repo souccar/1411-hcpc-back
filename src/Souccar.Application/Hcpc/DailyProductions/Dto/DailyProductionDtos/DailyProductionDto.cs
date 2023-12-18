@@ -2,6 +2,8 @@
 using Souccar.Hcpc.DailyProductions.Dto.DailyProductionDetailsDtos;
 using Souccar.Hcpc.DailyProductions.Dto.DailyProductionNoteDtos;
 using Souccar.Hcpc.Plans.Dto.Plans;
+using Souccar.Hcpc.Warehouses;
+using Souccar.Hcpc.WarehousesApp.OutputRequests.Dto;
 using System.Collections.Generic;
 
 namespace Souccar.Hcpc.DailyProductions.Dto.DailyProductionDtos
@@ -16,6 +18,7 @@ namespace Souccar.Hcpc.DailyProductions.Dto.DailyProductionDtos
         public string CreationTime { get; set; }
         public long? CreatorUserId { get; set; }
         public int? OutputRequestId { get; set; }
+        public OutputRequestNameForDropdownDto OutputRequest { get; set; }
 
         public int? PlanId { get; set; }
         public PlanDto Plan { get; set; }
