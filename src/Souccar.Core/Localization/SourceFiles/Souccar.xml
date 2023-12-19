@@ -191,7 +191,7 @@
 		<text name="AddNewItemInWarehouse" value="Add New Item In Warehouse"></text>
 		<text name="EditItemInWarehouse" value="Edit Item In Warehouse"></text>
 		<text name="ThereIsNoPlan,PleaseAddANewPlan" value="There Is No Plan,Please Add A New Plan"></text>
-		<text name="GoToPlanList" value="Go To Plan List"></text>
+		<text name="GoToPlansList" value="Go To Plans List"></text>
 		<text name="TotalQuentity" value="Total Quentity"></text>
 		<text name="AddDailyProduction" value="Add Daily Production"></text>
 		<text name="AmountWasted" value="Amount Wasted"></text>
@@ -208,9 +208,6 @@
 		<text name="Warning" value="Warning"></text>
 		<text name="ArchivePlan" value="Archive Plan"></text>
 		<text name="Confirmation" value="Confirmation"></text>
-
-
-		<!--Permissions-->
 		<text name="DeleteUser" value="Delete user"></text>
 		<text name="ChangePermissions" value="Change permissions"></text>
 		<text name="DeleteRole" value="Delete role"></text>
@@ -243,5 +240,19 @@
 		<text name="CreateNewOutputRquest" value="Create new output rquest"></text>
 		<text name="EditOutputRquest" value="Edit output rquest"></text>
 		<text name="DeleteOutputRquest" value="Delete output rquest"></text>
+		<text name="ProductionPercentage" value="Production Percentage"></text>
+		<text name="RequiredNumber" value="Required Number"></text>
+		<text name="NumberProduced" value="Number Produced"></text>
+		<text name="Formula" value="Formula"></text>
+		<text name="MaterialRequest" value="Material Request"></text>
+		<text name="RequestDate" value="RequestDate"></text>
+		<text name="Note" value="Note"></text>
+		<text name="Actually" value="Actually"></text>
+		<text name="Search" value="Search"></text>
+		<text name="Day" value="Day"></text>
+
+
+
+
 	</texts>
 </localizationDictionary>
