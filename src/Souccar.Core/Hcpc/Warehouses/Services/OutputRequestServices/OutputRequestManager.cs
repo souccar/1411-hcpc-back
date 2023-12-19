@@ -1,15 +1,11 @@
 ﻿using Abp.Domain.Repositories;
-using Abp.Domain.Uow;
-using Abp.Events.Bus;
 using Abp.UI;
 using Microsoft.EntityFrameworkCore;
 using Souccar.Core.Services.Implements;
-using Souccar.Hcpc.Plans;
-using Souccar.Hcpc.Warehouses.Events;
+using Souccar.Hcpc.Plans.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Souccar.Hcpc.Warehouses.Services.OutputRequestServices
@@ -17,9 +13,11 @@ namespace Souccar.Hcpc.Warehouses.Services.OutputRequestServices
     public class OutputRequestManager : SouccarDomainService<OutputRequest, int>, IOutputRequestManager
     {
         private readonly IRepository<OutputRequest> _outputRequestRepository;
-        public OutputRequestManager(IRepository<OutputRequest> repository, IRepository<OutputRequest> outputRequestRepository) : base(repository)
+        private readonly IPlanManager _planManager;
+        public OutputRequestManager(IRepository<OutputRequest> repository, IRepository<OutputRequest> outputRequestRepository, IPlanManager planManager) : base(repository)
         {
             _outputRequestRepository = outputRequestRepository;
+            _planManager = planManager;
         }
 
         public OutputRequest GetOutputRequestWithDetails(int id)
@@ -72,5 +70,20 @@ namespace Souccar.Hcpc.Warehouses.Services.OutputRequestServices
             return outputRequests;
         }
 
+        public override Task DeleteAsync(int id)
+        {            
+            var outputRequest = _outputRequestRepository.Get(id);
+            if (outputRequest.Status == OutputRequestStatus.InProduction)
+            {
+                throw new UserFriendlyException("Cannot be deleted, Status is in production");
+            }
+
+            var relatedPlans = _planManager.GetAll().Any(x => x.Status == Plans.PlanStatus.Actual && x.OutputRequests.Any(y => y.Id == id));
+            if (relatedPlans)
+            {
+                throw new UserFriendlyException("Cannot be deleted, This output request is associated with plans");
+            }
+            return base.DeleteAsync(id);
+        }
     }
 }

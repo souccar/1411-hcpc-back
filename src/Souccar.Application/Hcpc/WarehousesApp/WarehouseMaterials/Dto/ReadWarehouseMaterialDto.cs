@@ -4,6 +4,7 @@ using Souccar.Hcpc.Suppliers.Dto;
 using Souccar.Hcpc.Units.Dto.Units;
 using Souccar.Hcpc.WarehousesApp.OutputRequests.Dto.OutputRequestMaterialDtos;
 using Souccar.Hcpc.WarehousesApp.Warehouses.Dto;
+using System;
 using System.Collections.Generic;
 
 namespace Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Dto
@@ -15,10 +16,10 @@ namespace Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Dto
             OutputRequestMaterilas = new List<ReadOutputRequestMaterialDto>();
         }
         public int Id { get; set; }
-        public string EntryDate { get; set; }
+        public DateTime EntryDate { get; set; }
         public double InitialQuantity { get; set; }
         public double CurrentQuantity { get; set; }
-        public string ExpirationDate { get; set; }
+        public DateTime ExpirationDate { get; set; }
         public string Code { get; set; }
         public double Price { get; set; }
 

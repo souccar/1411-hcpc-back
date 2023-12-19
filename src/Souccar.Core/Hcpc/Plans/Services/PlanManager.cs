@@ -1,5 +1,6 @@
 ﻿using Abp.Domain.Repositories;
 using Abp.Domain.Uow;
+using Abp.UI;
 using Microsoft.EntityFrameworkCore;
 using Souccar.Core.Services.Implements;
 using Souccar.Hcpc.Products;
@@ -134,6 +135,16 @@ namespace Souccar.Hcpc.Plans.Services
             var plan = _planRepository.GetAllIncluding().Include(x=>x.PlanProducts).ThenInclude(y=>y.Product).FirstOrDefault(x=>x.Id ==planId);
             var productsOfPlan = plan.PlanProducts.Select(x=>x.Product).AsQueryable();
             return productsOfPlan;
+        }
+
+        public override Task DeleteAsync(int id)
+        {
+            var plan = _planRepository.Get(id);
+            if (plan.Status == PlanStatus.Actual)
+            {
+                throw new UserFriendlyException("Cannot be deleted, Status is actual");
+            }
+            return base.DeleteAsync(id);
         }
 
     }
