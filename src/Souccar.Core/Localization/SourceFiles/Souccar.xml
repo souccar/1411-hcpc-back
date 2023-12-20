@@ -249,6 +249,13 @@
 		<text name="ActuallyActually" value="Actually"></text>
 		<text name="Search" value="Search"></text>
 		<text name="Day" value="Day"></text>
+		<text name="AddOneSupplierAtLeast" value="Add One Supplier At Least"></text>
+		<text name="AddOneFormulaAtLeast" value="Add One Formula At Least"></text> 
+		<text name="ExpiryDurationNotifyCanNotBeNegativeOrZereo" value="Expiry Duration Notify Can Not Be Less Than Zero "></text>
+		<text name="PriceCanNotBeNegativeOrZero" value="Price Can Not Be Less Than Zero"></text>
+		<text name="QuantityCanNotBeNegativeOrZero" value="Quantit yCan Not Be Less Than Zero"></text>
+		<text name="FillSupplierAndLeadTimeFieldBefoe" value="Fill Supplier And Lead Time Field Befoe"></text>
+		<text name="FillRequiredFieldPleas" value="Fill Required Field Pleas"></text>
 
 
 
