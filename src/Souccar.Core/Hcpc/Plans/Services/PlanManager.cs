@@ -16,19 +16,13 @@ namespace Souccar.Hcpc.Plans.Services
     public class PlanManager : SouccarDomainService<Plan, int>, IPlanManager
     {
         private readonly IRepository<Plan> _planRepository;
-        private readonly IFormulaManager _formulaManager;
         private readonly IUnitOfWorkManager _unitOfWorkManager;
-        private readonly IWarehouseMaterialManager _warehouseMaterialManager;
 
         public PlanManager(
             IRepository<Plan> planRepository,
-            IFormulaManager formulaManager,
-            IWarehouseMaterialManager warehouseMaterialManager,
             IUnitOfWorkManager unitOfWorkManager) : base(planRepository)
         {
             _planRepository = planRepository;
-            _formulaManager = formulaManager;
-            _warehouseMaterialManager = warehouseMaterialManager;
             _unitOfWorkManager = unitOfWorkManager;
         }
 
