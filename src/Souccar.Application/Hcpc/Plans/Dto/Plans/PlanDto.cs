@@ -3,6 +3,7 @@ using Souccar.Hcpc.Plans.Dto.PlanMaterials;
 using Souccar.Hcpc.Plans.Dto.PlanProducts;
 using Souccar.Hcpc.Warehouses;
 using Souccar.Hcpc.WarehousesApp.OutputRequests.Dto;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,7 +19,7 @@ namespace Souccar.Hcpc.Plans.Dto.Plans
         }
         public string Title { get; set; }
         public int Duration { get; set; }
-        public string StartDate { get; set; }
+        public DateTime StartDate { get; set; }
         public int Status { get; set; }
 
         public int TotalItems => PlanProducts.Sum(x => x.NumberOfItems);

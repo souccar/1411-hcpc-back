@@ -9,6 +9,7 @@ using Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Dto;
 using Souccar.Hcpc.WarehousesApp.Warehouses.Dto;
 using Souccar.Notification;
 using Souccar.Notification.Dto;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -45,7 +46,7 @@ namespace Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Services
                     if (OutputRequestMaterial.WarehouseMaterialId == input.Id)
                     {
                         warehouseMaterialDto.outputRequests
-                            .Add(new OutputRequestForWarehouseMaterialDto() { Id = outputRequest.Id, Title = outputRequest.Title, OutputDate = outputRequest.OutputDate.ToString(), Quantity = OutputRequestMaterial.Quantity });
+                            .Add(new OutputRequestForWarehouseMaterialDto() { Id = outputRequest.Id, Title = outputRequest.Title, OutputDate = (DateTime)outputRequest.OutputDate, Quantity = OutputRequestMaterial.Quantity });
                     }
                 }
                 

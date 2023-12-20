@@ -4,6 +4,7 @@ using Souccar.Hcpc.Products.Dto.Products;
 using Souccar.Hcpc.Warehouses;
 using Souccar.Hcpc.WarehousesApp.OutputRequests.Dto.OutputRequestMaterialDtos;
 using Souccar.Hcpc.WarehousesApp.OutputRequests.Dto.OutputRequestProductDtos;
+using System;
 using System.Collections.Generic;
 
 namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Dto
@@ -18,7 +19,7 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Dto
 
         public int Id { get; set; }
         public string Title { get; set; }
-        public string OutputDate { get; set; }
+        public DateTime OutputDate { get; set; }
         public OutputRequestStatus Status { get; set; }
         public int? PlanId { get; set; }
         public PlanDto Plan { get; set; }
