@@ -257,13 +257,6 @@
 		<text name="Actually" value="الخطة الفعلية"></text>
 		<text name="Search" value="البحث"></text>
 		<text name="Day" value="يوم"></text>
-		<text name="AddOneSupplierAtLeast" value="أضف مورد واحد على الأقل"></text>
-		<text name="AddOneFormulaAtLeast" value="أضف تركيبة واحد على الأقل"></text>
-		<text name="ExpiryDurationNotifyCanNotBeNegativeOrZereo" value="قيمة إشعار انتهاء الصلاحية لا يجب أن تكون أقل من صفر "></text>
-		<text name="PriceCanNotBeNegativeOrZero" value="السعر لا يجب أن تكون أقل من صفر "></text>
-		<text name="QuantityCanNotBeNegativeOrZero" value="الكمية لا يجب أن تكون أقل من صفر"></text>
-		<text name="FillSupplierAndLeadTimeFieldBefoe" value="املأ حقل المورد والمهلة الزمنية قبل"></text>
-		<text name="FillRequiredFieldPleas" value="املأ الحقول الإجبارية "></text>
 
 
 
