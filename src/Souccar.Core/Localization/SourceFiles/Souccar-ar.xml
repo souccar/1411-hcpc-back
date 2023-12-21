@@ -74,7 +74,6 @@
 		<text name="EditUser">Edit user</text>
 		<text name="TenantIdIsNotActive{0}">TenantId {0} is not active</text>
 		<text name="UnknownTenantId{0}">Unknown tenantId {0}</text>
-		<text name="ThisFieldIsRequired">This field is required</text>
 		<text name="PleaseWait">Please wait...</text>
 		<text name="Administration">Administration</text>
 		<text name="ClearAll">Clear all</text>
@@ -257,7 +256,16 @@
 		<text name="Actually" value="الخطة الفعلية"></text>
 		<text name="Search" value="البحث"></text>
 		<text name="Day" value="يوم"></text>
-
+		<text name="AddOneSupplierAtLeast" value="أضف مورد واحد على الأقل "></text>
+		<text name="AddOneFormulaAtLeast" value="أضف تركيبة واحدة على الأقل "></text> 
+		<text name="ExpiryDurationNotifyCanNotBeNegativeOrZereo" value="لا يمكن أن يكون إشعار مدة انتهاء الصلاحية أصغر من صفر"></text>
+		<text name="PriceCanNotBeNegativeOrZero" value="السعر لا يمكن أن يكون أصفر من صفر"></text>
+		<text name="QuantityCanNotBeNegativeOrZero" value="لا يمكن أن تكون الكمية أصغر من صفر"></text>
+		<text name="FillSupplierAndLeadTimeFieldBefore" value="املأ حقل المورد والمهلة الزمنية من قبل"></text>
+		<text name="FillRequiredFieldPlease" value="املأ الحقول المطلوبة من فضلك"></text>
+		<text name="View" value="عرض"></text>
+		<text name="InDays" value="بلأيام"></text>
+		<text name="ThisFieldIsRequired" value="هذ الحقل مطلوب"></text>
 
 
 	</texts>
