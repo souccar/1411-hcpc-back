@@ -104,6 +104,11 @@ namespace Souccar.Hcpc.Plans.Services
             return MapToEntityDto(UpdatedPlan);
         }
 
+        public IList<PlanDto> GetPendingPlans()
+        {
+            var pendingPlans = _planManager.GetPendingPlans();
+            return ObjectMapper.Map<IList<PlanDto>>(pendingPlans);
+        }
 
         public IList<ProductNameForDropdownDto> GetProductsOfPlan(int planId)
         {
@@ -582,7 +587,7 @@ namespace Souccar.Hcpc.Plans.Services
                 }
             }
             return actualPlansDtos;
-        }
+        }        
 
         /////
 
