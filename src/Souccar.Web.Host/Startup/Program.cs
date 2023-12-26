@@ -2,6 +2,7 @@
 using Abp.Dependency;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using QuestPDF.Infrastructure;
 
 namespace Souccar.Web.Host.Startup
 {
@@ -9,6 +10,7 @@ namespace Souccar.Web.Host.Startup
     {
         public static void Main(string[] args)
         {
+            QuestPDF.Settings.License = LicenseType.Community;
             CreateHostBuilder(args).Build().Run();
         }
 

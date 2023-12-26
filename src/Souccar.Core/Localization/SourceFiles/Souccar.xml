@@ -256,6 +256,7 @@
 		<text name="QuantityCanNotBeNegativeOrZero" value="Quantit yCan Not Be Less Than Zero"></text>
 		<text name="FillSupplierAndLeadTimeFieldBefoe" value="Fill Supplier And Lead Time Field Befoe"></text>
 		<text name="FillRequiredFieldPleas" value="Fill Required Field Pleas"></text>
+		<text name="RequestTitle" value="Request Title"></text>
 
 
 

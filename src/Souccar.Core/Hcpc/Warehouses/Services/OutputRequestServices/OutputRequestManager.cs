@@ -51,6 +51,7 @@ namespace Souccar.Hcpc.Warehouses.Services.OutputRequestServices
         {
             var outputRequest = _outputRequestRepository.GetAllIncluding()
                 .Include(dp => dp.DailyProductions).ThenInclude(dpd => dpd.DailyProductionDetails)
+                .Include(dp => dp.DailyProductions).ThenInclude(dpd => dpd.DailyProductionNotes)
                 .Include(om => om.OutputRequestMaterials).ThenInclude(wm => wm.WarehouseMaterial)
                 .Include(op => op.OutputRequestProducts).ThenInclude(p => p.Product).ThenInclude(f => f.Formulas)
                 .Where(x => x.PlanId == planId);
