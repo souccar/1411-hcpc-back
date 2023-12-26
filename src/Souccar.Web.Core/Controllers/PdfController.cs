@@ -81,10 +81,10 @@ namespace Souccar.Controllers
 
                     table.Header(header =>
                     {
-                        header.Cell().AlignCenter().Text(L("RequestTitle")).Style(headerStyle);
-                        header.Cell().AlignCenter().Text(L("RequestDate")).Style(headerStyle);
-                        header.Cell().AlignCenter().Text(L("Products")).Style(headerStyle);
-                        header.Cell().AlignCenter().Text(L("DailyProduction")).Style(headerStyle);
+                        header.Cell().Element(CellStyle).Text(L("RequestTitle")).Style(headerStyle);
+                        header.Cell().Element(CellStyle).Text(L("RequestDate")).Style(headerStyle);
+                        header.Cell().Element(CellStyle).Text(L("Products")).Style(headerStyle);
+                        header.Cell().Element(CellStyle).Text(L("DailyProduction")).Style(headerStyle);
                     });
 
                     foreach (var item in outputRequests)
@@ -164,8 +164,8 @@ namespace Souccar.Controllers
                                 }
                             }
                         }
-                        IContainer CellStyle(IContainer container1) => container1.BorderBottom(1).BorderColor(Colors.Grey.Lighten2).PaddingVertical(5).AlignCenter().AlignMiddle();
                     }
+                    IContainer CellStyle(IContainer container1) => container1.Border(1).BorderColor(Colors.Grey.Lighten2).PaddingVertical(5).AlignCenter().AlignMiddle();
 
                 });
 
