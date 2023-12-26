@@ -266,7 +266,9 @@
 		<text name="View" value="عرض"></text>
 		<text name="InDays" value="بلأيام"></text>
 		<text name="ThisFieldIsRequired" value="هذ الحقل مطلوب"></text>
-
+		<text name="ThisFieldCannotBeNegative" value="هذا الحقل لا يمكن أن يكون سالباً"></text>
+		<text name="InvalidDate" value="التاريخ غير صالح"></text>
+		<text name="ThisListCannotBeEmpty" value="هذه القائمة لا يمكن أن تكون فارغة"></text>
 
 	</texts>
 </localizationDictionary>
