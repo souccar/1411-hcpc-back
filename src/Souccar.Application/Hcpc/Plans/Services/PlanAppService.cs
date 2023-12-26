@@ -107,7 +107,13 @@ namespace Souccar.Hcpc.Plans.Services
         public IList<PlanDto> GetPendingPlans()
         {
             var pendingPlans = _planManager.GetPendingPlans();
-            return ObjectMapper.Map<IList<PlanDto>>(pendingPlans);
+
+            var pendingPlansDto = ObjectMapper.Map<IList<PlanDto>>(pendingPlans);
+            foreach (var pendingPlanDto in pendingPlansDto)
+            {
+                InitPlanDetails(pendingPlanDto);
+            }
+            return pendingPlansDto;
         }
 
         public IList<ProductNameForDropdownDto> GetProductsOfPlan(int planId)

@@ -92,17 +92,17 @@ namespace Souccar.Controllers
                         var count = (uint)(item.OutputRequestProducts.Count * item.DailyProductions.Count);
                         if (count == 0)
                         {
-                            table.Cell().Element(CellStyle).AlignCenter().AlignMiddle().ShowOnce().Text(item.Title);
-                            table.Cell().Element(CellStyle).AlignCenter().AlignMiddle().Text(item.OutputDate.ToString("dd/MM/yyyy"));
-                            table.Cell().Element(CellStyle).AlignCenter().AlignMiddle().Text("-")
+                            table.Cell().Element(CellStyle).ShowOnce().Text(item.Title);
+                            table.Cell().Element(CellStyle).Text(item.OutputDate.ToString("dd/MM/yyyy"));
+                            table.Cell().Element(CellStyle).Text("-")
                             .FontSize(12).FontColor(Colors.BlueGrey.Medium);
-                            table.Cell().Element(CellStyle).AlignCenter().AlignMiddle().Text("-")
+                            table.Cell().Element(CellStyle).Text("-")
                             .FontSize(12).FontColor(Colors.BlueGrey.Medium);
                         }
                         else
                         {
-                            table.Cell().RowSpan(count).Element(CellStyle).AlignCenter().AlignMiddle().ShowOnce().Text(item.Title);
-                            table.Cell().RowSpan(count).Element(CellStyle).AlignCenter().AlignMiddle().Text(item.OutputDate.ToString("dd/MM/yyyy"));
+                            table.Cell().RowSpan(count).Element(CellStyle).ShowOnce().Text(item.Title);
+                            table.Cell().RowSpan(count).Element(CellStyle).Text(item.OutputDate.ToString("dd/MM/yyyy"));
 
                             int colorNum = 0;
 
@@ -117,7 +117,7 @@ namespace Souccar.Controllers
                                 {
                                     if (colorNum == 0)
                                     {
-                                        table.Cell().RowSpan((uint)numberOfDaily).Element(CellStyle).AlignCenter().AlignMiddle()
+                                        table.Cell().RowSpan((uint)numberOfDaily).Element(CellStyle)
                                         .Text(product.Product.Name + " / Can produce: " + product.CanProduce)
                                         .FontSize(7).FontColor(Colors.BlueGrey.Medium);
 
@@ -125,7 +125,7 @@ namespace Souccar.Controllers
                                         foreach (var dailyProduction in item.DailyProductions)
                                         {
                                             colorNum = 1;
-                                            table.Cell().Element(CellStyle).AlignCenter().AlignMiddle()
+                                            table.Cell().Element(CellStyle)
                                             .Text(dailyProduction.CreationTime.ToString("dd/MM/yyyy")
                                             + " - Produced: "
                                             + dailyProduction.DailyProductionDetails.FirstOrDefault(z => z.ProductId == product.ProductId).Quantity)
@@ -134,14 +134,14 @@ namespace Souccar.Controllers
                                     }
                                     else
                                     {
-                                        table.Cell().RowSpan((uint)numberOfDaily).Element(CellStyle).AlignCenter().AlignMiddle()
+                                        table.Cell().RowSpan((uint)numberOfDaily).Element(CellStyle)
                                         .Text(product.Product.Name + " / Can produce: " + product.CanProduce)
                                         .FontSize(7).FontColor(Colors.LightBlue.Accent4);
 
                                         foreach (var dailyProduction in item.DailyProductions)
                                         {
                                             colorNum = 0;
-                                            table.Cell().Element(CellStyle).AlignCenter().AlignMiddle()
+                                            table.Cell().Element(CellStyle)
                                             .Text(dailyProduction.CreationTime.ToString("dd/MM/yyyy")
                                             + " - Produced: "
                                             + dailyProduction.DailyProductionDetails.FirstOrDefault(z => z.ProductId == product.ProductId).Quantity)
@@ -152,19 +152,19 @@ namespace Souccar.Controllers
                                 }
                                 else
                                 {
-                                    table.Cell().Element(CellStyle).AlignCenter().AlignMiddle()
+                                    table.Cell().Element(CellStyle)
                                     .Text(product.Product.Name + " / Can produce: " + product.CanProduce)
                                     .FontSize(7).FontColor(Colors.BlueGrey.Medium);
 
                                     foreach (var dailyProduction in item.DailyProductions)
                                     {
-                                        table.Cell().Element(CellStyle).AlignCenter().AlignMiddle().Text("-")
+                                        table.Cell().Element(CellStyle).Text("-")
                                         .FontSize(7).FontColor(Colors.BlueGrey.Medium);
                                     }
                                 }
                             }
                         }
-                        IContainer CellStyle(IContainer container1) => container1.BorderBottom(1).BorderColor(Colors.Grey.Lighten2).PaddingVertical(5);
+                        IContainer CellStyle(IContainer container1) => container1.BorderBottom(1).BorderColor(Colors.Grey.Lighten2).PaddingVertical(5).AlignCenter().AlignMiddle();
                     }
 
                 });
