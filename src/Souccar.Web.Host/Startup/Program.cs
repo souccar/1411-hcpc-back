@@ -11,6 +11,7 @@ namespace Souccar.Web.Host.Startup
         public static void Main(string[] args)
         {
             QuestPDF.Settings.License = LicenseType.Community;
+            QuestPDF.Settings.CheckIfAllTextGlyphsAreAvailable = false;
             CreateHostBuilder(args).Build().Run();
         }
 

@@ -8,5 +8,6 @@ namespace Souccar.Hcpc.Suppliers.Services
     public interface ISupplierAppService: IAsyncSouccarAppService<SupplierDto,int,PagedSupplierRequestDto,CreateSupplierDto,UpdateSupplierDto>
     {
         IList<SupplierNameForDropdownDto> GetNameForDropdown();
+        IList<SupplierNameForDropdownDto> GetSuppliersByMaterialIdForDropdown(int materialId);
     }
 }

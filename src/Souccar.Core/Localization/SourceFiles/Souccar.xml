@@ -265,7 +265,7 @@
 		<text name="ChooseDifferentUnits" value="Choose DifferentUnits"></text>
 		<text name="leadTimeCanNotBeNegativeOrZero" value="leadTime Can Not Be Negative Or Zero"></text>
 		<text name="ExpiryDurationNotifyCanNotBeNegativeOrZero" value="Expiry Duration Notify Can Not Be Negative Or Zero"></text>
-		
+		<text name="Date" value="Date"></text>
 		<text name="RequestTitle" value="Request Title"></text>
 
 

@@ -273,7 +273,7 @@
 		<text name="ChooseDifferentUnits" value="اختر وحدتين مختلفتين "></text>
 		<text name="leadTimeCanNotBeNegativeOrZero" value="المهلة لا يمكن أن تكون سالبة أو صفر"></text>
 		<text name="ExpiryDurationNotifyCanNotBeNegativeOrZero" value="إشعار انتهاء الصلاحية لا يمكن أن تكون سالبة أو صفر"></text>
-
-
+		<text name="RequestTitle" value="عنوان الطلب"></text>
+		<text name="Date" value="التاريخ"></text>
 	</texts>
 </localizationDictionary>

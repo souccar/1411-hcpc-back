@@ -19,5 +19,11 @@ namespace Souccar.Hcpc.Suppliers.Services
             return _supplierDomainService.GetAll()
                 .Select(x => new SupplierNameForDropdownDto(x.Id, x.Name)).ToList();
         }
+
+        public IList<SupplierNameForDropdownDto> GetSuppliersByMaterialIdForDropdown(int materialId)
+        {
+            var suppliers = _supplierDomainService.GetSuppliersByMaterialId(materialId);
+            return ObjectMapper.Map<List<SupplierNameForDropdownDto>>(suppliers);
+        }
     }
 }
