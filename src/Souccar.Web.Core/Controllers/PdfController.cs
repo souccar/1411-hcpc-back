@@ -52,9 +52,7 @@ namespace Souccar.Controllers
             {
                 Document document = Document.Create(Compose);
                 document.GeneratePdfAndShow();
-            }
-
-            
+            }            
         }
 
         private void ArabicCompose(IDocumentContainer container)
@@ -93,17 +91,17 @@ namespace Souccar.Controllers
                     table.ColumnsDefinition(columns =>
                     {
                         columns.RelativeColumn(40);
-                        columns.RelativeColumn(40);
+                        columns.RelativeColumn(30);
                         columns.RelativeColumn(60);
-                        columns.RelativeColumn(50);
+                        columns.RelativeColumn(60);
                     });
 
                     table.Header(header =>
                     {
-                        header.Cell().Element(CellStyle).Text(L("RequestTitle", Language)).DirectionFromRightToLeft().Style(headerStyle);
-                        header.Cell().Element(CellStyle).Text(L("RequestDate", Language)).DirectionFromRightToLeft().Style(headerStyle);
-                        header.Cell().Element(CellStyle).Text(L("Products", Language)).DirectionFromRightToLeft().Style(headerStyle);
-                        header.Cell().Element(CellStyle).Text(L("DailyProduction", Language)).DirectionFromRightToLeft().Style(headerStyle);
+                        header.Cell().Element(CellStyle).Text(L("RequestTitle", Language)).Style(headerStyle);
+                        header.Cell().Element(CellStyle).Text(L("RequestDate", Language)).Style(headerStyle);
+                        header.Cell().Element(CellStyle).Text(L("Products", Language)).Style(headerStyle);
+                        header.Cell().Element(CellStyle).Text(L("DailyProduction", Language)).Style(headerStyle);
                     });
 
                     foreach (var item in outputRequests)
@@ -113,9 +111,9 @@ namespace Souccar.Controllers
                         {
                             table.Cell().ContentFromRightToLeft().Element(CellStyle).ShowOnce().Text(item.Title).Style(contentStyle);
                             table.Cell().ContentFromRightToLeft().Element(CellStyle).Text(item.OutputDate.ToString("dd/MM/yyyy")).Style(contentStyle);
-                            table.Cell().Element(CellStyle).Text("-").DirectionFromRightToLeft().Style(contentStyle)
+                            table.Cell().Element(CellStyle).Text("-").Style(contentStyle)
                             .FontSize(12).FontColor(Colors.BlueGrey.Medium);
-                            table.Cell().Element(CellStyle).Text("-").DirectionFromRightToLeft().Style(contentStyle)
+                            table.Cell().Element(CellStyle).Text("-").Style(contentStyle)
                             .FontSize(12).FontColor(Colors.BlueGrey.Medium);
                         }
                         else
@@ -139,20 +137,21 @@ namespace Souccar.Controllers
                                         table.Cell().RowSpan((uint)numberOfDaily).Element(CellStyle).ContentFromRightToLeft()
                                         .Text(text =>
                                         {
-                                            text.Span(product.Product.Name).FontSize(11).FontColor(Colors.BlueGrey.Medium).DirectionFromRightToLeft().Style(contentStyle);
-                                            text.Span(" / " + L("CanProduce", Language) + ": ").FontSize(11).FontColor(Colors.BlueGrey.Medium).DirectionFromRightToLeft().Style(contentStyle);
-                                            text.Span(product.CanProduce.ToString()).FontSize(11).FontColor(Colors.BlueGrey.Medium).DirectionFromRightToLeft().Style(contentStyle);
+                                            text.Span(product.Product.Name).FontSize(11).FontColor(Colors.BlueGrey.Medium).Style(contentStyle);
+                                            text.Span(" / " + L("CanProduce", Language) + ": ").FontSize(11).FontColor(Colors.BlueGrey.Medium).Style(contentStyle);
+                                            text.Span(product.CanProduce.ToString()).FontSize(11).FontColor(Colors.BlueGrey.Medium).Style(contentStyle);
                                         });
 
                                         foreach (var dailyProduction in item.DailyProductions)
                                         {
                                             colorNum = 1;
-                                            table.Cell().Element(CellStyle)
-                                            .Text(dailyProduction.CreationTime.ToString("dd/MM/yyyy")
-                                            + " - Produced: "
-                                            + dailyProduction.DailyProductionDetails.FirstOrDefault(z => z.ProductId == product.ProductId).Quantity)
-                                            .DirectionFromRightToLeft().Style(contentStyle)
-                                            .FontSize(7).FontColor(Colors.BlueGrey.Medium);
+                                            table.Cell().Element(CellStyle).ContentFromRightToLeft()
+                                            .Text(text =>
+                                             {
+                                                 text.Span(dailyProduction.CreationTime.ToString("dd/MM/yyyy")).FontSize(9).FontColor(Colors.BlueGrey.Medium).Style(contentStyle);
+                                                 text.Span(" - " + L("Produced", Language) + ": ").FontSize(9).FontColor(Colors.BlueGrey.Medium).Style(contentStyle);
+                                                 text.Span(dailyProduction.DailyProductionDetails.FirstOrDefault(z => z.ProductId == product.ProductId).Quantity.ToString()).FontSize(9).FontColor(Colors.BlueGrey.Medium).Style(contentStyle);
+                                             });
                                         }
                                     }
                                     else
@@ -160,21 +159,21 @@ namespace Souccar.Controllers
                                         table.Cell().RowSpan((uint)numberOfDaily).Element(CellStyle).ContentFromRightToLeft()
                                         .Text(text =>
                                         {
-                                             text.Span(product.Product.Name).FontSize(11).FontColor(Colors.LightBlue.Accent4).DirectionFromRightToLeft().Style(contentStyle);
-                                             text.Span(" / " + L("CanProduce", Language) + ": ").FontSize(11).FontColor(Colors.LightBlue.Accent4).DirectionFromRightToLeft().Style(contentStyle);
-                                             text.Span(product.CanProduce.ToString()).FontSize(11).FontColor(Colors.LightBlue.Accent4).DirectionFromRightToLeft().Style(contentStyle);
+                                             text.Span(product.Product.Name).FontSize(11).FontColor(Colors.LightBlue.Accent4).Style(contentStyle);
+                                             text.Span(" / " + L("CanProduce", Language) + ": ").FontSize(11).FontColor(Colors.LightBlue.Accent4).Style(contentStyle);
+                                             text.Span(product.CanProduce.ToString()).FontSize(11).FontColor(Colors.LightBlue.Accent4).Style(contentStyle);
                                         });
 
                                         foreach (var dailyProduction in item.DailyProductions)
                                         {
                                             colorNum = 0;
-                                            table.Cell().Element(CellStyle)
-                                            .Text(dailyProduction.CreationTime.ToString("dd/MM/yyyy")
-                                            + " - Produced: "
-                                            + dailyProduction.DailyProductionDetails.FirstOrDefault(z => z.ProductId == product.ProductId).Quantity)
-                                            .DirectionFromRightToLeft().Style(contentStyle)
-                                            .FontSize(7).FontColor(Colors.LightBlue.Accent4);
-
+                                            table.Cell().Element(CellStyle).ContentFromRightToLeft()
+                                            .Text(text =>
+                                             {
+                                                 text.Span(dailyProduction.CreationTime.ToString("dd/MM/yyyy")).FontSize(9).FontColor(Colors.LightBlue.Accent4).Style(contentStyle);
+                                                 text.Span(" - " + L("Produced", Language) + ": ").FontSize(9).FontColor(Colors.LightBlue.Accent4).Style(contentStyle);
+                                                 text.Span(dailyProduction.DailyProductionDetails.FirstOrDefault(z => z.ProductId == product.ProductId).Quantity.ToString()).FontSize(9).FontColor(Colors.LightBlue.Accent4).Style(contentStyle);
+                                             });
                                         }
                                     }
                                 }
@@ -183,14 +182,14 @@ namespace Souccar.Controllers
                                     table.Cell().Element(CellStyle).ContentFromRightToLeft()
                                     .Text(text =>
                                     {
-                                        text.Span(product.Product.Name).FontSize(11).FontColor(Colors.BlueGrey.Medium).DirectionFromRightToLeft().Style(contentStyle);
-                                        text.Span(" / " + L("CanProduce", Language) + ": ").FontSize(11).FontColor(Colors.BlueGrey.Medium).DirectionFromRightToLeft().Style(contentStyle);
-                                        text.Span(product.CanProduce.ToString()).FontSize(11).FontColor(Colors.BlueGrey.Medium).DirectionFromRightToLeft().Style(contentStyle);
+                                        text.Span(product.Product.Name).FontSize(11).FontColor(Colors.BlueGrey.Medium).Style(contentStyle);
+                                        text.Span(" / " + L("CanProduce", Language) + ": ").FontSize(11).FontColor(Colors.BlueGrey.Medium).Style(contentStyle);
+                                        text.Span(product.CanProduce.ToString()).FontSize(11).FontColor(Colors.BlueGrey.Medium).Style(contentStyle);
                                     });
 
                                     foreach (var dailyProduction in item.DailyProductions)
                                     {
-                                        table.Cell().Element(CellStyle).Text("-").DirectionFromRightToLeft().Style(contentStyle)
+                                        table.Cell().Element(CellStyle).Text("-").Style(contentStyle)
                                         .FontSize(7).FontColor(Colors.BlueGrey.Medium);
                                     }
                                 }
@@ -245,9 +244,9 @@ namespace Souccar.Controllers
                    table.ColumnsDefinition(columns =>
                    {
                        columns.RelativeColumn(40);
-                       columns.RelativeColumn(40);
+                       columns.RelativeColumn(30);
                        columns.RelativeColumn(60);
-                       columns.RelativeColumn(50);
+                       columns.RelativeColumn(60);
                    });
 
                    table.Header(header =>
@@ -290,20 +289,21 @@ namespace Souccar.Controllers
                                        table.Cell().RowSpan((uint)numberOfDaily).Element(CellStyle)
                                        .Text(text =>
                                        {
-                                           text.Span(product.Product.Name).FontSize(7).FontColor(Colors.BlueGrey.Medium).Style(contentStyle);
-                                           text.Span(" / " + L("CanProduce", Language) + ": ").FontSize(7).FontColor(Colors.BlueGrey.Medium).Style(contentStyle);
-                                           text.Span(product.CanProduce.ToString()).FontSize(7).FontColor(Colors.BlueGrey.Medium).Style(contentStyle);
+                                           text.Span(product.Product.Name).FontSize(11).FontColor(Colors.BlueGrey.Medium).Style(contentStyle);
+                                           text.Span(" / " + L("CanProduce", Language) + ": ").FontSize(11).FontColor(Colors.BlueGrey.Medium).Style(contentStyle);
+                                           text.Span(product.CanProduce.ToString()).FontSize(11).FontColor(Colors.BlueGrey.Medium).Style(contentStyle);
                                        });
 
                                        foreach (var dailyProduction in item.DailyProductions)
                                        {
                                            colorNum = 1;
                                            table.Cell().Element(CellStyle)
-                                           .Text(dailyProduction.CreationTime.ToString("dd/MM/yyyy")
-                                           + " - Produced: "
-                                           + dailyProduction.DailyProductionDetails.FirstOrDefault(z => z.ProductId == product.ProductId).Quantity)
-                                           .Style(contentStyle)
-                                           .FontSize(7).FontColor(Colors.BlueGrey.Medium);
+                                           .Text(text =>
+                                            {
+                                                text.Span(dailyProduction.CreationTime.ToString("dd/MM/yyyy")).FontSize(9).FontColor(Colors.BlueGrey.Medium).Style(contentStyle);
+                                                text.Span(" - " + L("Produced", Language) + ": ").FontSize(9).FontColor(Colors.BlueGrey.Medium).Style(contentStyle);
+                                                text.Span(dailyProduction.DailyProductionDetails.FirstOrDefault(z => z.ProductId == product.ProductId).Quantity.ToString()).FontSize(9).FontColor(Colors.BlueGrey.Medium).Style(contentStyle);
+                                            });
                                        }
                                    }
                                    else
@@ -311,20 +311,21 @@ namespace Souccar.Controllers
                                        table.Cell().RowSpan((uint)numberOfDaily).Element(CellStyle)
                                        .Text(text =>
                                        {
-                                           text.Span(product.Product.Name).FontSize(7).FontColor(Colors.LightBlue.Accent4).Style(contentStyle);
-                                           text.Span(" / " + L("CanProduce", Language) + ": ").FontSize(7).FontColor(Colors.LightBlue.Accent4).Style(contentStyle);
-                                           text.Span(product.CanProduce.ToString()).FontSize(7).FontColor(Colors.LightBlue.Accent4).Style(contentStyle);
+                                           text.Span(product.Product.Name).FontSize(11).FontColor(Colors.LightBlue.Accent4).Style(contentStyle);
+                                           text.Span(" / " + L("CanProduce", Language) + ": ").FontSize(11).FontColor(Colors.LightBlue.Accent4).Style(contentStyle);
+                                           text.Span(product.CanProduce.ToString()).FontSize(11).FontColor(Colors.LightBlue.Accent4).Style(contentStyle);
                                        });
 
                                        foreach (var dailyProduction in item.DailyProductions)
                                        {
                                            colorNum = 0;
                                            table.Cell().Element(CellStyle)
-                                           .Text(dailyProduction.CreationTime.ToString("dd/MM/yyyy")
-                                           + " - Produced: "
-                                           + dailyProduction.DailyProductionDetails.FirstOrDefault(z => z.ProductId == product.ProductId).Quantity)
-                                           .Style(contentStyle)
-                                           .FontSize(7).FontColor(Colors.LightBlue.Accent4);
+                                           .Text(text =>
+                                            {
+                                                text.Span(dailyProduction.CreationTime.ToString("dd/MM/yyyy")).FontSize(9).FontColor(Colors.LightBlue.Accent4).Style(contentStyle);
+                                                text.Span(" - " + L("Produced", Language) + ": ").FontSize(9).FontColor(Colors.LightBlue.Accent4).Style(contentStyle);
+                                                text.Span(dailyProduction.DailyProductionDetails.FirstOrDefault(z => z.ProductId == product.ProductId).Quantity.ToString()).FontSize(9).FontColor(Colors.LightBlue.Accent4).Style(contentStyle);
+                                            });
                                        }
                                    }
                                }
@@ -333,9 +334,9 @@ namespace Souccar.Controllers
                                    table.Cell().Element(CellStyle)
                                    .Text(text =>
                                    {
-                                       text.Span(product.Product.Name).FontSize(7).FontColor(Colors.BlueGrey.Medium).Style(contentStyle);
-                                       text.Span(" / " + L("CanProduce", Language) + ": ").FontSize(7).FontColor(Colors.BlueGrey.Medium).Style(contentStyle);
-                                       text.Span(product.CanProduce.ToString()).FontSize(7).FontColor(Colors.BlueGrey.Medium).Style(contentStyle);
+                                       text.Span(product.Product.Name).FontSize(11).FontColor(Colors.BlueGrey.Medium).Style(contentStyle);
+                                       text.Span(" / " + L("CanProduce", Language) + ": ").FontSize(11).FontColor(Colors.BlueGrey.Medium).Style(contentStyle);
+                                       text.Span(product.CanProduce.ToString()).FontSize(11).FontColor(Colors.BlueGrey.Medium).Style(contentStyle);
                                    });
 
                                    foreach (var dailyProduction in item.DailyProductions)
