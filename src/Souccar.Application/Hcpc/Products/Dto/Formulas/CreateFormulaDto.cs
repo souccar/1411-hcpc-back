@@ -14,7 +14,6 @@ namespace Souccar.Hcpc.Products.Dto.Formulas
         [Required(ErrorMessage = SouccarAppConstant.Required)]
         public int? UnitId { get; set; }
 
-        [Required(ErrorMessage = SouccarAppConstant.Required)]
         public int? ProductId { get; set; }
     }
 }
