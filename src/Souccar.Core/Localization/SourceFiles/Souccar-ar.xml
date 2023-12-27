@@ -264,7 +264,7 @@
 		<text name="FillSupplierAndLeadTimeFieldBefore" value="املأ حقل المورد والمهلة الزمنية من قبل"></text>
 		<text name="FillRequiredFieldPlease" value="املأ الحقول المطلوبة من فضلك"></text>
 		<text name="View" value="عرض"></text>
-		<text name="InDays" value="بلأيام"></text>
+		<text name="InDays" value="بالأيام"></text>
 		<text name="ThisFieldIsRequired" value="هذ الحقل مطلوب"></text>
 		<text name="ThisFieldCannotBeNegative" value="هذا الحقل لا يمكن أن يكون سالباً"></text>
 		<text name="InvalidDate" value="التاريخ غير صالح"></text>
