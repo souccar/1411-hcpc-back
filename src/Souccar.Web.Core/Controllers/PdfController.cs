@@ -45,17 +45,18 @@ namespace Souccar.Controllers
 
             if (culture == "ar")
             {
-                Document document = Document.Create(ArabicCompose);
+                Document document = Document.Create(ArabicDailyProductionsReportCompose);
                 document.GeneratePdfAndShow();
             }
             else
             {
-                Document document = Document.Create(Compose);
+                Document document = Document.Create(DailyProductionsReportCompose);
                 document.GeneratePdfAndShow();
             }            
         }
 
-        private void ArabicCompose(IDocumentContainer container)
+        #region Helper Methods
+        private void ArabicDailyProductionsReportCompose(IDocumentContainer container)
         {
             var rootPath = _hostingEnvironment.WebRootPath;
             Image logoImage = Image.FromFile(rootPath + "\\Images\\logo.png");
@@ -208,8 +209,7 @@ namespace Souccar.Controllers
                  });
              });
         }
-
-        private void Compose(IDocumentContainer container)
+        private void DailyProductionsReportCompose(IDocumentContainer container)
         {           
             var rootPath = _hostingEnvironment.WebRootPath;
             Image logoImage = Image.FromFile(rootPath + "\\Images\\logo.png");
@@ -360,5 +360,6 @@ namespace Souccar.Controllers
                 });
             });
         }
+        #endregion
     }
 }
