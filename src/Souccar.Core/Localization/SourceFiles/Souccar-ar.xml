@@ -261,7 +261,7 @@
 		<text name="ExpiryDurationNotifyCanNotBeNegativeOrZereo" value="لا يمكن أن يكون إشعار مدة انتهاء الصلاحية أصغر من صفر"></text>
 		<text name="PriceCanNotBeNegativeOrZero" value="السعر لا يمكن أن يكون أصفر من صفر"></text>
 		<text name="QuantityCanNotBeNegativeOrZero" value="لا يمكن أن تكون الكمية أصغر من صفر"></text>
-		<text name="FillSupplierAndLeadTimeFieldBefore" value="املأ حقل المورد والمهلة الزمنية من قبل"></text>
+		<text name="FillSupplierAndLeadTimeFieldFirst" value="املأ حقل المورد والمهلة الزمنية أولاً"></text>
 		<text name="FillRequiredFieldPlease" value="املأ الحقول المطلوبة من فضلك"></text>
 		<text name="View" value="عرض"></text>
 		<text name="InDays" value="بلأيام"></text>
@@ -269,6 +269,11 @@
 		<text name="ThisFieldCannotBeNegative" value="هذا الحقل لا يمكن أن يكون سالباً"></text>
 		<text name="InvalidDate" value="التاريخ غير صالح"></text>
 		<text name="ThisListCannotBeEmpty" value="هذه القائمة لا يمكن أن تكون فارغة"></text>
+		<text name="MaterialDetails" value="تفاصيل المادة"></text>
+		<text name="ChooseDifferentUnits" value="اختر وحدتين مختلفتين "></text>
+		<text name="leadTimeCanNotBeNegativeOrZero" value="المهلة لا يمكن أن تكون سالبة أو صفر"></text>
+		<text name="ExpiryDurationNotifyCanNotBeNegativeOrZero" value="إشعار انتهاء الصلاحية لا يمكن أن تكون سالبة أو صفر"></text>
+
 
 	</texts>
 </localizationDictionary>

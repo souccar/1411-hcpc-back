@@ -260,8 +260,11 @@
 		<text name="ThisFieldCannotBeNegative" value="This field cannot be negative"></text>
 		<text name="InvalidDate" value="Invalid Date"></text>
 		<text name="ThisListCannotBeEmpty" value="This list cannot be empty"></text>
-
-
+		<text name="FillSupplierAndLeadTimeFieldFirst" value="Fill Supplier And LeadTime Field First"></text>
+		<text name="MaterialDetails" value="Material Details"></text>
+		<text name="ChooseDifferentUnits" value="Choose DifferentUnits"></text>
+		<text name="leadTimeCanNotBeNegativeOrZero" value="leadTime Can Not Be Negative Or Zero"></text>
+		<text name="ExpiryDurationNotifyCanNotBeNegativeOrZero" value="Expiry Duration Notify Can Not Be Negative Or Zero"></text>
 
 
 	</texts>
