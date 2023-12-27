@@ -15,7 +15,6 @@ namespace Souccar.Hcpc.Plans.Dto.PlanProducts
         [Required(ErrorMessage = SouccarAppConstant.Required)]
         public int? ProductId { get; set; }
 
-        [Required(ErrorMessage = SouccarAppConstant.Required)]
         public int? PlanId { get; set; }
     }
 }
