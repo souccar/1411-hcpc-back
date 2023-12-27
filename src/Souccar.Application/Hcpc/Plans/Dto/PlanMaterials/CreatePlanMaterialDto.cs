@@ -18,7 +18,6 @@ namespace Souccar.Hcpc.Plans.Dto.PlanMaterials
         [Required(ErrorMessage = SouccarAppConstant.Required)]
         public int? MaterialId { get; set; }
 
-        [Required(ErrorMessage = SouccarAppConstant.Required)]
         public int? PlanId { get; set; }
     }
 }
