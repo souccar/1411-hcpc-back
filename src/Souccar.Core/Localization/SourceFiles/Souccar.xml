@@ -188,7 +188,7 @@
 		<text name="EditWarehouse" value="Edit Warehouse"></text>
 		<text name="AddNewItemInWarehouse" value="Add New Item In Warehouse"></text>
 		<text name="EditItemInWarehouse" value="Edit Item In Warehouse"></text>
-		<text name="ThereIsNoPlan,PleaseAddANewPlan" value="There Is No Plan,Please Add A New Plan"></text>
+		<text name="ThereIsNoPlan,PleaseAddANewOne" value="There Is No Plan,Please Add A New One"></text>
 		<text name="GoToPlansList" value="Go To Plans List"></text>
 		<text name="TotalQuentity" value="Total Quentity"></text>
 		<text name="AddDailyProduction" value="Add Daily Production"></text>
@@ -265,11 +265,24 @@
 		<text name="ChooseDifferentUnits" value="Choose DifferentUnits"></text>
 		<text name="leadTimeCanNotBeNegativeOrZero" value="leadTime Can Not Be Negative Or Zero"></text>
 		<text name="ExpiryDurationNotifyCanNotBeNegativeOrZero" value="Expiry Duration Notify Can Not Be Negative Or Zero"></text>
-		<text name="Date" value="Date"></text>
-		<text name="RequestTitle" value="Request Title"></text>
-		<text name="Produced" value="Produced"></text>
+		<text name="MoveToProduction" value="Move To Production"></text>
+		<text name="WarehouseCode" value="Warehouse Code"></text>
 		<text name="GoToPlanList" value="Go To Plan List"></text>
-
+		<text name="RelatedProduct" value="Related Product"></text>
+		<text name="Date" value="Date"></text>
+		<text name="TheNumberRequiredToBeProduced" value="The Number Required To Be Produced"></text>
+		<text name="NumberProducedSoFar" value="Number Produced So Far"></text>
+		<text name="TheNumberThatCanBeProducedAccordingToTheQuantitiesOfMaterialsPresentInTheWarehouses" value="The Number That Can Be Produced According To The Quantities Of Materials Present In The Warehouses"></text>
+		<text name="TheCostOfProducingOnePackage/TheCostOfProducingTheNumberThatCanBeProduced" value="The Cost Of Producing One Package / The Cost Of Producing The Number That Can Be Produced"></text>
+		<text name="ProductBalancing" value="Product Balancing"></text> 
+		<text name="TotalSalesAmountAccordingToTheNumberOfPackagesProduced/ProductPrice" value="Total Sales Amount According To The Number Of Packages Produced / Product Price"></text>
+		<text name="PlanCanProduce" value="Plan Can Produce"></text>
+		<text name="PlanCanNotProduce" value="Plan Can Not Produce"></text>
+		<text name="TotalSalesAmountAccordingToTheNumberOfPackagesProduced " value="Total Sales Amount According To The Number Of Packages Produced"></text>
+		<text name="CostOfPackagingProducedToDate" value="Cost Of Packaging Produced To Date"></text>
+		<text name="TheValueOfTheAmountWastedFromTheProductionProcess" value="The Value Of The Amount Wasted From The Production Process"></text>
+		<text name="Produced" value="Produced"></text>
+		<text name="Remaining" value="Remaining"></text>
 
 
 	</texts>
