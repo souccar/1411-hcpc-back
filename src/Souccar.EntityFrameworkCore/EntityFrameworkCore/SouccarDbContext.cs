@@ -11,12 +11,14 @@ using Souccar.Hcpc.Warehouses;
 using Souccar.Hcpc.Plans;
 using Souccar.Hcpc.DailyProductions;
 using Souccar.Hcpc.GeneralSettings;
+using Souccar.hr.Personnel.Employees;
 
 namespace Souccar.EntityFrameworkCore
 {
     public class SouccarDbContext : AbpZeroDbContext<Tenant, Role, User, SouccarDbContext>
     {
         /* Define a DbSet for each entity of the application */
+        public DbSet<Employee> Employees { get; set; }
         public DbSet<Plan> Plans { get; set; }
         public DbSet<PlanProduct> PlanProducts { get; set; }
         public DbSet<PlanProductMaterial> PlanProductMaterials { get; set; }
