@@ -1,5 +1,6 @@
 ﻿using Abp.Domain.Repositories;
 using Abp.Domain.Uow;
+using Abp.UI;
 using Microsoft.EntityFrameworkCore;
 using Souccar.Core.Services.Implements;
 using Souccar.Hcpc.Products;
@@ -15,19 +16,13 @@ namespace Souccar.Hcpc.Plans.Services
     public class PlanManager : SouccarDomainService<Plan, int>, IPlanManager
     {
         private readonly IRepository<Plan> _planRepository;
-        private readonly IFormulaManager _formulaManager;
         private readonly IUnitOfWorkManager _unitOfWorkManager;
-        private readonly IWarehouseMaterialManager _warehouseMaterialManager;
 
         public PlanManager(
             IRepository<Plan> planRepository,
-            IFormulaManager formulaManager,
-            IWarehouseMaterialManager warehouseMaterialManager,
             IUnitOfWorkManager unitOfWorkManager) : base(planRepository)
         {
             _planRepository = planRepository;
-            _formulaManager = formulaManager;
-            _warehouseMaterialManager = warehouseMaterialManager;
             _unitOfWorkManager = unitOfWorkManager;
         }
 
@@ -53,7 +48,7 @@ namespace Souccar.Hcpc.Plans.Services
 
             if (allplans.Any())
             {
-                var lastPlan = allplans.OrderByDescending(x => x.Id).FirstOrDefault();
+                var lastPlan = allplans.Where(x=>x.Status == PlanStatus.InProgress).OrderByDescending(x => x.Id).FirstOrDefault();
 
                 if (lastPlan != null)
                 {
@@ -134,6 +129,16 @@ namespace Souccar.Hcpc.Plans.Services
             var plan = _planRepository.GetAllIncluding().Include(x=>x.PlanProducts).ThenInclude(y=>y.Product).FirstOrDefault(x=>x.Id ==planId);
             var productsOfPlan = plan.PlanProducts.Select(x=>x.Product).AsQueryable();
             return productsOfPlan;
+        }
+
+        public override Task DeleteAsync(int id)
+        {
+            var plan = _planRepository.Get(id);
+            if (plan.Status == PlanStatus.Actual)
+            {
+                throw new UserFriendlyException("Cannot be deleted, Status is actual");
+            }
+            return base.DeleteAsync(id);
         }
 
     }

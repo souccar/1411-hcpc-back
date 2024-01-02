@@ -32,7 +32,7 @@ namespace Souccar.Hcpc.DailyProductions.Services
 
             List<DailyProductionDto> dtos = new List<DailyProductionDto>();
 
-            var allDailyProductions = _dailyProductionManager.GetAllIncluding();
+            var allDailyProductions = _dailyProductionManager.GetAllWithIncluding(input.Including).ToList();
 
             result.TotalCount = allDailyProductions.Count;
 

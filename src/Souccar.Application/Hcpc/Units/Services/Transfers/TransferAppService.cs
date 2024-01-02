@@ -1,14 +1,7 @@
-﻿using Abp.UI;
-using Newtonsoft.Json.Linq;
-using Souccar.Core.Services;
+﻿using Souccar.Core.Services;
 using Souccar.Hcpc.Units;
 using Souccar.Hcpc.Units.Dto.Transfers;
-using Souccar.Hcpc.Units.Dto.Units;
 using Souccar.Hcpc.Units.Services;
-using System;
-using System.Linq;
-using System.Linq.Dynamic.Core;
-using System.Security.Cryptography.Xml;
 using System.Threading.Tasks;
 
 namespace Souccar.Hcpc.Transfers.Services.Transfers

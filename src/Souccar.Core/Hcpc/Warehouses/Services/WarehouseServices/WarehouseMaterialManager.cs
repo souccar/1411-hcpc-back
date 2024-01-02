@@ -1,4 +1,5 @@
 ﻿using Abp.Domain.Repositories;
+using Abp.UI;
 using Microsoft.EntityFrameworkCore;
 using Souccar.Core.Services.Implements;
 using Souccar.Hcpc.GeneralSettings.Services;
@@ -17,7 +18,9 @@ namespace Souccar.Hcpc.Warehouses.Services.WarehouseServices
         private readonly IGeneralSettingManager _generalSettingManager;
         private readonly IOutputRequestManager _outputRequestManager;
 
-        public WarehouseMaterialManager(IRepository<WarehouseMaterial> warehouseMaterialRepository, IGeneralSettingManager generalSettingManager, IOutputRequestManager outputRequestManager) : base(warehouseMaterialRepository)
+        public WarehouseMaterialManager(IRepository<WarehouseMaterial> warehouseMaterialRepository,
+            IGeneralSettingManager generalSettingManager,
+            IOutputRequestManager outputRequestManager) : base(warehouseMaterialRepository)
         {
             _warehouseMaterialRepository = warehouseMaterialRepository;
             _generalSettingManager = generalSettingManager;
@@ -50,12 +53,31 @@ namespace Souccar.Hcpc.Warehouses.Services.WarehouseServices
         {
             var generalSetting = await _generalSettingManager.GetAll().FirstOrDefaultAsync();
 
-            var allThatWillExpire = _warehouseMaterialRepository.GetAllIncluding(x => x.Material)
+            if (generalSetting != null)
+            {
+                var allThatWillExpire = _warehouseMaterialRepository.GetAllIncluding(x => x.Material)
                 .Where(x => x.ExpirationDate.Date <= DateTime.Now.AddDays(generalSetting.ExpiryDurationNotify).Date &&
                 x.CurrentQuantity != 0 && !x.AboutToFinish).ToList();
 
-            return allThatWillExpire;
+                return allThatWillExpire;
+            }
+            else
+            {
+                throw new UserFriendlyException("You must add general setting");
+            }           
+
+            
         }
 
+        public override Task DeleteAsync(int id)
+        {
+            var relatedOutputRequests = _outputRequestManager.GetAll()
+                .Any(x => x.Status != OutputRequestStatus.Finished && x.OutputRequestMaterials.Any(y => y.WarehouseMaterialId == id));
+            if (relatedOutputRequests)
+            {
+                throw new UserFriendlyException("Cannot be deleted, This warehouse material is associated with output requests");
+            }
+            return base.DeleteAsync(id);
+        }
     }
 }

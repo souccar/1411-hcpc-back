@@ -438,7 +438,7 @@ namespace Souccar.Hcpc.Plans.Services
 
                 foreach (var previousActualPlan in previousActualPlans)
                 {
-                    if (previousActualPlan.PlanMaterials.Any())
+                    if (previousActualPlan.PlanMaterials.Any() && previousActualPlan.PlanMaterials.Where(x => x.MaterialId == materialId).Any())
                     {
                         allBookingQuantities += previousActualPlan.PlanMaterials.Where(x => x.MaterialId == materialId).FirstOrDefault().TotalQuantity;
                     }

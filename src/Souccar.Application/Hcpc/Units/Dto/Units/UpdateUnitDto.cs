@@ -1,9 +1,12 @@
 ﻿using Abp.Application.Services.Dto;
+using Souccar.Consts;
+using System.ComponentModel.DataAnnotations;
 
 namespace Souccar.Hcpc.Units.Dto.Units
 {
-    public class UpdateUnitDto : UnitBaseDto, IEntityDto<int>
+    public class UpdateUnitDto : EntityDto<int>
     {
-        public int Id { get; set; }
+        [Required(ErrorMessage = SouccarAppConstant.Required ,AllowEmptyStrings = false), MaxLength(SouccarAppConstant.SimpleStringMaxLength)]
+        public string Name { get; set; }
     }
 }

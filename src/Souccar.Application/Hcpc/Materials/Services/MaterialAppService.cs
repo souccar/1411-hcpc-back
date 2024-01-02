@@ -2,6 +2,8 @@
 using Abp.UI;
 using AutoMapper;
 using Souccar.Core.Services;
+using Souccar.Hcpc.DailyProductions.Dto.DailyProductionDtos;
+using Souccar.Hcpc.DailyProductions;
 using Souccar.Hcpc.Materials.Dto;
 using Souccar.Hcpc.Materials.Dto.MaterialDetailsDtos;
 using Souccar.Hcpc.Products.Dto.Products;
@@ -74,7 +76,7 @@ namespace Souccar.Hcpc.Materials.Services
                             if (OutputRequestMaterial.WarehouseMaterialId == warehouseMaterial.Id)
                             {
                                 warehouseMaterialDto.outputRequests
-                                    .Add(new OutputRequestForWarehouseMaterialDto() { Id = outputRequest.Id, Title = outputRequest.Title, OutputDate = outputRequest.OutputDate.ToString(), Quantity = OutputRequestMaterial.Quantity });
+                                    .Add(new OutputRequestForWarehouseMaterialDto() { Id = outputRequest.Id, Title = outputRequest.Title, OutputDate = (DateTime)outputRequest.OutputDate, Quantity = OutputRequestMaterial.Quantity });
                             }
                         }
 
@@ -94,11 +96,15 @@ namespace Souccar.Hcpc.Materials.Services
 
         }
 
+        public override async Task<MaterialDto> UpdateAsync(UpdateMaterialDto input)
+        {
+            var material = _materialManager.GetWithDetails(input.Id);
 
+            ObjectMapper.Map<UpdateMaterialDto, Material>(input, material);
 
+            var updatedMaterial = await _materialManager.UpdateAsync(material);
 
-
-
-
+            return ObjectMapper.Map<MaterialDto>(updatedMaterial);
+        }
     }
 }
