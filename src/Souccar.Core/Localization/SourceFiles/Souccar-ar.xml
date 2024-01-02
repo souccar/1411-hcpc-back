@@ -297,6 +297,8 @@
 		<text name="ThereIsNoPlan,PleaseAddANewPlan" value="لا توجد خطة، الرجاء إضافة خطة جديدة"></text>
 		<text name="EmptyList" value="سلسلة فارغة"></text>
 		<text name="SimpleStringMaxLength" value="لقد تجاوزت الحد الأعلى من المحارف"></text>
+		<text name="AddOnePlanProductAtLeast" value="يجب إضافة منتج واحد على الأقل"></text>
+		<text name="ProductIsAlreadyExist" value="المنتج موجود بالفعل"></text>
 
 
 

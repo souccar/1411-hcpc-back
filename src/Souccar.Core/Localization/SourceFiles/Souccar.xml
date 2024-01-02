@@ -289,6 +289,8 @@
 		<text name="ThereIsNoPlan,PleaseAddANewPlan" value="There is no plan,Please add a new plan"></text>
 		<text name="EmptyList" value="The list is empty"></text>
 		<text name="SimpleStringMaxLength" value="You have exceeded the maximum character limit"></text>
+		<text name="AddOnePlanProductAtLeast" value="Add One Plan Product At Least"></text>
+		<text name="ProductIsAlreadyExist" value="Product is already exist"></text>
 
 
 	</texts>
