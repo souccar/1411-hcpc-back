@@ -283,6 +283,11 @@
 		<text name="TheValueOfTheAmountWastedFromTheProductionProcess" value="The Value Of The Amount Wasted From The Production Process"></text>
 		<text name="Produced" value="Produced"></text>
 		<text name="Remaining" value="Remaining"></text>
+		<text name="RequestTitle" value="Request Title"></text>
+		<text name="Hello" value="Hello"></text>
+		<text name="ThereIsNoPlan,PleaseAddANewPlan" value="There is no plan,Please add a new plan"></text>
+		<text name="EmptyList" value="The list is empty"></text>
+		<text name="SimpleStringMaxLength" value="You have exceeded the maximum character limit"></text>
 
 
 	</texts>

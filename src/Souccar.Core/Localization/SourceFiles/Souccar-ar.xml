@@ -276,7 +276,6 @@
 		<text name="MoveToProduction" value="انتقل للإنتاج"></text>
 		<text name="GoToPlanList" value="انتقل إلى قائمة الخطط"></text>
 		<text name="RelatedProduct" value="المنتجات ذات الصلة"></text>
-		<text name="Date" value="التاريخ"></text>
 		<text name="TheNumberRequiredToBeProduced" value="العدد المطلوب انتاجه"></text>
 		<text name="TheNumberThatCanBeProducedAccordingToTheQuantitiesOfMaterialsPresentInTheWarehouses" value="العدد الممكن إنتاجه حسب كميات المواد الموجودة في المستودعات"></text>
 		<text name="NumberProducedSoFar" value="العدد الذي تم إنتاجه حتى اليوم"></text>
@@ -289,8 +288,15 @@
 		<text name="CostOfPackagingProducedToDate" value="تكلفة العبوات المنتجة حتى اليوم"></text>
 		<text name="TotalSalesAmountAccordingToTheNumberOfPackagesProduced " value="مبلغ المبيع الإجمالي حسب عدد العبوات المنتجة"></text>
 		<text name="TheValueOfTheAmountWastedFromTheProductionProcess" value="قيمة المبلغ المهدور من عملية الإنتاج"></text>
-		<text name="Produced" value="ماتم إنتاجه"></text>
 		<text name="Remaining" value="المتبقي"></text>
+		<text name="RequestTitle" value="عنوان الطلب"></text>
+		<text name="Date" value="التاريخ"></text>
+		<text name="Produced" value="تم إنتاج"></text>
+		<text name="Hello" value="مرحباً"></text>
+		<text name="ThereIsNoPlan,PleaseAddANewPlan" value="لا توجد خطة، الرجاء إضافة خطة جديدة"></text>
+		<text name="EmptyList" value="سلسلة فارغة"></text>
+		<text name="SimpleStringMaxLength" value="لقد تجاوزت الحد الأعلى من المحارف"></text>
+
 
 
 
