@@ -268,6 +268,7 @@
 		<text name="Date" value="Date"></text>
 		<text name="RequestTitle" value="Request Title"></text>
 		<text name="Produced" value="Produced"></text>
+		<text name="GoToPlanList" value="Go To Plan List"></text>
 
 
 
