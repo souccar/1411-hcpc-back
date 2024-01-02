@@ -12,6 +12,7 @@ namespace Souccar.Hcpc.Suppliers.Map
             CreateMap<CreateSupplierDto, Supplier>();
             CreateMap<UpdateSupplierDto, Supplier>();
             CreateMap<Supplier, UpdateSupplierDto>();
+            CreateMap<Supplier, SupplierNameForDropdownDto>();
         }
     }
 }

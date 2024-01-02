@@ -15,19 +15,19 @@
 		<text name="PleaseEnterLoginInformation" value="Please enter login information" />
 		<text name="TenancyName" value="Tenancy name" />
 		<text name="UserNameOrEmail" value="User name or email" />
-		<text name="Password" value="Password" />
+		<text name="Password" value="كلمة السر" />
 		<text name="ResetPassword" value="Reset Password" />
 		<text name="UpdatePassword" value="Update Password" />
-		<text name="RememberMe" value="Remember me" />
-		<text name="LogIn" value="Log in" />
-		<text name="LoginFailed" value="Login failed!" />
+		<text name="RememberMe" value="حفظ الحساب " />
+		<text name="LogIn" value="تسجيل الدخول" />
+		<text name="LoginFailed" value="فشل في عملية تسجيل الدخول" />
 		<text name="NameSurname" value="Name surname" />
-		<text name="UserName" value="User name" />
+		<text name="UserName" value="اسم المستخدم" />
 		<text name="Name" value="الاسم" />
 		<text name="Surname" value="Surname" />
-		<text name="EmailAddress" value="Email address" />
+		<text name="EmailAddress" value="عنوان البريد الإلكتروني" />
 		<text name="Tenants" value="Tenants" />
-		<text name="SavedSuccessfully" value="Saved successfully" />
+		<text name="SavedSuccessfully" value="تم الحفظ بنجاح" />
 		<text name="CreateNewTenant" value="Create new tenant" />
 		<text name="AdminEmailAddress" value="Admin email address" />
 		<text name="AdminPassword" value="Admin password" />
@@ -57,7 +57,7 @@
 		<text name="Change">Change</text>
 		<text name="ChangeTenant">Change tenant</text>
 		<text name="MultiLevelMenu">Multi Level Menu</text>
-		<text name="Back">Back</text>
+		<text name="Back">رجوع</text>
 		<text name="SuccessfullyRegistered">Successfully registered</text>
 		<text name="WaitingForEmailActivation">Your email address should be activated</text>
 		<text name="Roles">Roles</text>
@@ -74,36 +74,36 @@
 		<text name="EditUser">Edit user</text>
 		<text name="TenantIdIsNotActive{0}">TenantId {0} is not active</text>
 		<text name="UnknownTenantId{0}">Unknown tenantId {0}</text>
-		<text name="PleaseWait">Please wait...</text>
+		<text name="PleaseWait">انتظر من فضلك ...</text>
 		<text name="Administration">Administration</text>
 		<text name="ClearAll">Clear all</text>
 		<text name="ClearOthers">Clear others</text>
 		<text name="LabelOptions">Label options</text>
 		<text name="Permissions">Permissions</text>
 		<text name="RoleDescription">Role description</text>
-		<text name="Refresh">Refresh</text>
-		<text name="Create">Create</text>
+		<text name="Refresh">تحديث</text>
+		<text name="Create">إنشاء</text>
 		<text name="UserDetails">User details</text>
 		<text name="UserRoles">User roles</text>
 		<text name="ConfirmPassword">Confirm password</text>
 		<text name="Version">Version</text>
 		<text name="On">On</text>
 		<text name="Off">Off</text>
-		<text name="AreYouSureWantToDelete">Are you sure want to delete {0}?</text>
-		<text name="SuccessfullyDeleted">Successfully deleted</text>
+		<text name="AreYouSureWantToDelete">هل أنت متأكد من أنك تريد الحذف {0}؟</text>
+		<text name="SuccessfullyDeleted">تم الحذف بنجاح</text>
 		<text name="StartTyping">Start Typing</text>
 		<text name="Skins">Skins</text>
 		<text name="Filter">Filter</text>
 		<text name="CurrentPassword">Current Password</text>
-		<text name="NewPassword">New Password</text>
-		<text name="ConfirmNewPassword">Confirm New Password</text>
-		<text name="PasswordsDoNotMatch">Passwords do not match</text>
-		<text name="PasswordsMustBeAtLeast8CharactersContainLowercaseUppercaseNumber">Passwords must be at least 8 characters, contain a lowercase, uppercase, and number</text>
+		<text name="NewPassword">كلمة المرور الجديدة</text>
+		<text name="ConfirmNewPassword">تأكيد كلمة المرور الجديدة</text>
+		<text name="PasswordsDoNotMatch">كلمة المرور غير مطابقة</text>
+		<text name="PasswordsMustBeAtLeast8CharactersContainLowercaseUppercaseNumber">يجب أن تحتوي كلمات المرور على 8 أحرف على الأقل، وأحرف صغيرة، وأحرف كبيرة، ورقم</text>
 		<text name="UserDeleteWarningMessage">User {0} will be deleted.</text>
 		<text name="RoleDeleteWarningMessage">Role {0} will be deleted and unassigned from all assigned users.</text>
 		<text name="TenantDeleteWarningMessage">Tenant {0} will be deleted.</text>
-		<text name="SearchWithThreeDot">Search...</text>
-		<text name="PleaseEnterAtLeastNCharacter">Please enter at least {0} characters</text>
+		<text name="SearchWithThreeDot">البحث...</text>
+		<text name="PleaseEnterAtLeastNCharacter">الرجاء إدخال {0} حرف على الأقل</text>
 		<text name="PleaseEnterNoMoreThanNCharacter">Please enter no more than {0} characters</text>
 		<text name="InvalidEmailAddress">Invalid email address</text>
 		<text name="InvalidPattern">Invalid</text>

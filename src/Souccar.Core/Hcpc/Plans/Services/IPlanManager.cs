@@ -15,7 +15,7 @@ namespace Souccar.Hcpc.Plans.Services
         Task<Plan> ChangeStausToActual(int id);
         Task<Plan> ChangeStausToArchive(int id);
         IList<Plan> GetActualPlans();
-
+        IList<Plan> GetPendingPlans();
         IQueryable<Product> GetProductsOfPlan(int planId);
 
     }
