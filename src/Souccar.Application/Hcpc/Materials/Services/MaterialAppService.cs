@@ -26,13 +26,15 @@ namespace Souccar.Hcpc.Materials.Services
         private readonly IWarehouseMaterialManager _warehouseMaterialManager;
         private readonly IProductManager _productManager;
         private readonly IOutputRequestManager _outputRequestManager;
+        private readonly IMaterialSupplierManager _materialSupplierManager;
 
-        public MaterialAppService(IMaterialManager materialDomainService, IWarehouseMaterialManager warehouseMaterialManager, IOutputRequestManager outputRequestManager, IProductManager productManager) : base(materialDomainService)
+        public MaterialAppService(IMaterialManager materialDomainService, IWarehouseMaterialManager warehouseMaterialManager, IOutputRequestManager outputRequestManager, IProductManager productManager, IMaterialSupplierManager materialSupplierManager) : base(materialDomainService)
         {
             _materialManager = materialDomainService;
             _warehouseMaterialManager = warehouseMaterialManager;
             _productManager = productManager;
             _outputRequestManager = outputRequestManager;
+            _materialSupplierManager = materialSupplierManager;
         }
         public IList<MaterialNameForDropdownDto> GetNameForDropdown()
         {
@@ -105,6 +107,29 @@ namespace Souccar.Hcpc.Materials.Services
             var updatedMaterial = await _materialManager.UpdateAsync(material);
 
             return ObjectMapper.Map<MaterialDto>(updatedMaterial);
+        }
+
+        public IList<MaterialsOfSupplierDto> GetMaterialsOfSupplier(int materialId)
+        {
+            IList<MaterialsOfSupplierDto> materialsOfSupplierDtos= new List<MaterialsOfSupplierDto>();
+            var materialsSupplier = _materialManager.GetMaterialsOfSupplier(materialId);
+
+            foreach (var materialSupplier in materialsSupplier)
+            {
+                var materialofSupplier = new MaterialsOfSupplierDto();
+                materialofSupplier.SupplierId = (int)materialSupplier.SupplierId;
+
+                var subMaterialSupplier = materialSupplier.Supplier.MaterialSuppliers.Where(x => x.MaterialId != null && x.SupplierId != null);
+                foreach (var item in subMaterialSupplier)
+                {
+                    var info = new MaterialOfSupplierInfoDto();
+                    info.MaterialName = item.Material.Name;
+                    info.LeadTime = item.LeadTime;
+                    materialofSupplier.MaterialNames.Add(info);
+                }
+                materialsOfSupplierDtos.Add(materialofSupplier);
+            }
+            return materialsOfSupplierDtos;
         }
     }
 }
