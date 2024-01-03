@@ -291,6 +291,7 @@
 		<text name="SimpleStringMaxLength" value="You have exceeded the maximum character limit"></text>
 		<text name="AddOnePlanProductAtLeast" value="Add One Plan Product At Least"></text>
 		<text name="ProductIsAlreadyExist" value="Product is already exist"></text>
+		<text name="AddOneProductAtLeast" value="Add One Product At Least"></text>
 
 
 	</texts>
