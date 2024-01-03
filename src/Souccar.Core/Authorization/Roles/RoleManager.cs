@@ -9,11 +9,13 @@ using Abp.Organizations;
 using Abp.Runtime.Caching;
 using Abp.Zero.Configuration;
 using Souccar.Authorization.Users;
+using System.Linq;
 
 namespace Souccar.Authorization.Roles
 {
     public class RoleManager : AbpRoleManager<Role, User>
     {
+        private readonly IRepository<Role> _roleRepository;
         public RoleManager(
             RoleStore store,
             IEnumerable<IRoleValidator<Role>> roleValidators,
@@ -25,7 +27,8 @@ namespace Souccar.Authorization.Roles
             IUnitOfWorkManager unitOfWorkManager,
             IRoleManagementConfig roleManagementConfig,
             IRepository<OrganizationUnit, long> organizationUnitRepository,
-            IRepository<OrganizationUnitRole, long> organizationUnitRoleRepository)
+            IRepository<OrganizationUnitRole, long> organizationUnitRoleRepository,
+            IRepository<Role> roleRepository)
             : base(
                   store,
                   roleValidators,
@@ -38,6 +41,13 @@ namespace Souccar.Authorization.Roles
                 organizationUnitRepository,
                 organizationUnitRoleRepository)
         {
+            _roleRepository = roleRepository;
+        }
+
+        public IList<Role> GetAllRoles()
+        {
+           var roles = _roleRepository.GetAll().ToList();
+            return roles;
         }
     }
 }

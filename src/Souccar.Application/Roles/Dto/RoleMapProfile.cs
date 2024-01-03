@@ -24,6 +24,8 @@ namespace Souccar.Roles.Dto
             CreateMap<Role, RoleListDto>();
             CreateMap<Role, RoleEditDto>();
             CreateMap<Permission, FlatPermissionDto>();
+
+            CreateMap<Role, RoleNameDto>();
         }
     }
 }

@@ -143,6 +143,12 @@ namespace Souccar.Roles
                 GrantedPermissionNames = grantedPermissions.Select(p => p.Name).ToList()
             };
         }
+
+        public IList<RoleNameDto> GetAllRolesNames()
+        {
+            var roles = _roleManager.GetAllRoles();
+            return ObjectMapper.Map<IList<RoleNameDto>>(roles);
+        }
     }
 }
 
