@@ -299,6 +299,7 @@
 		<text name="SimpleStringMaxLength" value="لقد تجاوزت الحد الأعلى من المحارف"></text>
 		<text name="AddOnePlanProductAtLeast" value="يجب إضافة منتج واحد على الأقل"></text>
 		<text name="ProductIsAlreadyExist" value="المنتج موجود بالفعل"></text>
+		<text name="AddOneProductToLeast" value="أضف منتج واحد على الأقل"></text>
 
 
 
