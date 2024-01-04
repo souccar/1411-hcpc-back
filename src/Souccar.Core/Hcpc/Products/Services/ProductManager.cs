@@ -2,6 +2,7 @@
 using Abp.UI;
 using Microsoft.EntityFrameworkCore;
 using Souccar.Core.Services.Implements;
+using Souccar.Hcpc.DailyProductions;
 using Souccar.Hcpc.Plans.Services;
 using Souccar.Hcpc.Warehouses;
 using Souccar.Hcpc.Warehouses.Services.OutputRequestServices;
@@ -57,6 +58,31 @@ namespace Souccar.Hcpc.Products.Services
                 throw new UserFriendlyException("Cannot be deleted, This product is associated with plans not archived");
              }
             return base.DeleteAsync(id);
+        }
+
+        public override Task<Product> InsertAsync(Product input)
+        {
+            //foreach (var formula in input.Formulas)
+            //{
+            //    formula.Quantity = (input.Size * formula.Percentage) / 100;
+            //}
+            return base.InsertAsync(input);
+        }
+
+        public override Task<Product> UpdateAsync(Product input)
+        {
+            //foreach (var formula in input.Formulas)
+            //{
+            //    formula.Quantity = (input.Size * formula.Percentage) / 100;
+            //}
+            return base.UpdateAsync(input);
+        }
+
+        public Product GetWithDetails(int id)
+        {
+            var product = _productRepository.GetAllIncluding(x => x.Formulas)
+                .FirstOrDefault(x => x.Id == id);
+            return product;
         }
     }
 }
