@@ -1979,10 +1979,13 @@ namespace Souccar.Migrations
                     b.Property<int?>("MaterialId")
                         .HasColumnType("int");
 
+                    b.Property<double>("Percentage")
+                        .HasColumnType("float");
+
                     b.Property<int?>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<double>("Quantity")
+                    b.Property<double?>("Quantity")
                         .HasColumnType("float");
 
                     b.Property<int?>("TenantId")
@@ -2038,6 +2041,9 @@ namespace Souccar.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Size")
                         .HasColumnType("float");
 
                     b.Property<int?>("TenantId")

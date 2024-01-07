@@ -21,6 +21,9 @@ namespace Souccar.Hcpc.Products.Dto.Products
         public string Description { get; set; }
 
         [Required(ErrorMessage = SouccarAppConstant.Required), Range(0, double.PositiveInfinity, ErrorMessage = SouccarAppConstant.LessThanZero)]
+        public double Size { get; set; }
+
+        [Required(ErrorMessage = SouccarAppConstant.Required), Range(0, double.PositiveInfinity, ErrorMessage = SouccarAppConstant.LessThanZero)]
         public double Price { get; set; }
 
         [NotEmptyList(ErrorMessage = SouccarAppConstant.EmptyList)]

@@ -155,7 +155,7 @@ namespace Souccar.Hcpc.Plans.Services
                     {
                         MaterialId = formula.MaterialId,
                         UnitId = formula.UnitId,
-                        RequiredQuantity = planProduct.NumberOfItems * formula.Quantity,
+                        RequiredQuantity = (double)(planProduct.NumberOfItems * formula.Quantity),
                         PlanProductId = planProduct.Id
                     };
                     planProduct.PlanProductMaterials.Add(planProductMaterial);
@@ -310,7 +310,7 @@ namespace Souccar.Hcpc.Plans.Services
                     {
                         MaterialId = formula.MaterialId,
                         UnitId = formula.UnitId,
-                        RequiredQuantity = planProduct.NumberOfItems * formula.Quantity,
+                        RequiredQuantity = (double)(planProduct.NumberOfItems * formula.Quantity),
                         PlanProductId = planProduct.Id
                     };
                     planProduct.PlanProductMaterials.Add(planProductMaterial);
@@ -417,7 +417,7 @@ namespace Souccar.Hcpc.Plans.Services
                     {
                         MaterialId = formula.MaterialId,
                         UnitId = formula.UnitId,
-                        RequiredQuantity = planProduct.NumberOfItems * formula.Quantity,
+                        RequiredQuantity = (double)(planProduct.NumberOfItems * formula.Quantity),
                         PlanProductId = planProduct.Id
                     };
                     planProduct.PlanProductMaterials.Add(planProductMaterial);
@@ -525,7 +525,7 @@ namespace Souccar.Hcpc.Plans.Services
                         {
                             MaterialId = formula.MaterialId,
                             UnitId = formula.UnitId,
-                            RequiredQuantity = planProduct.NumberOfItems * formula.Quantity,
+                            RequiredQuantity = (double)(planProduct.NumberOfItems * formula.Quantity),
                             PlanProductId = planProduct.Id
                         };
                         planProduct.PlanProductMaterials.Add(planProductMaterial);

@@ -7,5 +7,6 @@ namespace Souccar.Hcpc.Products.Services
     {
         IQueryable<Product> GetWithFormula(int[] ids);
         IQueryable<Product> GetProductsFromMaterial(int materialId);
+        Product GetWithDetails(int id);
     }
 }
