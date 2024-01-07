@@ -140,14 +140,14 @@ namespace Souccar.Hcpc.Plans.Services
             return productsOfPlan;
         }
 
-        public override Task DeleteAsync(int id)
+        public override async Task DeleteAsync(int id)
         {
             var plan = _planRepository.Get(id);
             if (plan.Status == PlanStatus.Actual)
             {
                 throw new UserFriendlyException("Cannot be deleted, Status is actual");
             }
-            return base.DeleteAsync(id);
+            await base.DeleteAsync(id);
         }
 
     }

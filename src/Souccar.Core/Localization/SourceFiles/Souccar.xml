@@ -227,6 +227,7 @@
 		<text name="Units" value="Units"></text>
 		<text name="DeleteUnit" value="Delete unit"></text>
 		<text name="Transfers" value="Transfers"></text>
+		<text name="TransferToImplementation" value="Transfer to implementation"></text>
 		<text name="DeleteTransfer" value="Delete transfer"></text>
 		<text name="Warehouses" value="Warehouses"></text>
 		<text name="CreateNewWarehouse" value="Create new warehouse"></text>

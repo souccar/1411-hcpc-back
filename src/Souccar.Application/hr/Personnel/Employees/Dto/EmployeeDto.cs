@@ -17,8 +17,8 @@ namespace Souccar.hr.Personnel.Employees.Dto
         public string LastName { get; set; }
         public int Age { get; set; }
         public DateTime? DateOfBirth { get; set; }
-
         public IList<ChildDto> Children { get; set; }
+
         #region Nationality
         public int NationalityId { get; set; }
 
