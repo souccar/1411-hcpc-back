@@ -131,5 +131,11 @@ namespace Souccar.Hcpc.Materials.Services
             }
             return materialsOfSupplierDtos;
         }
+
+        public async Task<IList<MaterialCodeForDropdownDto>> GetByProductsIdsAsync(int[] productsIds)
+        {
+            var materials = await _materialManager.GetByProductsIds(productsIds);
+            return ObjectMapper.Map<List<MaterialCodeForDropdownDto>>(materials);
+        }
     }
 }

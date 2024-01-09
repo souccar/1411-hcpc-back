@@ -12,5 +12,6 @@ namespace Souccar.Hcpc.Materials.Services
         IList<MaterialNameForDropdownDto> GetNameForDropdown();
         public Task<MaterialDetailDto> GetMaterialDetails(int materialId);
         IList<MaterialsOfSupplierDto> GetMaterialsOfSupplier(int materialId);
+        Task<IList<MaterialCodeForDropdownDto>> GetByProductsIdsAsync(int[] productsIds);
     }
 }

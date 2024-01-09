@@ -15,13 +15,15 @@ namespace Souccar.Hcpc.Materials.Services
         private readonly IRepository<Material> _materialRepository;
         private readonly IWarehouseMaterialManager _warehouseMaterialManager;
         private readonly IProductManager _productManager;
+        private readonly IFormulaManager _formulaManager;
         private readonly IMaterialSupplierManager _materialSupplierManager;
-        public MaterialManager(IRepository<Material> repository, IRepository<Material> materialRepository, IWarehouseMaterialManager warehouseMaterialManager, IProductManager productManager, IMaterialSupplierManager materialSupplierManager) : base(repository)
+        public MaterialManager(IRepository<Material> repository, IRepository<Material> materialRepository, IWarehouseMaterialManager warehouseMaterialManager, IProductManager productManager, IMaterialSupplierManager materialSupplierManager, IFormulaManager formulaManager) : base(repository)
         {
             _materialRepository = materialRepository;
             _warehouseMaterialManager = warehouseMaterialManager;
             _productManager = productManager;
             _materialSupplierManager = materialSupplierManager;
+            _formulaManager = formulaManager;
         }
 
         public Material GetWithDetails(int id)
@@ -55,6 +57,15 @@ namespace Souccar.Hcpc.Materials.Services
                 .Include(x=>x.Material).Include(y=>y.Supplier).ThenInclude(x=>x.MaterialSuppliers).ThenInclude(x=>x.Material)
                 .Where(z => z.MaterialId == materialId).ToList();
             return materialsSupplier;
+        }
+
+        public async Task<List<Material>> GetByProductsIds(int[] productsIds)
+        {
+            var materials = await Task.FromResult(_formulaManager
+                .GetAllWithIncluding("Material")
+                .Where(z=>productsIds.Contains((int)z.ProductId)).Select(x=>x.Material).Distinct()
+                .ToList());
+            return materials;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Souccar.Core.Services.Interfaces;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Souccar.Hcpc.Materials.Services
 {
@@ -7,5 +8,6 @@ namespace Souccar.Hcpc.Materials.Services
     {
         Material GetWithDetails(int id);
         IList<MaterialSuppliers> GetMaterialsOfSupplier(int materialId);
+        Task<List<Material>> GetByProductsIds(int[] productsIds);
     }
 }
