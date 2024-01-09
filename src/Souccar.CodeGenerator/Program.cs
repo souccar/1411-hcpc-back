@@ -6,16 +6,6 @@ namespace Souccar.CodeGenerator
     {
         static void Main(string[] args)
         {
-
-            Console.WriteLine("Files : ");
-            var assembly = typeof(SouccarCoreModule).Assembly;
-            ModulesBuilder.Generate(assembly, "Hcpc");
-            //LocalizationBuilder.Generate(assembly, "Kit");
-            //DbContextBuilder.Generate(assembly, "Kit");
-            //PermissionsBuilder.Generate(assembly, "Kit");
-
-            Console.WriteLine("Files : " + GeneralSetting.FileCount);
-
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.

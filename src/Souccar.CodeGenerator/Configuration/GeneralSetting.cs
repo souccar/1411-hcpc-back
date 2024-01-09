@@ -9,7 +9,7 @@
         public const string AppServiceBase = "SouccarAppServiceBase";
         public const string AsyncSouccarAppService = "AsyncSouccarAppService";
         public const string ISouccarDomainService = "ISouccarDomainService";
-        public const string ProjectRootPath = @"D:\Projects\Hcpc\1411-hcpc-back\src\";
+        public const string ProjectRootPath = @"C:\Projects\Framework\aspnet-core\src\";
         public const string ProjectAppPath = ProjectRootPath + @"Souccar.Application\";
         public const string ProjectDomainPath = ProjectRootPath + @"Souccar.Core";
         public const string DbContextFilePath =  ProjectRootPath + @"Souccar.EntityFrameworkCore\EntityFrameworkCore\SouccarDbContext.cs";

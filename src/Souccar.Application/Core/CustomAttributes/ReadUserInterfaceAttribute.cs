@@ -10,7 +10,7 @@ namespace Souccar.Core.CustomAttributes
         public int Order { get; set; }
         public bool IsReference { get; set; }
         public string ReferenceId { get; set; }
-        public bool IsImageColumn { get; set; }
+        public bool IsImage { get; set; }
         public string Expression { get; set; }
         public string ImageColumnPath { get; set; }
         public string ImageAlert { get; set; }
