@@ -16,11 +16,11 @@ namespace Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Dto
         [Required(ErrorMessage = SouccarAppConstant.Required),ParseToDate(ErrorMessage = SouccarAppConstant.InvalidDate)]
         public string ExpirationDate { get; set; }
 
-        [Required(ErrorMessage = SouccarAppConstant.Required, AllowEmptyStrings = false), MaxLength(SouccarAppConstant.SimpleStringMaxLength)]
-        public string Code { get; set; }
-
         [Required(ErrorMessage = SouccarAppConstant.Required), Range(0, double.PositiveInfinity, ErrorMessage = SouccarAppConstant.LessThanZero)]
-        public double Price { get; set; }
+        public double PriceSYP { get; set; }
+
+        [Range(0, double.PositiveInfinity, ErrorMessage = SouccarAppConstant.LessThanZero)]
+        public double PriceUSD { get; set; }
 
         [Required(ErrorMessage = SouccarAppConstant.Required)]
         public int? UnitId { get; set; }

@@ -253,7 +253,7 @@ namespace Souccar.Hcpc.Plans.Services
                     var warehouseMaterials = _warehouseMaterialManager.GetAll()
                         .Where(x => x.MaterialId == formula.MaterialId && x.CurrentQuantity != 0);
 
-                    var materialPrice = ((warehouseMaterials.Sum(x => x.Price)) / (warehouseMaterials.Sum(x => x.InitialQuantity)));
+                    var materialPrice = ((warehouseMaterials.Sum(x => x.PriceSYP)) / (warehouseMaterials.Sum(x => x.InitialQuantity)));
 
                     productCost = productCost + materialPrice;
                 }

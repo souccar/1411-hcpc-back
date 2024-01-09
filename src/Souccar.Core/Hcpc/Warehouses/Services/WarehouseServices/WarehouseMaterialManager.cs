@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace Souccar.Hcpc.Warehouses.Services.WarehouseServices
@@ -78,6 +79,13 @@ namespace Souccar.Hcpc.Warehouses.Services.WarehouseServices
                 throw new UserFriendlyException("Cannot be deleted, This warehouse material is associated with output requests");
             }
             return base.DeleteAsync(id);
+        }
+
+        public async Task<List<WarehouseMaterial>> GetByMaterialIdAsync(int materialId)
+        {
+            var warehouseMaterials = await Task.FromResult(_warehouseMaterialRepository.GetAllIncluding(x=>x.Warehouse)
+                .Where(x=>x.MaterialId == materialId).ToList());
+            return warehouseMaterials;
         }
     }
 }

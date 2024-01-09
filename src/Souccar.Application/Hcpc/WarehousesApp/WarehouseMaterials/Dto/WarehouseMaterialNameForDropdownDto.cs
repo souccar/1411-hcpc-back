@@ -4,11 +4,11 @@ namespace Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Dto
 {
     public class WarehouseMaterialNameForDropdownDto : EntityDto<int>
     {
-        public WarehouseMaterialNameForDropdownDto(int id, string code)
+        public WarehouseMaterialNameForDropdownDto(int id, string name)
         {
             Id = id;
-            Code = code;
+            Name = name;
         }
-        public string Code { get; set; }
+        public string Name { get; set; }
     }
 }

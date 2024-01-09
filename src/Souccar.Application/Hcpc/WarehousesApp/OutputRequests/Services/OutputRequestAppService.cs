@@ -33,11 +33,31 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
             _transferManager = transferManager;
         }
 
-        public override Task<OutputRequestDto> GetAsync(EntityDto<int> input)
+        public async override Task<OutputRequestDto> GetAsync(EntityDto<int> input)
         {
-            var outputRequestWithDetails = _outputRequestManager.GetOutputRequestWithDetails(input.Id);
+            var outputRequestWithDetails = await Task.FromResult(_outputRequestManager.GetOutputRequestWithDetails(input.Id));
+            var dto = ObjectMapper.Map<OutputRequestDto>(outputRequestWithDetails);
 
-            return Task.FromResult(ObjectMapper.Map<OutputRequestDto>(outputRequestWithDetails));
+            ////////////
+            foreach (var requestProduct in dto.OutputRequestProducts)
+            {
+                var numberOfProducts = new List<int>();
+                var formulas = requestProduct.Product.Formulas;
+                foreach (var requestMaterial in dto.OutputRequestMaterials)
+                {
+                    var formulla = formulas.FirstOrDefault(x => x.MaterialId == requestMaterial.WarehouseMaterial.MaterialId);
+                    if (formulla != null)
+                    {
+                        var quantity = await _transferManager.ConvertTo(requestMaterial.UnitId, formulla.UnitId, requestMaterial.Quantity);
+                        var numberOfProduce = (int)(quantity / formulla.Quantity);
+                        numberOfProducts.Add(numberOfProduce);
+                    }
+                }
+                requestProduct.CanProduce = numberOfProducts.Min() / (dto.OutputRequestMaterials.Count);
+            }
+            ////////////
+
+            return dto;
         }
 
         public override async Task<OutputRequestDto> CreateAsync(CreateOutputRequestDto input)
@@ -87,8 +107,8 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
 
         public async Task<List<OutputRequestWithDetailDto>> GetWithDetail(int planId)
         {
-            var outputRequests = _outputRequestManager.GetWithDetails(planId);
-            var result = ObjectMapper.Map<List<OutputRequestWithDetailDto>>(outputRequests.ToList());
+            var outputRequests = _outputRequestManager.GetWithDetails(planId).ToList();
+            var result = ObjectMapper.Map<List<OutputRequestWithDetailDto>>(outputRequests);
 
             foreach (var outputRequestDto in result)
             {

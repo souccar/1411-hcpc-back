@@ -22,7 +22,8 @@ namespace Souccar.Hcpc.Warehouses.Services.OutputRequestServices
 
         public OutputRequest GetOutputRequestWithDetails(int id)
         {
-            var outputRequest = _outputRequestRepository.GetAllIncluding(x => x.Plan).Include(x=>x.OutputRequestProducts).ThenInclude(y=>y.Product)
+            var outputRequest = _outputRequestRepository.GetAllIncluding(x => x.Plan)
+                .Include(x=>x.OutputRequestProducts).ThenInclude(y=>y.Product).ThenInclude(f => f.Formulas)
                 .Include(x => x.OutputRequestMaterials).ThenInclude(y => y.WarehouseMaterial)
                 .FirstOrDefault(x=>x.Id== id);
 

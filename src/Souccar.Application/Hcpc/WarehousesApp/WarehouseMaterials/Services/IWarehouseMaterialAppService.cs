@@ -11,5 +11,6 @@ namespace Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Services
     {
         Task SendMaterialExpiryNotifications();
         IList<WarehouseMaterialNameForDropdownDto> GetNameForDropdown();
+        Task<IList<WarehouseMaterialWithWarehouseNameAndExpiryDateDto>> GetByMaterialId(int materialId);
     }
 }

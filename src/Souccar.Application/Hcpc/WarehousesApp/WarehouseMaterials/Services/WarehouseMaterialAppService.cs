@@ -1,6 +1,8 @@
 ﻿using Abp.Application.Services.Dto;
+using Microsoft.EntityFrameworkCore;
 using Souccar.Authorization.Users;
 using Souccar.Core.Services;
+using Souccar.Hcpc.GeneralSettings.Services;
 using Souccar.Hcpc.Warehouses;
 using Souccar.Hcpc.Warehouses.Services.OutputRequestServices;
 using Souccar.Hcpc.Warehouses.Services.WarehouseServices;
@@ -22,14 +24,49 @@ namespace Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Services
         private readonly IAppNotifier _notifier;
         private readonly INotificationAppService _notificationAppService;
         private readonly IOutputRequestManager _outputRequestManager;
+        private readonly IGeneralSettingManager _generalSettingManager;
         public UserManager UserManager { get; set; }
 
-        public WarehouseMaterialAppService(IWarehouseMaterialManager warehouseMaterialDomainService, IAppNotifier notifier, INotificationAppService notificationAppService, IOutputRequestManager outputRequestManager) : base(warehouseMaterialDomainService)
+        public WarehouseMaterialAppService(IWarehouseMaterialManager warehouseMaterialDomainService,
+            IAppNotifier notifier, INotificationAppService notificationAppService,
+            IOutputRequestManager outputRequestManager, IGeneralSettingManager generalSettingManager) : base(warehouseMaterialDomainService)
         {
             _warehouseMaterialDomainService = warehouseMaterialDomainService;
             _notifier = notifier;
             _notificationAppService = notificationAppService;
             _outputRequestManager = outputRequestManager;
+            _generalSettingManager = generalSettingManager;
+        }
+
+        public override async Task<PagedResultDto<WarehouseMaterialDto>> GetAllAsync(PagedWarehouseMaterialRequestDto input)
+        {
+            var generalSetting = await _generalSettingManager.GetAll().FirstOrDefaultAsync();
+            var warehouseMaterials = await base.GetAllAsync(input);
+            foreach (var warehouseMaterial in warehouseMaterials.Items)
+            {
+                if (generalSetting != null)
+                {
+                    if (warehouseMaterial.ExpirationDate.Date <= DateTime.Now.AddDays(generalSetting.ExpiryDurationNotify).Date)
+                    {
+                        if (warehouseMaterial.ExpirationDate.Date < DateTime.Now.Date)
+                        {
+                            // 2 المادة منتهية
+                            warehouseMaterial.ExpiryStatus = 2;
+                        }
+                        else
+                        {
+                            // 1 المادة على وشك الانتهاء
+                            warehouseMaterial.ExpiryStatus = 1;
+                        }
+                    }
+                    else
+                    {
+                        // 0 المادة غير منتهية الصلاحية
+                        warehouseMaterial.ExpiryStatus = 0;
+                    }
+                }
+            }
+            return warehouseMaterials;
         }
 
         public override async Task<WarehouseMaterialDto> GetAsync(EntityDto<int> input)
@@ -64,7 +101,7 @@ namespace Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Services
 
             foreach (var warehouseMaterial in allThatWillExpire) 
             {
-                await _notifier.SendMaterialExpiryDate(user, warehouseMaterial.Material.Name +"/"+ warehouseMaterial.Code, warehouseMaterial.ExpirationDate);
+                await _notifier.SendMaterialExpiryDate(user, warehouseMaterial.Material.Code, warehouseMaterial.ExpirationDate);
 
                 warehouseMaterial.AboutToFinish = true;
                 await _warehouseMaterialDomainService.UpdateAsync(warehouseMaterial);
@@ -73,8 +110,21 @@ namespace Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Services
 
         public IList<WarehouseMaterialNameForDropdownDto> GetNameForDropdown()
         {
-            return _warehouseMaterialDomainService.GetAll()
-                .Select(x => new WarehouseMaterialNameForDropdownDto(x.Id, x.Code)).ToList();
+            return _warehouseMaterialDomainService.GetAllWithIncluding("material")
+                .Select(x => new WarehouseMaterialNameForDropdownDto(x.Id, x.Material.Code + " / " + x.ExpirationDate.ToString("dd-MM-yyyy"))).ToList();
+        }
+
+        public async Task<IList<WarehouseMaterialWithWarehouseNameAndExpiryDateDto>> GetByMaterialId(int materialId)
+        {
+            IList<WarehouseMaterialWithWarehouseNameAndExpiryDateDto> dtos = new List<WarehouseMaterialWithWarehouseNameAndExpiryDateDto>();
+            var warehouseMaterials = await _warehouseMaterialDomainService.GetByMaterialIdAsync(materialId);
+            foreach (var warehouseMaterial in warehouseMaterials)
+            {
+                dtos.Add(
+                    new WarehouseMaterialWithWarehouseNameAndExpiryDateDto(warehouseMaterial.Id,
+                    warehouseMaterial.Warehouse.Name + " / " + warehouseMaterial.ExpirationDate.ToString("dd-MM-yyyy")));
+            }
+            return dtos;
         }
     }
 }

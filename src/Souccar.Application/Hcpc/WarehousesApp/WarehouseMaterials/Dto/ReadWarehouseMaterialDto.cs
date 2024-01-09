@@ -20,9 +20,15 @@ namespace Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Dto
         public double InitialQuantity { get; set; }
         public double CurrentQuantity { get; set; }
         public DateTime ExpirationDate { get; set; }
-        public string Code { get; set; }
-        public double Price { get; set; }
+        public double PriceUSD { get; set; }
+        public double PriceSYP { get; set; }
 
+        /// <summary>
+        /// 0 المادة غير منتهية الصلاحية
+        /// 1 المادة على وشك الانتهاء
+        /// 2 المادة منتهية
+        /// </summary>
+        public int ExpiryStatus { get; set; }
 
         public int? UnitId { get; set; }
         public int? UnitPriceId { get; set; }

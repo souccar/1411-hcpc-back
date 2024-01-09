@@ -7,7 +7,6 @@ namespace Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Dto
     public class WarehouseMaterialNameDto : IEntityDto<int>
     {
         public int Id { get; set; }
-        public string Code { get; set; }
         public int? MaterialId { get; set; }
         public int? WarehouseId { get; set; }
 

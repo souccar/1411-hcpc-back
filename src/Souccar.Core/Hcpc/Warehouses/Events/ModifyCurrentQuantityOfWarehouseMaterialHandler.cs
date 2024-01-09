@@ -23,7 +23,7 @@ namespace Souccar.Hcpc.Warehouses.Events
 
                 if (warehouseMaterial.CurrentQuantity < eventData.Quantity)
                 {
-                    throw new UserFriendlyException("Current Quantity Of Material " + warehouseMaterial.Material.Name + "/" + warehouseMaterial.Code + " is not Enough");
+                    throw new UserFriendlyException("Current Quantity Of Material " + warehouseMaterial.Material.Code  + " / " + warehouseMaterial.ExpirationDate + " is not Enough");
                 }
 
                 warehouseMaterial.CurrentQuantity = warehouseMaterial.CurrentQuantity - eventData.Quantity;
