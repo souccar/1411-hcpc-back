@@ -14,16 +14,30 @@ namespace Souccar.Hcpc.Warehouses
 
         public WarehouseMaterial()
         {
-            //OutputRequestMaterilas = new List<OutputRequestMaterial>();
         }
         public int? TenantId { get; set; }
         public DateTime? EntryDate { get; set; }
         public double InitialQuantity { get; set; }
         public double CurrentQuantity { get; set; }
         public DateTime ExpirationDate { get; set; }
-        public string Code { get; set; }
-        public double Price { get; set; }
-        public bool AboutToFinish { get; set; }
+
+        /// <summary>
+        /// سعر المادة بالدولار 
+        /// حقل غير إجباري
+        /// </summary>
+        public double PriceUSD { get; set; }
+
+        /// <summary>
+        /// سعر المادة بالليرة السورية 
+        /// حقل إجباري
+        /// </summary>
+        public double PriceSYP { get; set; }
+
+        /// <summary>
+        /// true تم إرسال إشعار بقرب إنتهاء الصلاحية
+        /// false لم يتم إرسال إشعار بقرب إنتهاء الصلاحية
+        /// </summary>
+        public bool AboutToFinish { get; set; }        
 
         #region Unit
         public int? UnitId { get; set; }
@@ -59,8 +73,6 @@ namespace Souccar.Hcpc.Warehouses
         [ForeignKey("WarehouseId")]
         public virtual Warehouse Warehouse { get; set; }
         #endregion
-
-        //public virtual IList<OutputRequestMaterial> OutputRequestMaterilas { get; set; }
 
     }
 }

@@ -38,6 +38,8 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
             var outputRequestWithDetails = _outputRequestManager.GetOutputRequestWithDetails(input.Id);
 
             return Task.FromResult(ObjectMapper.Map<OutputRequestDto>(outputRequestWithDetails));
+
+
         }
 
         public override async Task<OutputRequestDto> CreateAsync(CreateOutputRequestDto input)
@@ -87,8 +89,8 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
 
         public async Task<List<OutputRequestWithDetailDto>> GetWithDetail(int planId)
         {
-            var outputRequests = _outputRequestManager.GetWithDetails(planId);
-            var result = ObjectMapper.Map<List<OutputRequestWithDetailDto>>(outputRequests.ToList());
+            var outputRequests = _outputRequestManager.GetWithDetails(planId).ToList();
+            var result = ObjectMapper.Map<List<OutputRequestWithDetailDto>>(outputRequests);
 
             foreach (var outputRequestDto in result)
             {

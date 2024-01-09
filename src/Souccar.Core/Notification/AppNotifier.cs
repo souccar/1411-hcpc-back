@@ -2,8 +2,6 @@
 using Souccar.Authorization.Users;
 using System;
 using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using System.Xml.Linq;
 
 namespace Souccar.Notification
 {
