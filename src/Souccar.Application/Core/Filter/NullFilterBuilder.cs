@@ -61,6 +61,11 @@ namespace Souccar.Core.Filter
                     {
                         predicate += String.Format("{0}.{1}(@{2}) {3} ", filters[i].Field, comparison, i, filters[i].Logic);
                     }
+
+                    //else if (comparison =="In" || comparison =="NotIn")
+                    //{
+                    //    predicate +=
+                    //}
                     else
                     {
                         predicate += String.Format("{0} {1} @{2} {3} ", filters[i].Field, comparison, i, filters[i].Logic);
@@ -80,7 +85,9 @@ namespace Souccar.Core.Filter
             {"gte", ">="},
             {"sw", "StartsWith"},
             {"ew", "EndsWith"},
-            {"co", "Contains"}
+            {"co", "Contains"},
+            {"in", "In"},
+            {"nin", "NotIn"},
         };
     }
 }
