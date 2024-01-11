@@ -8,7 +8,10 @@ namespace Souccar.CodeGenerator.Models
         public string ModuleName { get; set; }
 
         [Required]
-        public GenerateType Type { get; set; }
+        public string Entity { get; set; }
+
+        [Required]
+        public PageType Page { get; set; }
     }
 
     public enum GenerateType
@@ -17,5 +20,14 @@ namespace Souccar.CodeGenerator.Models
         Localization,
         Permissions,
         DbSet
+    }
+
+    public enum PageType
+    {
+        Read,
+        Create,
+        Edit,
+        View,
+        Filter
     }
 }

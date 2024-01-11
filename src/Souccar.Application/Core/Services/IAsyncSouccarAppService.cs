@@ -1,6 +1,8 @@
 ﻿using Abp.Application.Services.Dto;
 using Abp.Application.Services;
 using System.Threading.Tasks;
+using Souccar.Core.Filter;
+using System.Collections.Generic;
 
 namespace Souccar.Core.Services
 {
@@ -14,6 +16,7 @@ namespace Souccar.Core.Services
         Task<TUpdateInput> GetForEditAsync(EntityDto<TPrimaryKey> input);
 
         Task<PagedResultDto<TEntityDto>> GetAllAsync(TGetAllInput input);
+        IList<TEntityDto> Filter(FilterInputDto input);
 
         Task<TEntityDto> CreateAsync(TCreateInput input);
 

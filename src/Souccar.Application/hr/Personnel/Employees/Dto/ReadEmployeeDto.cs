@@ -7,10 +7,10 @@ namespace Souccar.hr.Personnel.Employees.Dto
 {
     public class ReadEmployeeDto: EntityDto<int>
     {
-        [ReadUserInterface(Searchble = true)]
+        [ReadUserInterface(Searchable = true)]
         public string FirstName { get; set; }
 
-        [ReadUserInterface(Searchble = true)]
+        [ReadUserInterface(Searchable = true)]
         public string LastName { get; set; }
 
         [ReadUserInterface(IsHidden = true)]

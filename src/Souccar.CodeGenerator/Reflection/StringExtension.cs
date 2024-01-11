@@ -71,5 +71,11 @@ namespace Souccar.CodeGenerator
 
         public static string Plural(this string input) => PluralizationProvider.Pluralize(input);
 
+        public static string Tag(this string content,string tag)
+        {
+            var start = $"&lt;{tag}&gt;";
+            var end = $"/&lt;{tag}&gt;";
+            return $"{start} {content} {end}";
+        }
     }
 }

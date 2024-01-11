@@ -40,9 +40,6 @@ namespace Souccar.hr.Personnel.Employees.Services
             //input.Rules = new List<FilterInputItemDto>() { item };
 
             var values = input.Rules.Select(f => f.Value).ToArray();
-
-
-
             string predicate = "";
 
             if (input.Rules != null && input.Rules.Any())

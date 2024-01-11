@@ -7,6 +7,11 @@ using System.Threading.Tasks;
 using Abp.Domain.Entities.Auditing;
 using Souccar.Core.Services.Interfaces;
 using Souccar.Core.Includes;
+using Souccar.Core.Filter;
+using Souccar.hr.Personnel.Employees.Dto;
+using System.Collections.Generic;
+using System;
+using System.Linq.Dynamic.Core;
 
 namespace Souccar.Core.Services
 {
@@ -57,6 +62,52 @@ namespace Souccar.Core.Services
                 totalCount,
                 entities.Select(MapToEntityDto).ToList()
             );
+        }
+
+        public IList<TEntityDto> Filter(FilterInputDto input)
+        {
+            CheckGetAllPermission();
+            var values = input.Rules.Select(f => f.Value).ToArray();
+            string predicate = "";
+
+            if (input.Rules != null && input.Rules.Any())
+            {
+                for (var i = 0; i < input.Rules.Count; i++)
+                {
+                    string comparison = input.Rules[i].Operator;
+
+                    if (comparison == "StartsWith" || comparison == "EndsWith" || comparison == "Contains")
+                    {
+                        if (i != input.Rules.Count - 1)
+                        {
+                            predicate += String.Format("{0}.{1}(@{2}) {3} ", input.Rules[i].Field, comparison, i, input.Condition);
+
+                        }
+                        else
+                        {
+                            predicate += String.Format("{0}.{1}(@{2}) ", input.Rules[i].Field, comparison, i);
+
+                        }
+                    }
+                    else
+                    {
+                        if (i != input.Rules.Count - 1)
+                        {
+                            predicate += String.Format("{0} {1} @{2} {3} ", input.Rules[i].Field, comparison, i, input.Condition);
+
+                        }
+                        else
+                        {
+                            predicate += String.Format("{0} {1} @{2}", input.Rules[i].Field, comparison, i);
+
+                        }
+                    }
+                }
+            }
+
+            var entities = _domainService.GetAll().Where(predicate, values).ToList();
+
+            return entities.Select(MapToEntityDto).ToList();
         }
 
         public virtual async Task<TEntityDto> CreateAsync(TCreateInput input)

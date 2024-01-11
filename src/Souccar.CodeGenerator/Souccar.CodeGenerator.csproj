@@ -11,6 +11,7 @@
 		<PackageReference Include="PluralizeService.Core" Version="1.2.21147.2" />
 	</ItemGroup>
 	<ItemGroup>
+		<ProjectReference Include="..\Souccar.Application\Souccar.Application.csproj" />
 		<ProjectReference Include="..\Souccar.Core\Souccar.Core.csproj" />
 	</ItemGroup>
 	

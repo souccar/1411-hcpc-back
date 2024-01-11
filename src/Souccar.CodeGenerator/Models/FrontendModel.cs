@@ -11,15 +11,8 @@ namespace Souccar.CodeGenerator.Models
         public string Entity { get; set; }
 
         [Required]
-        public FrontPage Page { get; set; }
+        public PageType Page { get; set; }
     }
 
-    public enum FrontPage
-    {
-        Read,
-        Create,
-        Edit,
-        View,
-        Filter
-    }
+   
 }

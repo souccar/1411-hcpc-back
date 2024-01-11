@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Souccar.CodeGenerator.Builders;
 using Souccar.CodeGenerator.Models;
+using Souccar.CodeGenerator.Models.Fields;
+using Souccar.CodeGenerator.Reflection;
 using Souccar.hr.Personnel.Employees;
 using System.Diagnostics;
 
@@ -37,30 +40,30 @@ namespace Souccar.CodeGenerator.Controllers
         {
             if (ModelState.IsValid)
             {
-                var assembly = typeof(SouccarCoreModule).Assembly;
-                switch (model.Type)
-                {
-                    case GenerateType.Services:
-                        {
-                            //ModulesBuilder.Generate(assembly, model.Module);
-                            break;
-                        }
-                    case GenerateType.Localization:
-                        {
-                            //LocalizationBuilder.Generate(assembly, model.Module);
-                            break;
-                        }
-                    case GenerateType.Permissions:
-                        {
-                            //PermissionsBuilder.Generate(assembly, model.Module);
-                            break;
-                        }
-                    case GenerateType.DbSet:
-                        {
-                            //PermissionsBuilder.Generate(assembly, model.Module);
-                            break;
-                        }
-                }
+                //var assembly = typeof(SouccarCoreModule).Assembly;
+                //switch (model.Type)
+                //{
+                //    case GenerateType.Services:
+                //        {
+                //            //ModulesBuilder.Generate(assembly, model.Module);
+                //            break;
+                //        }
+                //    case GenerateType.Localization:
+                //        {
+                //            //LocalizationBuilder.Generate(assembly, model.Module);
+                //            break;
+                //        }
+                //    case GenerateType.Permissions:
+                //        {
+                //            //PermissionsBuilder.Generate(assembly, model.Module);
+                //            break;
+                //        }
+                //    case GenerateType.DbSet:
+                //        {
+                //            //PermissionsBuilder.Generate(assembly, model.Module);
+                //            break;
+                //        }
+                //}
 
                 ViewBag.SuccessMessage = "Successfully Generated";
                 ModelState.Clear();
@@ -81,6 +84,7 @@ namespace Souccar.CodeGenerator.Controllers
             return View();
         }
 
+
         public IActionResult GetModuleEntities(string moduleName)
         {
             var coreAssembly = typeof(SouccarCoreModule).Assembly;
@@ -93,12 +97,46 @@ namespace Souccar.CodeGenerator.Controllers
             return Json(new { Entities = data, Success = true }); ;
         }
 
-        public IActionResult Fields(string entity)
+        public IActionResult GetFields(string fullName, string page)
         {
-            ViewBag.Entity = entity;
+            try
+            {
+                var coreAssembly = typeof(SouccarCoreModule).Assembly;
+                var entityType = coreAssembly.GetType(fullName);
+                if(entityType == null)
+                {
+                    return Json(new { Success = false });
+                }
+                var fields = new List<ReadFieldModel>();
+                switch (page)
+                {
+                    case "Read":
+                        {
+                            fields = EntityHelper.GenerateReadFields(entityType);
+                            break;
+                        }
+                }
+
+                return Json(new { Fields = fields, Success = true });
+            }
+            catch (Exception)
+            {
+                return Json(new { Success = false });
+            }
+        }
+
+        public IActionResult Page(string entity,string page)
+        {
+            var content = FrontBuilder.Generate(entity, page);
+            ViewBag.Content = content;
             return PartialView();
         }
 
+        public IActionResult GeneratePage(string entity, string page)
+        {
+            var content = FrontBuilder.Generate(entity, page);
+            return Json(new { Content = content, Success = true });
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

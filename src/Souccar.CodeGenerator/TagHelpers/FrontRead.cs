@@ -6,15 +6,14 @@ namespace Souccar.CodeGenerator.TagHelpers
 {
     public class FrontRead: TagHelper
     {
-        public string EntityName { get; set; }
+        public string Content { get; set; }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            output.TagName = "FrontReadTagHelper"; 
+            output.TagName = "front-read-html"; 
             output.TagMode = TagMode.StartTagAndEndTag;
-            
             var sb = new StringBuilder();
-            sb.AppendFormat($"<span>Entity:</span> <strong>{EntityName}</strong><br/>");
+            sb.AppendFormat($"<pre><code>{Content}</code><pre/>");
             
             output.Content.SetHtmlContent(sb.ToString());
         }

@@ -17,7 +17,7 @@ namespace Souccar.Core.CustomAttributes
         public string Formate { get; set; }
         public bool Sortable { get; set; }
         public bool Filterable { get; set; }
-        public bool Searchble { get; set; }
+        public bool Searchable { get; set; }
 
     }
 }
