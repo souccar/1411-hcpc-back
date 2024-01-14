@@ -1,7 +1,5 @@
-﻿using Abp.Application.Services.Dto;
-using Souccar.Core.Services;
+﻿using Souccar.Core.Services;
 using Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Dto;
-using Souccar.Hcpc.WarehousesApp.Warehouses.Dto;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,5 +10,6 @@ namespace Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Services
         Task SendMaterialExpiryNotifications();
         IList<WarehouseMaterialNameForDropdownDto> GetNameForDropdown();
         Task<IList<WarehouseMaterialWithWarehouseNameAndExpiryDateDto>> GetByMaterialId(int materialId);
+        Task<IList<WarehouseMaterialWithWarehouseNameAndExpiryDateDto>> GetWithWarehouseNameAndExpiryDate();
     }
 }

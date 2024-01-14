@@ -14,6 +14,7 @@ namespace Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Map
             CreateMap<UpdateWarehouseMaterialDto, WarehouseMaterial>();
             CreateMap<WarehouseMaterial, UpdateWarehouseMaterialDto>();
             CreateMap<WarehouseMaterial, WarehouseMaterialNameDto>();
+            CreateMap<WarehouseMaterial, WarehouseMaterialIdDto>();
         }
     }
 }

@@ -33,6 +33,11 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
             _transferManager = transferManager;
         }
 
+        public override Task<UpdateOutputRequestDto> GetForEditAsync(EntityDto<int> input)
+        {
+            return base.GetForEditAsync(input);
+        }
+
         public async override Task<OutputRequestDto> GetAsync(EntityDto<int> input)
         {
             var outputRequestWithDetails = await Task.FromResult(_outputRequestManager.GetOutputRequestWithDetails(input.Id));
@@ -101,9 +106,7 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
         public IList<OutputRequestDto> GetPlanOutputRequests(int planId)
         {          
             return ObjectMapper.Map<List<OutputRequestDto>>(_outputRequestManager.GetPlanOutputRequests(planId));
-        }
-
-        
+        }        
 
         public async Task<List<OutputRequestWithDetailDto>> GetWithDetail(int planId)
         {

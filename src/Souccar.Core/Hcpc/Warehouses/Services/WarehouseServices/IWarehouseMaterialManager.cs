@@ -9,5 +9,6 @@ namespace Souccar.Hcpc.Warehouses.Services.WarehouseServices
         Task<List<WarehouseMaterial>> GetAllThatWillExpire();
         Task<WarehouseMaterial> GetWithDetailsAsync(int id);
         Task<List<WarehouseMaterial>> GetByMaterialIdAsync(int materialId);
+        Task<List<WarehouseMaterial>> GetWithWarehouseNameAndExpiryDate();
     }
 }

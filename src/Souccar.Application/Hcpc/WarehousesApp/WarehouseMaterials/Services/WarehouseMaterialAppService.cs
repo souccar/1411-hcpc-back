@@ -126,5 +126,18 @@ namespace Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Services
             }
             return dtos;
         }
+
+        public async Task<IList<WarehouseMaterialWithWarehouseNameAndExpiryDateDto>> GetWithWarehouseNameAndExpiryDate()
+        {
+            IList<WarehouseMaterialWithWarehouseNameAndExpiryDateDto> dtos = new List<WarehouseMaterialWithWarehouseNameAndExpiryDateDto>();
+            var warehouseMaterials = await _warehouseMaterialDomainService.GetWithWarehouseNameAndExpiryDate();
+            foreach (var warehouseMaterial in warehouseMaterials)
+            {
+                dtos.Add(
+                    new WarehouseMaterialWithWarehouseNameAndExpiryDateDto(warehouseMaterial.Id,
+                    warehouseMaterial.Warehouse.Name + " / " + warehouseMaterial.ExpirationDate.ToString("dd-MM-yyyy")));
+            }
+            return dtos;
+        }
     }
 }

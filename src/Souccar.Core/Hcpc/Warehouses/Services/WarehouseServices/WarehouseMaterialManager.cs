@@ -87,5 +87,11 @@ namespace Souccar.Hcpc.Warehouses.Services.WarehouseServices
                 .Where(x=>x.MaterialId == materialId).ToList());
             return warehouseMaterials;
         }
+
+        public async Task<List<WarehouseMaterial>> GetWithWarehouseNameAndExpiryDate()
+        {
+            var warehouseMaterials = await Task.FromResult(_warehouseMaterialRepository.GetAllIncluding(x => x.Warehouse).ToList());
+            return warehouseMaterials;
+        }
     }
 }

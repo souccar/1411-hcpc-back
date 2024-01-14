@@ -17,6 +17,7 @@ namespace Souccar.Hcpc.Materials.Map
             CreateMap<UpdateMaterialDto, Material>();
             CreateMap<Material, UpdateMaterialDto>();
             CreateMap<Material, MaterialCodeForDropdownDto>();
+            CreateMap<Material, MaterialincludeWarehouseMaterialDto>();
         }
     }
 }
