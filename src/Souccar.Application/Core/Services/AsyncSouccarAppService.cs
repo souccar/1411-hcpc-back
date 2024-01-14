@@ -64,6 +64,26 @@ namespace Souccar.Core.Services
             );
         }
 
+        public virtual async Task<PagedResultDto<TEntityDto>> ReadAsync(TGetAllInput input)
+        {
+            CheckGetAllPermission();
+
+            var query = CreateFilteredQuery(input);
+
+            var totalCount = await AsyncQueryableExecuter.CountAsync(query);
+
+            query = ApplyFiltering(query, input);
+            query = ApplySorting(query, input);
+            query = ApplyPaging(query, input);
+
+            var entities = await AsyncQueryableExecuter.ToListAsync(query);
+
+            return new PagedResultDto<TEntityDto>(
+                totalCount,
+                entities.Select(MapToEntityDto).ToList()
+            );
+        }
+
         public IList<TEntityDto> Filter(FilterDto input)
         {
             CheckGetAllPermission();
