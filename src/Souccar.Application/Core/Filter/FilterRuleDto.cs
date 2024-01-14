@@ -1,6 +1,6 @@
 ﻿namespace Souccar.Core.Filter
 {
-    public class FilterInputItemDto
+    public class FilterRuleDto
     {
 
         public string Field { get; set; }

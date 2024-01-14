@@ -16,7 +16,8 @@ namespace Souccar.Core.Services
         Task<TUpdateInput> GetForEditAsync(EntityDto<TPrimaryKey> input);
 
         Task<PagedResultDto<TEntityDto>> GetAllAsync(TGetAllInput input);
-        IList<TEntityDto> Filter(FilterInputDto input);
+        Task<PagedResultDto<TEntityDto>> ReadAsync(TGetAllInput input);
+        IList<TEntityDto> Filter(FilterDto input);
 
         Task<TEntityDto> CreateAsync(TCreateInput input);
 

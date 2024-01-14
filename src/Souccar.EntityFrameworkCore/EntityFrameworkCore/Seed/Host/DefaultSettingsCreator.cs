@@ -4,6 +4,7 @@ using Abp.Configuration;
 using Abp.Localization;
 using Abp.MultiTenancy;
 using Abp.Net.Mail;
+using Souccar.Configuration;
 
 namespace Souccar.EntityFrameworkCore.Seed.Host
 {
@@ -28,6 +29,9 @@ namespace Souccar.EntityFrameworkCore.Seed.Host
             // Emailing
             AddSettingIfNotExists(EmailSettingNames.DefaultFromAddress, "admin@mydomain.com", tenantId);
             AddSettingIfNotExists(EmailSettingNames.DefaultFromDisplayName, "mydomain.com mailer", tenantId);
+            //AddSettingIfNotExists(AppSettingNames.Srss.Url, "http://localhost/reportserver", tenantId);
+            //AddSettingIfNotExists(AppSettingNames.Srss.Folder, "Reports", tenantId);
+            //AddSettingIfNotExists(AppSettingNames.Hcpc.ExpiryDurationNotify, "30", tenantId);
 
             // Languages
             AddSettingIfNotExists(LocalizationSettingNames.DefaultLanguage, "en", tenantId);

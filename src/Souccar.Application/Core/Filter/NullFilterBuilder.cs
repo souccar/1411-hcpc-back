@@ -75,6 +75,7 @@ namespace Souccar.Core.Filter
 
             return predicate;
         }
+
         private readonly IDictionary<string, string> operators = new Dictionary<string, string>
         {
             {"eq", "="},
@@ -89,5 +90,53 @@ namespace Souccar.Core.Filter
             {"in", "In"},
             {"nin", "NotIn"},
         };
+
+        public IQueryable<TEntity> Filter(IQueryable<TEntity> queryable, FilterDto input)
+        {
+            if (input.Rules.Any())
+            {
+                // Get all filter values as array (needed by the Where method of Dynamic Linq)
+                var values = input.Rules.Select(f => f.Value).ToArray();
+
+                // Create a predicate expression e.g. Field1 = @0 And Field2 > @1
+                string predicate = GetExpression(input);
+
+                // Use the Where method of Dynamic Linq to filter the data
+                queryable = queryable.Where(predicate, values);
+            }
+
+            return queryable;
+        }
+
+        string GetExpression(FilterDto input)
+        {
+            string predicate = "";
+            if (input.Rules.Any())
+            {
+                for (var i = 0; i < input.Rules.Count; i++)
+                {
+                    string comparison = input.Rules[i].Operator;
+                    string condition = i < (input.Rules.Count - 1) ? input.Condition : "";
+                    
+                    if (comparison == "StartsWith" || comparison == "EndsWith" || comparison == "Contains")
+                    {
+                        predicate += String.Format("{0}.{1}(@{2}) {3} ", input.Rules[i].Field, comparison, i, condition);
+                    }
+
+                    //else if (comparison =="In" || comparison =="NotIn")
+                    //{
+                    //    predicate +=
+                    //}
+                    else
+                    {
+                        predicate += String.Format("{0} {1} @{2} {3} ", input.Rules[i].Field, comparison, i, condition);
+                    }
+                }
+            }
+
+            return predicate;
+        }
+
+        
     }
 }

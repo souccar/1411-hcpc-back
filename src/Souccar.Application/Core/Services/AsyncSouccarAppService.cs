@@ -64,7 +64,7 @@ namespace Souccar.Core.Services
             );
         }
 
-        public IList<TEntityDto> Filter(FilterInputDto input)
+        public IList<TEntityDto> Filter(FilterDto input)
         {
             CheckGetAllPermission();
             var values = input.Rules.Select(f => f.Value).ToArray();

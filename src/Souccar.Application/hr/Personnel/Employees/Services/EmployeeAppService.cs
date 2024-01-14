@@ -31,7 +31,7 @@ namespace Souccar.hr.Personnel.Employees.Services
             return list;
         }
         [HttpPost]
-        public IList<EmployeeDto> GetFilteredQuery(FilterInputDto input)
+        public IList<EmployeeDto> GetFilteredQuery(FilterDto input)
         {
 
             //FilterInputItemDto item = new FilterInputItemDto() {Field = "FirstName" , Value ="5",Operator= "gte" };

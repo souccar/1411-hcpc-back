@@ -1,10 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Souccar.Configuration.Dto;
 
 namespace Souccar.Configuration
 {
     public interface IConfigurationAppService
     {
-        Task ChangeUiTheme(ChangeUiThemeInput input);
+        Task ChangeSettings(IList<SettingInput> settings);
     }
 }
