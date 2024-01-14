@@ -7,5 +7,6 @@ namespace Souccar.Hcpc.Suppliers.Services
     public interface ISupplierManager : ISouccarDomainService<Supplier, int>
     {
         List<Supplier> GetSuppliersByMaterialId(int materialId);
+        List<Supplier> GetSuppliersWithDetails(int materialId);
     }
 }

@@ -6,6 +6,7 @@ using Souccar.Hcpc.Products.Services;
 using Souccar.Hcpc.Warehouses.Services.WarehouseServices;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 
 namespace Souccar.Hcpc.Materials.Services
@@ -53,10 +54,15 @@ namespace Souccar.Hcpc.Materials.Services
 
         public IList<MaterialSuppliers> GetMaterialsOfSupplier(int materialId)
         {
-            var materialsSupplier = _materialSupplierManager.GetAll()
-                .Include(x=>x.Material).Include(y=>y.Supplier).ThenInclude(x=>x.MaterialSuppliers).ThenInclude(x=>x.Material)
-                .Where(z => z.MaterialId == materialId).ToList();
-            return materialsSupplier;
+            var materialSuppliers = new List<MaterialSuppliers>();
+            var material = _materialRepository.GetAllIncluding(x=>x.Suppliers).FirstOrDefault(x=>x.Id == materialId);
+            if(material != null && material.Suppliers.Any())
+            {
+                var ids = material.Suppliers.Select(x => x.Id);
+                materialSuppliers = _materialSupplierManager.GetAllWithIncluding("Supplier,Material").Where(x => ids.Contains(x.Id)).ToList();
+            }
+            
+            return materialSuppliers;
         }
 
         public async Task<List<Material>> GetByProductsIds(int[] productsIds)
