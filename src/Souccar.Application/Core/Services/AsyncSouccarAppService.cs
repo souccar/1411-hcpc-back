@@ -52,7 +52,6 @@ namespace Souccar.Core.Services
 
             var totalCount = await AsyncQueryableExecuter.CountAsync(query);
 
-            query = ApplyFiltering(query, input);
             query = ApplySorting(query, input);
             query = ApplyPaging(query, input);
 
@@ -72,6 +71,7 @@ namespace Souccar.Core.Services
 
             var totalCount = await AsyncQueryableExecuter.CountAsync(query);
 
+            query = ApplySearching(query,typeof(TEntityDto), input);
             query = ApplyFiltering(query, input);
             query = ApplySorting(query, input);
             query = ApplyPaging(query, input);
@@ -82,52 +82,6 @@ namespace Souccar.Core.Services
                 totalCount,
                 entities.Select(MapToEntityDto).ToList()
             );
-        }
-
-        public IList<TEntityDto> Filter(FilterDto input)
-        {
-            CheckGetAllPermission();
-            var values = input.Rules.Select(f => f.Value).ToArray();
-            string predicate = "";
-
-            if (input.Rules != null && input.Rules.Any())
-            {
-                for (var i = 0; i < input.Rules.Count; i++)
-                {
-                    string comparison = input.Rules[i].Operator;
-
-                    if (comparison == "StartsWith" || comparison == "EndsWith" || comparison == "Contains")
-                    {
-                        if (i != input.Rules.Count - 1)
-                        {
-                            predicate += String.Format("{0}.{1}(@{2}) {3} ", input.Rules[i].Field, comparison, i, input.Condition);
-
-                        }
-                        else
-                        {
-                            predicate += String.Format("{0}.{1}(@{2}) ", input.Rules[i].Field, comparison, i);
-
-                        }
-                    }
-                    else
-                    {
-                        if (i != input.Rules.Count - 1)
-                        {
-                            predicate += String.Format("{0} {1} @{2} {3} ", input.Rules[i].Field, comparison, i, input.Condition);
-
-                        }
-                        else
-                        {
-                            predicate += String.Format("{0} {1} @{2}", input.Rules[i].Field, comparison, i);
-
-                        }
-                    }
-                }
-            }
-
-            var entities = _domainService.GetAll().Where(predicate, values).ToList();
-
-            return entities.Select(MapToEntityDto).ToList();
         }
 
         public virtual async Task<TEntityDto> CreateAsync(TCreateInput input)

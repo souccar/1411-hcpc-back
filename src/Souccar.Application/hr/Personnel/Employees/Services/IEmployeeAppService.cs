@@ -9,6 +9,6 @@ namespace Souccar.hr.Personnel.Employees.Services
     public interface IEmployeeAppService : 
         IAsyncSouccarAppService<EmployeeDto, int, PagedEmployeeRequestDto, CreateEmployeeDto, UpdateEmployeeDto>
     {
-       IList<EmployeeDto> GetFilteredQuery(FilterDto input);
+       
     }
 }

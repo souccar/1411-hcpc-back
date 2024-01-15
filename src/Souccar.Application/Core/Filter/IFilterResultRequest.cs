@@ -2,6 +2,6 @@
 {
     public interface IFilterResultRequest
     {
-        public string Filtering { get; set; }
+        public FilterDto Filtering { get; set; }
     }
 }

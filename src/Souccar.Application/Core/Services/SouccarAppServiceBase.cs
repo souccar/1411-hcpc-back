@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Linq.Dynamic.Core;
 using Abp.Application.Services;
 using Abp.Application.Services.Dto;
@@ -9,6 +10,7 @@ using Abp.Linq.Extensions;
 using Abp.ObjectMapping;
 using Souccar.Core.Filter;
 using Souccar.Core.Includes;
+using Souccar.Core.Search;
 using Souccar.Core.Services.Interfaces;
 
 namespace Souccar.Core.Services
@@ -42,16 +44,29 @@ namespace Souccar.Core.Services
         /// </summary>
         /// <param name="query">The query.</param>
         /// <param name="input">The input.</param>
+        protected virtual IQueryable<TEntity> ApplySearching(IQueryable<TEntity> query,Type typeDto, TGetAllInput input)
+        {
+            var searchInput = input as ISearchResultRequest;
+            if (searchInput != null)
+            {
+                return FilterBuilder.Search(query, typeDto, searchInput.Keyword);
+            }
+
+            //No sorting
+            return query;
+        }
+
+        /// <summary>
+        /// Should apply filtering if needed.b n
+        /// </summary>
+        /// <param name="query">The query.</param>
+        /// <param name="input">The input.</param>
         protected virtual IQueryable<TEntity> ApplyFiltering(IQueryable<TEntity> query, TGetAllInput input)
         {
             var filterInput = input as IFilterResultRequest;
             if (filterInput != null)
             {
-                if (!filterInput.Filtering.IsNullOrWhiteSpace())
-                {
-                    return FilterBuilder.Filter(query, filterInput.Filtering);
-                }
-                
+                return FilterBuilder.Filter(query, filterInput.Filtering);
             }
 
             //No sorting
