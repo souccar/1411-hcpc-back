@@ -57,6 +57,10 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
                         var numberOfProduce = (int)(quantity / formulla.Quantity);
                         numberOfProducts.Add(numberOfProduce);
                     }
+                    else
+                    {
+                        numberOfProducts.Add(0);
+                    }
                 }
                 requestProduct.CanProduce = numberOfProducts.Min() / (dto.OutputRequestMaterials.Count);
             }
