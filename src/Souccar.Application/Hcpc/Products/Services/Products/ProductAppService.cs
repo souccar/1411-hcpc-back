@@ -23,10 +23,19 @@ namespace Souccar.Hcpc.Products.Services.Products
             _warehouseMaterialDomainService = warehouseMaterialDomainService;
         }
 
-        public IList<ProductNameForDropdownDto> GetNameForDropdown()
+        public IList<ProductInfoDropdownDto> GetNameForDropdown()
         {
-            return _productDomainService.GetAll()
-                .Select(x => new ProductNameForDropdownDto(x.Id, x.Name)).ToList();
+            //return _productDomainService.GetAll()
+            //    .Select(x => new ProductNameForDropdownDto(x.Id, x.Name)).ToList();
+            var products = _productDomainService.GetAll().ToList();
+            var productsDto = new List<ProductInfoDropdownDto>();
+            for (int i = 0; i < products.Count(); i++)
+            {
+                var product = new ProductInfoDropdownDto() { Id = products[i].Id, Information = products[i].Name + " | " + products[i].Size };
+                productsDto.Add(product);
+            }
+
+            return productsDto;
         }
 
         public override async Task<ProductDto> UpdateAsync(UpdateProductDto input)
@@ -39,5 +48,6 @@ namespace Souccar.Hcpc.Products.Services.Products
 
             return ObjectMapper.Map<ProductDto>(updatedProduct);
         }
+
     }
 }

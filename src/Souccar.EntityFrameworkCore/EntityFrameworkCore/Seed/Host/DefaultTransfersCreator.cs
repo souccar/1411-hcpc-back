@@ -29,7 +29,7 @@ namespace Souccar.EntityFrameworkCore.Seed.Host
             }
 
             AddTransferIfNotExists("kg", "g", 1000, tenantId);
-            AddTransferIfNotExists("ml", "l", 1000, tenantId);
+            AddTransferIfNotExists("l", "ml", 1000, tenantId);
         }
 
         private void AddTransferIfNotExists(string fromUnit, string toUnit, double value, int? tenantId = null)
