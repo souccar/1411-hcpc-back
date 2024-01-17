@@ -43,7 +43,7 @@ namespace Souccar.Hcpc.Warehouses.Services.WarehouseServices
                 await _warehouseMaterialRepository.EnsurePropertyLoadedAsync(warehouseMaterial, w => w.Warehouse);
                 await _warehouseMaterialRepository.EnsurePropertyLoadedAsync(warehouseMaterial, s => s.Supplier);
                 await _warehouseMaterialRepository.EnsurePropertyLoadedAsync(warehouseMaterial, m => m.Material);
-                await _warehouseMaterialRepository.EnsurePropertyLoadedAsync(warehouseMaterial, up => up.UnitPrice);
+                //await _warehouseMaterialRepository.EnsurePropertyLoadedAsync(warehouseMaterial, up => up.UnitPrice);
                 await _warehouseMaterialRepository.EnsurePropertyLoadedAsync(warehouseMaterial, u => u.Unit);
             }
             

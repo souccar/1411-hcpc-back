@@ -46,12 +46,11 @@ namespace Souccar.Hcpc.Warehouses
         public virtual Unit Unit { get; set; }
         #endregion
 
-        #region UnitPrice
-        public int? UnitPriceId { get; set; }
-
-        [ForeignKey("UnitPriceId")]
-        public virtual Unit UnitPrice { get; set; }
-        #endregion
+        //#region UnitPrice
+        //public int? UnitPriceId { get; set; }
+        //[ForeignKey("UnitPriceId")]
+        //public virtual Unit UnitPrice { get; set; }
+        //#endregion
 
         #region Material
         public int? MaterialId { get; set; }

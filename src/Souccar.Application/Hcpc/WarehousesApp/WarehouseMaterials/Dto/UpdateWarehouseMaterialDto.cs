@@ -26,8 +26,8 @@ namespace Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Dto
         [Required(ErrorMessage = SouccarAppConstant.Required)]
         public int? UnitId { get; set; }
 
-        [Required(ErrorMessage = SouccarAppConstant.Required)]
-        public int? UnitPriceId { get; set; }
+        //[Required(ErrorMessage = SouccarAppConstant.Required)]
+        //public int? UnitPriceId { get; set; }
 
         [Required(ErrorMessage = SouccarAppConstant.Required)]
         public int? MaterialId { get; set; }

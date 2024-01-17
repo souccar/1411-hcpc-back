@@ -37,7 +37,7 @@ namespace Souccar.Hcpc.Materials.Services
         public override Task DeleteAsync(int id)
         {
             var relatedProducts = _productManager.GetAll()
-                .Any(x => x.Formulas.Any(y => y.ProductId == id));          
+                .Any(x => x.Formulas.Any(y => y.MaterialId == id));          
             if (relatedProducts)
             {
                 throw new UserFriendlyException("Cannot be deleted, This material is associated with products");
