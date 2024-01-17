@@ -145,5 +145,12 @@ namespace Souccar.Hcpc.Materials.Services
             var materilaDto = ObjectMapper.Map<List<MaterialincludeWarehouseMaterialDto>>(materials);
             return materilaDto;
         }
+
+        public IList<MaterialCodeForDropdownDto> GetCodeForDropdown()
+        {
+            var materials = _materialManager.GetAll().ToList();
+
+            return ObjectMapper.Map<List<MaterialCodeForDropdownDto>>(materials);
+        }
     }
 }
