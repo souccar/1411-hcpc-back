@@ -116,15 +116,15 @@ namespace Souccar.Hcpc.Plans.Services
             return pendingPlansDto;
         }
 
-        public IList<ProductNameForDropdownDto> GetProductsOfPlan(int planId)
+        public IList<ProductInfoDropdownDto> GetProductsOfPlan(int planId)
         {
-            IList<ProductNameForDropdownDto> productNameForDropdownDtos = new List<ProductNameForDropdownDto>();
+            IList<ProductInfoDropdownDto> productNameForDropdownDtos = new List<ProductInfoDropdownDto>();
 
             var products = _planManager.GetProductsOfPlan(planId);
 
             foreach (var product in products)
             {
-                var productNameForDropdownDto = new ProductNameForDropdownDto(product.Id, product.Name);
+                var productNameForDropdownDto = new ProductInfoDropdownDto() { Id = product.Id, Information = product.Name + " | " + product.Size };
                 productNameForDropdownDtos.Add(productNameForDropdownDto);
             }
 

@@ -14,7 +14,7 @@ namespace Souccar.Hcpc.Plans.Services
         IList<PlanNameForDropdownDto> GetNameForDropdown();
         IList<PlanNameForDropdownDto> GetActualPlansNameForDropdown();
         IList<PlanDto> GetPendingPlans();
-        IList<ProductNameForDropdownDto> GetProductsOfPlan(int planId);
+        IList<ProductInfoDropdownDto> GetProductsOfPlan(int planId);
 
 
     }
