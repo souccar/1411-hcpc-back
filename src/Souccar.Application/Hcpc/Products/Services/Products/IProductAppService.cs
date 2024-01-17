@@ -8,6 +8,6 @@ namespace Souccar.Hcpc.Products.Services.Products
     public interface IProductAppService : IAsyncSouccarAppService<ProductDto, int, PagedProductRequestDto, CreateProductDto, UpdateProductDto>
     {
 
-        IList<ProductNameForDropdownDto> GetNameForDropdown();
+        IList<ProductInfoDropdownDto> GetNameForDropdown();
     }
 }

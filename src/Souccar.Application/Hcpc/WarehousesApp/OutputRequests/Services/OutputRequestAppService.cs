@@ -57,10 +57,10 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
                         var numberOfProduce = (int)(quantity / formulla.Quantity);
                         numberOfProducts.Add(numberOfProduce);
                     }
-                    else
-                    {
-                        numberOfProducts.Add(0);
-                    }
+                    //else
+                    //{
+                    //    numberOfProducts.Add(0);
+                    //}
                 }
                 requestProduct.CanProduce = numberOfProducts.Min() / (dto.OutputRequestMaterials.Count);
             }
@@ -75,10 +75,10 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
             var ouputRequest = MapToEntity(input);
             var createdOutputRequest = await _outputRequestManager.InsertAsync(ouputRequest);
 
-            foreach (var OutputRequestMaterial in createdOutputRequest.OutputRequestMaterials)
+            foreach (var outputRequestMaterial in createdOutputRequest.OutputRequestMaterials)
             {
                 EventBus.Default
-                    .Trigger(new ModifyCurrentQuantityOfWarehouseMaterialData(OutputRequestMaterial.WarehouseMaterialId, OutputRequestMaterial.Quantity));
+                    .Trigger(new ModifyCurrentQuantityOfWarehouseMaterialData(outputRequestMaterial.WarehouseMaterialId, outputRequestMaterial.Quantity,outputRequestMaterial.UnitId));
             }
 
             await _notifier.SendCreateOutputRequst(admin, input.Title);
