@@ -17,6 +17,12 @@ namespace Souccar.Hcpc.Units.Services.Units
             _unitDomainService = unitDomainService;
         }
 
+        public async Task<IList<UnitNameForDropdownDto>> GetAllForMaterialAsync(int materialId)
+        {
+            var units = await _unitDomainService.GetAllForMaterialAsync(materialId);
+            return ObjectMapper.Map<List<UnitNameForDropdownDto>>(units);
+        }
+
         public async Task<IList<UnitNameForDropdownDto>> GetAllParentUnitsAsync()
         {
             var units = await _unitDomainService.GetAllParentUnitsAsync();

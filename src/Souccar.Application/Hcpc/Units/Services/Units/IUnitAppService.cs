@@ -11,5 +11,6 @@ namespace Souccar.Hcpc.Units.Services.Units
         Task<UnitDto> GetIncludeParentAsync(int id);
         Task<IList<UnitNameForDropdownDto>> GetAllParentUnitsAsync();
         Task<IList<UnitNameForDropdownDto>> GetAllRelatedUnits(int id);
+        Task<IList<UnitNameForDropdownDto>> GetAllForMaterialAsync(int materialId);
     }
 }

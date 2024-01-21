@@ -15,23 +15,26 @@ namespace Souccar.Hcpc.Units.Services
         private readonly IWarehouseMaterialManager _warehouseMaterialManager;
         private readonly ITransferManager _transferManager;
         private readonly IProductManager _productManager;
+        private readonly IFormulaManager _formulaManager;
 
         public UnitManager(IRepository<Unit> unitRepository,
             IWarehouseMaterialManager warehouseMaterialManager,
             ITransferManager transferManager,
-            IProductManager productManager): base(unitRepository)
+            IProductManager productManager,
+            IFormulaManager formulaManager) : base(unitRepository)
         {
             _unitRepository = unitRepository;
             _warehouseMaterialManager = warehouseMaterialManager;
             _transferManager = transferManager;
             _productManager = productManager;
+            _formulaManager = formulaManager;
         }
 
         public override Task DeleteAsync(int id)
         {
             var relatedWarehouseMaterials = _warehouseMaterialManager.GetAll().Any(x => x.UnitId == id);
             var relatedTransfers = _transferManager.GetAll().Any(x => x.FromId == id || x.ToId == id);
-            var relatedProductss = _productManager.GetAll().Any(x => x.Formulas.Any(y=>y.UnitId == id));
+            var relatedProductss = _productManager.GetAll().Any(x => x.Formulas.Any(y => y.UnitId == id));
 
             if (relatedWarehouseMaterials || relatedTransfers || relatedProductss)
             {
@@ -40,9 +43,32 @@ namespace Souccar.Hcpc.Units.Services
             return base.DeleteAsync(id);
         }
 
+        public async Task<IList<Unit>> GetAllForMaterialAsync(int materialId)
+        {
+            IList<Unit> units = new List<Unit>();
+            var firstWarehouseMaterial = await _warehouseMaterialManager.GetFirstByMaterialId(materialId);
+            if (firstWarehouseMaterial != null)
+            {
+                units = await GetUnitWithAllRelated((int)firstWarehouseMaterial.UnitId);
+            }
+            else
+            {
+                var firstFormula = await _formulaManager.GetFirstByMaterialId(materialId);
+                if (firstFormula != null)
+                {
+                    units = await GetUnitWithAllRelated((int)firstFormula.UnitId);
+                }
+                else
+                {
+                    units = await _unitRepository.GetAllListAsync();
+                }
+            }
+            return units;
+        }
+
         public async Task<IList<Unit>> GetAllParentUnitsAsync()
         {
-            var units = await Task.FromResult(_unitRepository.GetAll().Where(x=>x.ParentUnitId== null).ToList());
+            var units = await Task.FromResult(_unitRepository.GetAll().Where(x => x.ParentUnitId == null).ToList());
             return units;
         }
 
@@ -50,7 +76,7 @@ namespace Souccar.Hcpc.Units.Services
         {
             var units = new List<Unit>();
             var currentUnit = await GetIncludeParentAsync(id);
-            if(currentUnit.ParentUnit != null)
+            if (currentUnit.ParentUnit != null)
             {
                 units.Add(currentUnit.ParentUnit);
                 var relatedUnits = await Task.FromResult(_unitRepository.GetAll()
@@ -58,7 +84,7 @@ namespace Souccar.Hcpc.Units.Services
                 if (relatedUnits.Any())
                 {
                     units.AddRange(relatedUnits);
-                }                
+                }
             }
             else
             {
@@ -68,18 +94,46 @@ namespace Souccar.Hcpc.Units.Services
                 {
                     units.AddRange(childrenUnits);
                 }
-            }            
+            }
             return units;
         }
 
         public async Task<Unit> GetIncludeParentAsync(int id)
         {
             var unit = await _unitRepository.GetAsync(id);
-            if(unit != null)
+            if (unit != null)
             {
                 await _unitRepository.EnsurePropertyLoadedAsync(unit, x => x.ParentUnit);
             }
             return unit;
+        }
+
+
+        private async Task<IList<Unit>> GetUnitWithAllRelated(int id)
+        {
+            var units = new List<Unit>();
+            var currentUnit = await GetIncludeParentAsync(id);
+            units.Add(currentUnit);
+            if (currentUnit.ParentUnit != null)
+            {
+                units.Add(currentUnit.ParentUnit);
+                var relatedUnits = await Task.FromResult(_unitRepository.GetAll()
+                .Where(x => x.Id != currentUnit.Id && x.ParentUnitId == currentUnit.ParentUnitId).ToList());
+                if (relatedUnits.Any())
+                {
+                    units.AddRange(relatedUnits);
+                }
+            }
+            else
+            {
+                var childrenUnits = await Task.FromResult(_unitRepository.GetAll()
+                .Where(x => x.ParentUnitId == currentUnit.Id).ToList());
+                if (childrenUnits.Any())
+                {
+                    units.AddRange(childrenUnits);
+                }
+            }
+            return units;
         }
     }
 }

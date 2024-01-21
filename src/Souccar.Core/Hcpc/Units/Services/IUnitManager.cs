@@ -9,5 +9,6 @@ namespace Souccar.Hcpc.Units.Services
         Task<Unit> GetIncludeParentAsync(int id);
         Task<IList<Unit>> GetAllParentUnitsAsync();
         Task<IList<Unit>> GetAllRelatedUnitsAsync(int id);
+        Task<IList<Unit>> GetAllForMaterialAsync(int materialId);
     }
 }
