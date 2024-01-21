@@ -28,6 +28,8 @@ namespace Souccar.EntityFrameworkCore.Seed.Host
                 tenantId = MultiTenancyConsts.DefaultTenantId;
             }
 
+            AddTransferIfNotExists("tones", "kg", 1000, tenantId);
+            AddTransferIfNotExists("tones", "g", 1000000, tenantId);
             AddTransferIfNotExists("kg", "g", 1000, tenantId);
             AddTransferIfNotExists("l", "ml", 1000, tenantId);
         }

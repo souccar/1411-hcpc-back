@@ -2,8 +2,7 @@
 
 namespace Souccar.Hcpc.Units.Dto.Units
 {
-    public class ReadUnitDto : UnitDto, IEntityDto<int>
-    {
-        public int Id { get; set; }
+    public class ReadUnitDto : UnitDto
+    { 
     }
 }
