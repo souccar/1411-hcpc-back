@@ -28,6 +28,7 @@ namespace Souccar.EntityFrameworkCore.Seed.Host
                 tenantId = MultiTenancyConsts.DefaultTenantId;
             }
 
+            AddUnitIfNotExists("tones", tenantId);
             AddUnitIfNotExists("kg", tenantId);
             AddUnitIfNotExists("g", tenantId);
             AddUnitIfNotExists("l", tenantId);
@@ -41,7 +42,35 @@ namespace Souccar.EntityFrameworkCore.Seed.Host
                 return;
             }
 
-            _context.Units.Add(new Unit() { Name = name, TenantId = tenantId });
+            if(name == "kg")
+            {
+                var unit = _context.Units.FirstOrDefault(s => s.Name.ToLower() == "tones");
+                if(unit != null)
+                {
+                    _context.Units.Add(new Unit() { Name = name, TenantId = tenantId,ParentUnitId =  unit.Id});
+                }
+            }
+            else if (name == "g")
+            {
+                var unit = _context.Units.FirstOrDefault(s => s.Name.ToLower() == "tones");
+                if (unit != null)
+                {
+                    _context.Units.Add(new Unit() { Name = name, TenantId = tenantId, ParentUnitId = unit.Id });
+                }
+            }
+            else if (name == "ml")
+            {
+                var unit = _context.Units.FirstOrDefault(s => s.Name.ToLower() == "l");
+                if (unit != null)
+                {
+                    _context.Units.Add(new Unit() { Name = name, TenantId = tenantId, ParentUnitId = unit.Id });
+                }
+            }
+            else
+            {
+                _context.Units.Add(new Unit() { Name = name, TenantId = tenantId, ParentUnitId = null});
+            }
+
             _context.SaveChanges();
         }
     }
