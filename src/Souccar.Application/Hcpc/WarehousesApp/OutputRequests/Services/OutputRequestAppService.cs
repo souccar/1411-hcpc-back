@@ -73,13 +73,7 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
         {
             var admin = _userManager.GetUserById(1);
             var ouputRequest = MapToEntity(input);
-            var createdOutputRequest = await _outputRequestManager.InsertAsync(ouputRequest);
-
-            foreach (var outputRequestMaterial in createdOutputRequest.OutputRequestMaterials)
-            {
-                EventBus.Default
-                    .Trigger(new ModifyCurrentQuantityOfWarehouseMaterialData(outputRequestMaterial.WarehouseMaterialId, outputRequestMaterial.Quantity,outputRequestMaterial.UnitId));
-            }
+            var createdOutputRequest = await _outputRequestManager.InsertAsync(ouputRequest);            
 
             await _notifier.SendCreateOutputRequst(admin, input.Title);
 
@@ -155,11 +149,20 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
             }
         }
         public async Task<OutputRequestDto> ChangeStatusAsync(int status, int id)
-        {
+        {            
             var updatedOutputRequst = await _outputRequestManager.ChangeStatus((OutputRequestStatus)status, id);
             if (updatedOutputRequst == null)
             {
                 throw new UserFriendlyException("Change Error");
+            }
+            if (status == 1)
+            {
+                var outputRequest = await Task.FromResult(_outputRequestManager.GetOutputRequestWithDetails(id));
+                foreach (var outputRequestMaterial in outputRequest.OutputRequestMaterials)
+                {
+                    EventBus.Default
+                        .Trigger(new ModifyCurrentQuantityOfWarehouseMaterialData(outputRequestMaterial.WarehouseMaterialId, outputRequestMaterial.Quantity, outputRequestMaterial.UnitId));
+                }
             }
             return ObjectMapper.Map<OutputRequestDto>(updatedOutputRequst);
         }

@@ -72,7 +72,7 @@ namespace Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Services
         public override async Task<WarehouseMaterialDto> GetAsync(EntityDto<int> input)
         {
             var warehouseMaterial = await _warehouseMaterialDomainService.GetWithDetailsAsync(input.Id);
-            var outputRequests = _outputRequestManager.GetAllWithIncluding("OutputRequestMaterials").Where(x => x.OutputRequestMaterials.Any(y => y.WarehouseMaterialId == input.Id)).ToList();            
+            var outputRequests = _outputRequestManager.GetAllWithIncluding("OutputRequestMaterials").Where(x =>x.Status != OutputRequestStatus.Pending && x.OutputRequestMaterials.Any(y => y.WarehouseMaterialId == input.Id)).ToList();            
 
             var warehouseMaterialDto = MapToEntityDto(warehouseMaterial);
 

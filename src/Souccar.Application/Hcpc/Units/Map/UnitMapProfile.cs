@@ -12,6 +12,8 @@ namespace Souccar.Hcpc.Units.Map
             CreateMap<CreateUnitDto, Unit>();
             CreateMap<UpdateUnitDto, Unit>();
             CreateMap<Unit, UpdateUnitDto>();
+            CreateMap<Unit, ParentUnitDto>();
+            CreateMap<Unit, UnitNameForDropdownDto>();
         }
     }
 }

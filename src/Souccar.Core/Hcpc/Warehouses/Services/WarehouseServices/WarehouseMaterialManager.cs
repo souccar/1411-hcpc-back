@@ -43,7 +43,7 @@ namespace Souccar.Hcpc.Warehouses.Services.WarehouseServices
                 await _warehouseMaterialRepository.EnsurePropertyLoadedAsync(warehouseMaterial, w => w.Warehouse);
                 await _warehouseMaterialRepository.EnsurePropertyLoadedAsync(warehouseMaterial, s => s.Supplier);
                 await _warehouseMaterialRepository.EnsurePropertyLoadedAsync(warehouseMaterial, m => m.Material);
-                await _warehouseMaterialRepository.EnsurePropertyLoadedAsync(warehouseMaterial, up => up.UnitPrice);
+                //await _warehouseMaterialRepository.EnsurePropertyLoadedAsync(warehouseMaterial, up => up.UnitPrice);
                 await _warehouseMaterialRepository.EnsurePropertyLoadedAsync(warehouseMaterial, u => u.Unit);
             }
             
@@ -92,6 +92,12 @@ namespace Souccar.Hcpc.Warehouses.Services.WarehouseServices
         {
             var warehouseMaterials = await Task.FromResult(_warehouseMaterialRepository.GetAllIncluding(x => x.Warehouse).ToList());
             return warehouseMaterials;
+        }
+
+        public async Task<WarehouseMaterial> GetFirstByMaterialId(int materialId)
+        {
+            var warehouseMaterial = await _warehouseMaterialRepository.FirstOrDefaultAsync(x=>x.MaterialId == materialId);
+            return warehouseMaterial;
         }
     }
 }

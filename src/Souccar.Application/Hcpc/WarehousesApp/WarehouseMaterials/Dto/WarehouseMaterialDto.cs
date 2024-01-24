@@ -31,7 +31,7 @@ namespace Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Dto
         public int? ExpiryStatus { get; set; }
 
         public int? UnitId { get; set; }
-        public int? UnitPriceId { get; set; }
+        //public int? UnitPriceId { get; set; }
         public int? MaterialId { get; set; }
         public int? SupplierId { get; set; }
         public int? WarehouseId { get; set; }
