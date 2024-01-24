@@ -40,7 +40,7 @@ namespace Souccar.Core.Filter
 
         public IQueryable<TEntity> Filter(IQueryable<TEntity> queryable, FilterDto input)
         {
-            if (input.Rules.Any())
+            if (input != null && input.Rules.Any())
             {
                 // Get all filter values as array (needed by the Where method of Dynamic Linq)
                 var values = GetValues(input.Rules);
@@ -63,13 +63,14 @@ namespace Souccar.Core.Filter
                 var index = -1;
                 for (var i = 0; i < input.Rules.Count; i++)
                 {
-                    if (input.Rules[i].Operator != "In" && input.Rules[i].Operator != "NotIn")
+                    if (input.Rules[i].Operator != "in" && input.Rules[i].Operator != "not in")
                     {
                         string comparison = input.Rules[i].Operator;
                         string condition = i < (input.Rules.Count - 1) ? input.Condition : "";
 
-                        if (comparison == "StartsWith" || comparison == "EndsWith" || comparison == "Contains")
+                        if (comparison == "starts with" || comparison == "ends with" || comparison.ToLower() == "contains")
                         {
+                            comparison = operators[comparison.ToLower()];
                             predicate += String.Format("{0}.{1}(@{2}) {3} ", input.Rules[i].Field, comparison, i, condition);
                         }
                         else
@@ -81,7 +82,7 @@ namespace Souccar.Core.Filter
                     }
                 }
 
-                var conplexRules = input.Rules.Where(x => x.Operator == "In" || x.Operator == "NotIn").ToList();
+                var conplexRules = input.Rules.Where(x => x.Operator == "in" || x.Operator == "not in").ToList();
                 if (conplexRules.Any())
                 {
                     for (var y = 0; y < conplexRules.Count; y++)
@@ -89,10 +90,10 @@ namespace Souccar.Core.Filter
                         predicate += " (";
 
                         var count = conplexRules[y].Value.ToString().Split(',').Count();
-                        var comparison = conplexRules[y].Operator == "In" ? "=" : "!=";
+                        var comparison = conplexRules[y].Operator == "in" ? "=" : "!=";
                         for (var i = 1; i <= count; i++)
                         {
-                            var subCondition = conplexRules[y].Operator == "In" ? "or" : "and";
+                            var subCondition = conplexRules[y].Operator == "in" ? "or" : "and";
                             if(i == count)
                             {
                                 subCondition = "";
@@ -123,7 +124,7 @@ namespace Souccar.Core.Filter
         {
             string predicate = string.Empty;
             var count = rule.Value.ToString().Split(',').Count();
-            var logic = comparison == "In" ? "=" : "!=";
+            var logic = comparison == "in" ? "=" : "!=";
             
             for(var i = 0; i < count; i++)
             {
@@ -135,14 +136,15 @@ namespace Souccar.Core.Filter
         object[] GetValues(IList<FilterRuleDto> rules)
         {
             var ruleValues = new List<object>();
-            var simpleRules = rules.Where(x => x.Operator != "In" && x.Operator != "NotIn").ToList();
-            var complexRules = rules.Where(x => x.Operator == "In" || x.Operator == "NotIn").ToList();
+            var simpleRules = rules.Where(x => x.Operator != "in" && x.Operator != "not in").ToList();
+            var complexRules = rules.Where(x => x.Operator == "in" || x.Operator == "not in").ToList();
 
             ruleValues.AddRange(simpleRules.Select(x=>x.Value));
 
             foreach (var rule in complexRules)
             {
-                var values = rule.Value.ToString().Split(',').Select(x => x.Trim());
+                var values2 = rule.Value.ToString();
+                var values = rule.Value.ToString().Replace("[","").Replace("]", "").Split(',').Select(x => x.Trim());
                 ruleValues.AddRange(values);
             }
             
@@ -196,10 +198,11 @@ namespace Souccar.Core.Filter
 
                     if (comparison == "StartsWith" || comparison == "EndsWith" || comparison == "Contains")
                     {
+
                         predicate += String.Format("{0}.{1}(@{2}) {3} ", filters[i].Field, comparison, i, filters[i].Logic);
                     }
 
-                    //else if (comparison =="In" || comparison =="NotIn")
+                    //else if (comparison =="in" || comparison =="not in")
                     //{
                     //    predicate +=
                     //}
@@ -222,11 +225,11 @@ namespace Souccar.Core.Filter
             {"lte", "<="},
             {"gt", ">"},
             {"gte", ">="},
-            {"sw", "StartsWith"},
-            {"ew", "EndsWith"},
-            {"co", "Contains"},
-            {"in", "In"},
-            {"nin", "NotIn"},
+            {"starts with", "StartsWith"},
+            {"ends with", "EndsWith"},
+            {"contains", "Contains"},
+            {"in", "in"},
+            {"not in", "not in"},
         };
     }
 }

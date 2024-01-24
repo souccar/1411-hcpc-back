@@ -65,14 +65,15 @@ namespace Souccar.Core.Services
 
         public virtual async Task<PagedResultDto<TEntityDto>> ReadAsync(TGetAllInput input)
         {
-            CheckGetAllPermission();
+          CheckGetAllPermission();
 
             var query = CreateFilteredQuery(input);
 
+            query = ApplySearching(query, typeof(TEntityDto), input);
+            query = ApplyFiltering(query, input);
+
             var totalCount = await AsyncQueryableExecuter.CountAsync(query);
 
-            query = ApplySearching(query,typeof(TEntityDto), input);
-            query = ApplyFiltering(query, input);
             query = ApplySorting(query, input);
             query = ApplyPaging(query, input);
 

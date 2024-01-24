@@ -12,6 +12,7 @@ using Souccar.Hcpc.Plans;
 using Souccar.Hcpc.DailyProductions;
 using Souccar.Hcpc.GeneralSettings;
 using Souccar.hr.Personnel.Employees;
+using Souccar.hr.Shared.Nationalities;
 
 namespace Souccar.EntityFrameworkCore
 {
@@ -38,6 +39,7 @@ namespace Souccar.EntityFrameworkCore
         public DbSet<GeneralSetting> GeneralSettings { get; set; }
         public DbSet<Warehouse> Warehouses { get; set; }
         public DbSet<DailyProductionNote> DailyProductionNotes { get; set; }
+        public DbSet<Nationality> Nationalities { get; set; }
 
         public SouccarDbContext(DbContextOptions<SouccarDbContext> options)
             : base(options)
