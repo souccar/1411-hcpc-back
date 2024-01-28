@@ -300,6 +300,20 @@
 		<text name="AddOnePlanProductAtLeast" value="يجب إضافة منتج واحد على الأقل"></text>
 		<text name="ProductIsAlreadyExist" value="المنتج موجود بالفعل"></text>
 		<text name="AddOneProductToLeast" value="أضف منتج واحد على الأقل"></text>
+		<text name="AddNewEmployee">إنشاء موظف جديد</text>
+		<text name="EditEmployee">تعديل موظف</text>
+		<text name="DeleteEmployee">حذف موظف</text>
+		<text name="Employee">الموظف</text>
+		<text name="Child">الابن</text>
+		<text name="AddNewChild">إضافة ابن جديد</text>
+		<text name="EditChild">تعديل ابن</text>
+		<text name="TheSupplierCannotBeDuplicated">لا يمكن تكرار الموورد</text>
+		<text name="Details">التفاصيل</text>
+		<text name="BackTo">الرجوع إلى</text>
+		<text name=" List"> القائمة</text>
+		<text name="CreatorUser">إضافة مستخدم</text>
+
+
 
 
 

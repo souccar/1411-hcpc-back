@@ -21,6 +21,19 @@ namespace Souccar.Authorization
             context.CreatePermission(PermissionNames.Pages_Users_ResetPassword, L("ResetPassword"));
             context.CreatePermission(PermissionNames.Pages_Users_ChangePermissions, L("ChangePermissions"));
 
+            //Employee
+            context.CreatePermission(PermissionNames.Pages_Employee, L("Employee"));
+            context.CreatePermission(PermissionNames.Pages_Employee_Create, L("CreateNewEmployee"));
+            context.CreatePermission(PermissionNames.Pages_Employee_Edit, L("EditEmployee"));
+            context.CreatePermission(PermissionNames.Pages_Employee_Delete, L("DeleteEmployee"));
+
+            //Child
+            context.CreatePermission(PermissionNames.Pages_Child, L("Child"));
+            context.CreatePermission(PermissionNames.Pages_Child_Create, L("CreateNewChild"));
+            context.CreatePermission(PermissionNames.Pages_Child_Edit, L("EditChild"));
+            context.CreatePermission(PermissionNames.Pages_Child_Delete, L("DeleteChild"));
+
+
             //Roles
             context.CreatePermission(PermissionNames.Pages_Roles, L("Roles"));
             context.CreatePermission(PermissionNames.Pages_Roles_Create, L("CreateNewRole"));

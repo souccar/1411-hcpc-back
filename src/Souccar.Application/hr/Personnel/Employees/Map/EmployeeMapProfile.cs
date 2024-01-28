@@ -10,6 +10,9 @@ namespace Souccar.hr.Personnel.Employees.Map
             CreateMap<Employee, EmployeeDto>();
             CreateMap<CreateEmployeeDto, Employee>();
             CreateMap<UpdateEmployeeDto, Employee>();
+            CreateMap<Employee, UpdateEmployeeDto>();
+
+
         }
     }
 }

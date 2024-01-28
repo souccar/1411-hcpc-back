@@ -13,6 +13,19 @@
         public const string Pages_Users_ResetPassword = "Pages.Users.ResetPassword";
         public const string Pages_Users_ChangePermissions = "Pages.Users.ChangePermissions";
 
+
+        //Employee
+        public const string Pages_Employee = "Pages.Employee";
+        public const string Pages_Employee_Create = "Pages.Employee.Create";
+        public const string Pages_Employee_Edit = "Pages.Employee.Edit";
+        public const string Pages_Employee_Delete = "Pages.Employee.Delete";
+
+        //Child
+        public const string Pages_Child = "Pages.Child";
+        public const string Pages_Child_Create = "Pages.Child.Create";
+        public const string Pages_Child_Edit = "Pages.Child.Edit";
+        public const string Pages_Child_Delete = "Pages.Child.Delete";
+
         //Roles
         public const string Pages_Roles = "Pages.Roles";
         public const string Pages_Roles_Create = "Pages.Roles.Create";
