@@ -12,6 +12,18 @@ namespace Souccar.Authorization
             context.CreatePermission(PermissionNames.Pages_Users_Activation, L("UsersActivation"));
             context.CreatePermission(PermissionNames.Pages_Tenants, L("Tenants"), multiTenancySides: MultiTenancySides.Host);
             context.CreatePermission(PermissionNames.Pages_Administration_HangfireDashboard, L("HangfireDashboard"));
+
+            //Employee
+            context.CreatePermission(PermissionNames.Pages_Employee, L("Employee"));
+            context.CreatePermission(PermissionNames.Pages_Employee_Create, L("CreateNewEmployee"));
+            context.CreatePermission(PermissionNames.Pages_Employee_Edit, L("EditEmployee"));
+            context.CreatePermission(PermissionNames.Pages_Employee_Delete, L("DeleteEmployee"));
+
+            //Child
+            context.CreatePermission(PermissionNames.Pages_Child, L("Child"));
+            context.CreatePermission(PermissionNames.Pages_Child_Create, L("CreateNewChild"));
+            context.CreatePermission(PermissionNames.Pages_Child_Edit, L("EditChild"));
+            context.CreatePermission(PermissionNames.Pages_Child_Delete, L("DeleteChild"));
             #endregion
 
 
@@ -22,7 +34,7 @@ namespace Souccar.Authorization
             context.CreatePermission(PermissionNames.Security_Users_Edit, L("EditUser"));
             context.CreatePermission(PermissionNames.Security_Users_Delete, L("DeleteUser"));
             context.CreatePermission(PermissionNames.Security_Users_ResetPassword, L("ResetPassword"));
-            context.CreatePermission(PermissionNames.Security_Users_ChangePermissions, L("ChangePermissions"));
+            context.CreatePermission(PermissionNames.Security_Users_ChangePermissions, L("ChangePermissions"));           
 
             //Roles
             context.CreatePermission(PermissionNames.Security_Roles, L("Roles"));

@@ -20,6 +20,7 @@ namespace Souccar.EntityFrameworkCore
     {
         /* Define a DbSet for each entity of the application */
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Child> Children { get; set; }
         public DbSet<Plan> Plans { get; set; }
         public DbSet<PlanProduct> PlanProducts { get; set; }
         public DbSet<PlanProductMaterial> PlanProductMaterials { get; set; }

@@ -4,13 +4,14 @@ using Souccar.hr.Personnel.Employees.Dto;
 
 namespace Souccar.hr.Personnel.Childs.Map
 {
-    public class CnildMapProfile: Profile
+    public class ChildMapProfile: Profile
     {
-        public CnildMapProfile()
+        public ChildMapProfile()
         {
             CreateMap<Child, ChildDto>();
             CreateMap<CreateChildDto, Child>();
             CreateMap<UpdateChildDto, Child>();
+            CreateMap<Child, UpdateChildDto>();
         }
     }
 }

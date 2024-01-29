@@ -6,6 +6,19 @@
         public const string Pages_Tenants = "Pages.Tenants";
         public const string Pages_Users_Activation = "Pages.Users.Activation";
 
+        //Employee
+        public const string Pages_Employee = "Pages.Employee";
+        public const string Pages_Employee_Create = "Pages.Employee.Create";
+        public const string Pages_Employee_Edit = "Pages.Employee.Edit";
+        public const string Pages_Employee_Delete = "Pages.Employee.Delete";
+
+        //Child
+        public const string Pages_Child = "Pages.Child";
+        public const string Pages_Child_Create = "Pages.Child.Create";
+        public const string Pages_Child_Edit = "Pages.Child.Edit";
+        public const string Pages_Child_Delete = "Pages.Child.Delete";
+
+
         //Nationalities
         public const string Pages_Nationalities = "Pages.Nationalities";
         public const string Pages_Nationalities_Create = "Pages.Nationalities.Create";

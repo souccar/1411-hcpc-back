@@ -488,5 +488,20 @@
     <text name="CreationTime">Creation Time</text>
     <text name="CreatorUser">Creator User</text>
     <text name="DomainEvents">Domain Events</text>
+	  <text name="AddNewEmployee">Add New Employee</text>
+	  <text name="EditEmployee">Edit Employee</text>
+	  <text name="DeleteEmployee">Delete Employee</text>
+	  <text name="Employee">Employee</text>
+	  <text name="Child">Child</text>
+	  <text name="AddNewChild">Add New Child</text>
+	  <text name="EditChild">Edit Child</text>
+	  <text name="TheSupplierCannotBeDuplicated">The Supplier Cannot Be Duplicated</text>
+	  <text name="Details">Details</text>
+	  <text name="BackTo">Back To</text>
+	  <text name=" List"> List</text>
+
+
+
+
   </texts>
 </localizationDictionary>
