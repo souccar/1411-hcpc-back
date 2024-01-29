@@ -1,4 +1,5 @@
 ﻿using Abp.Application.Services.Dto;
+using Souccar.Core.CustomAttributes;
 using Souccar.Hcpc.Plans.Dto.Plans;
 using Souccar.Hcpc.Products.Dto.Products;
 using Souccar.Hcpc.Warehouses;
@@ -9,17 +10,19 @@ using System.Collections.Generic;
 
 namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Dto
 {
-    public class ReadOutputRequestDto : IEntityDto<int>
+    public class ReadOutputRequestDto : EntityDto<int>
     {
         public ReadOutputRequestDto()
         {
             OutputRequestMaterials = new List<ReadOutputRequestMaterialDto>();
             OutputRequestProducts = new List<ReadOutputRequesProductDto>();
         }
-
-        public int Id { get; set; }
+        [ReadUserInterface(Searchable = true)]
         public string Title { get; set; }
+
         public DateTime OutputDate { get; set; }
+
+        [ReadUserInterface(Searchable = true)]
         public OutputRequestStatus Status { get; set; }
         public int? PlanId { get; set; }
         public PlanDto Plan { get; set; }

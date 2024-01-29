@@ -2,6 +2,7 @@
 using Abp.Events.Bus;
 using Abp.UI;
 using Souccar.Authorization.Users;
+using Souccar.Core.Dto.PagedRequests;
 using Souccar.Core.Services;
 using Souccar.Core.Services.Interfaces;
 using Souccar.Hcpc.DailyProductions.Dto.DailyProductionDtos;
@@ -19,7 +20,7 @@ using System.Threading.Tasks;
 namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
 {
     public class OutputRequestAppService :
-        AsyncSouccarAppService<OutputRequest, OutputRequestDto, int, PagedOutputRequestDto, CreateOutputRequestDto, UpdateOutputRequestDto>, IOutputRequestAppService
+        AsyncSouccarAppService<OutputRequest, OutputRequestDto, int, FullPagedRequestDto, CreateOutputRequestDto, UpdateOutputRequestDto>, IOutputRequestAppService
     {
         private readonly IOutputRequestManager _outputRequestManager;
         private readonly ITransferManager _transferManager;
@@ -82,7 +83,7 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
             return ObjectMapper.Map<OutputRequestDto>(outputRequestWithDetails);
         }
 
-        public override async Task<PagedResultDto<OutputRequestDto>> GetAllAsync(PagedOutputRequestDto input)
+        public override async Task<PagedResultDto<OutputRequestDto>> GetAllAsync(FullPagedRequestDto input)
         {
             PagedResultDto<OutputRequestDto> result = new PagedResultDto<OutputRequestDto>();
 

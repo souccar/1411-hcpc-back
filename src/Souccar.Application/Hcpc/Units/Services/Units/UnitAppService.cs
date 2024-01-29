@@ -1,5 +1,6 @@
 ﻿using Abp.Application.Services.Dto;
 using Abp.UI;
+using Souccar.Core.Dto.PagedRequests;
 using Souccar.Core.Services;
 using Souccar.Hcpc.Units.Dto.Units;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 namespace Souccar.Hcpc.Units.Services.Units
 {
     public class UnitAppService :
-        AsyncSouccarAppService<Unit, UnitDto, int, PagedUnitRequestDto, CreateUnitDto, UpdateUnitDto>, IUnitAppService
+        AsyncSouccarAppService<Unit, UnitDto, int, FullPagedRequestDto, CreateUnitDto, UpdateUnitDto>, IUnitAppService
     {
         private readonly IUnitManager _unitDomainService;
         public UnitAppService(IUnitManager unitDomainService) : base(unitDomainService)

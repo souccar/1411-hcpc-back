@@ -1,12 +1,14 @@
 ﻿using Abp.Application.Services.Dto;
+using Souccar.Core.CustomAttributes;
 using Souccar.Hcpc.Units.Dto.Units;
 
 namespace Souccar.Hcpc.Units.Dto.Transfers
 {
-    public class ReadTransferDto : TransferBaseDto, IEntityDto<int>
+    public class ReadTransferDto : EntityDto<int>
     {
-        public int Id { get; set; }
+        [ReadUserInterface(Searchable = true)]
         public UnitDto From { get; set; }
+        [ReadUserInterface(Searchable = true)]
         public UnitDto To { get; set; }
     }
 }

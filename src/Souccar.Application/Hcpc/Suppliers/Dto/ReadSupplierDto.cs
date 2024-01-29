@@ -1,10 +1,13 @@
 ﻿using Abp.Application.Services.Dto;
+using Souccar.Core.CustomAttributes;
 
 namespace Souccar.Hcpc.Suppliers.Dto
 {
-    public class ReadSupplierDto : SupplierBaseDto, IEntityDto<int>
+    public class ReadSupplierDto  : EntityDto<int>
     {
-        public int Id { get; set; }
-        
-    }
+        [ReadUserInterface(Searchable = true)]
+        public string Name { get; set; }
+        public string Description { get; set; }
+
+}
 }

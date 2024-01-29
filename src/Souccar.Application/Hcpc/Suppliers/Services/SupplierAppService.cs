@@ -1,4 +1,5 @@
 ﻿using Abp.Application.Services.Dto;
+using Souccar.Core.Dto.PagedRequests;
 using Souccar.Core.Services;
 using Souccar.Hcpc.Suppliers.Dto;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Linq;
 namespace Souccar.Hcpc.Suppliers.Services
 {
     public class SupplierAppService :
-        AsyncSouccarAppService<Supplier, SupplierDto, int, PagedSupplierRequestDto, CreateSupplierDto, UpdateSupplierDto>, ISupplierAppService
+        AsyncSouccarAppService<Supplier, SupplierDto, int, FullPagedRequestDto, CreateSupplierDto, UpdateSupplierDto>, ISupplierAppService
     {
         private readonly ISupplierManager _supplierDomainService;
         public SupplierAppService(ISupplierManager supplierDomainService) : base(supplierDomainService)

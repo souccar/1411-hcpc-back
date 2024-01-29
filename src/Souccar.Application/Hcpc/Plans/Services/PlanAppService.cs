@@ -1,6 +1,7 @@
 ﻿using Abp.Application.Services.Dto;
 using Abp.Threading;
 using Microsoft.AspNetCore.Connections.Features;
+using Souccar.Core.Dto.PagedRequests;
 using Souccar.Core.Services;
 using Souccar.Hcpc.DailyProductions.Services;
 using Souccar.Hcpc.Plans.Dto.PlanMaterials;
@@ -18,7 +19,7 @@ using System.Threading.Tasks;
 
 namespace Souccar.Hcpc.Plans.Services
 {
-    public class PlanAppService : AsyncSouccarAppService<Plan, PlanDto, int, PagedPlanRequestDto, CreatePlanDto, UpdatePlanDto>, IPlanAppService
+    public class PlanAppService : AsyncSouccarAppService<Plan, PlanDto, int, FullPagedRequestDto, CreatePlanDto, UpdatePlanDto>, IPlanAppService
     {
         private readonly IPlanManager _planManager;
         private readonly IPlanProductManager _planProductManager;
