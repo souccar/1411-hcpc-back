@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Abp.Application.Services;
 using Abp.Application.Services.Dto;
+using Souccar.Core.Dto.PagedRequests;
 using Souccar.Roles.Dto;
 using Souccar.Users.Dto;
 
@@ -14,5 +15,7 @@ namespace Souccar.Users
         Task ChangeLanguage(ChangeUserLanguageDto input);
 
         Task<bool> ChangePassword(ChangePasswordDto input);
+
+        Task<PagedResultDto<UserDto>> ReadAsync(FullPagedRequestDto input);
     }
 }
