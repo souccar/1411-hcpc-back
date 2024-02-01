@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Abp.Application.Services;
 using Abp.Application.Services.Dto;
+using Souccar.Core.Dto.PagedRequests;
 using Souccar.Roles.Dto;
 
 namespace Souccar.Roles
@@ -15,5 +16,7 @@ namespace Souccar.Roles
         Task<ListResultDto<RoleListDto>> GetRolesAsync(GetRolesInput input);
 
         IList<RoleNameDto> GetAllRolesNames();
+
+        Task<PagedResultDto<RoleDto>> ReadAsync(FullPagedRequestDto input);
     }
 }

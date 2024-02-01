@@ -22,6 +22,10 @@ using Souccar.Roles.Dto;
 using Souccar.Users.Dto;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Souccar.Core.Dto.PagedRequests;
+using Souccar.Core.Filter;
+using Souccar.Core.Search;
+using System.Linq.Dynamic.Core;
 
 namespace Souccar.Users
 {
@@ -34,6 +38,7 @@ namespace Souccar.Users
         private readonly IPasswordHasher<User> _passwordHasher;
         private readonly IAbpSession _abpSession;
         private readonly LogInManager _logInManager;
+        public IFilterBuilder<User, long> FilterBuilder { get; set; }
 
         public UserAppService(
             IRepository<User, long> repository,
@@ -51,6 +56,7 @@ namespace Souccar.Users
             _passwordHasher = passwordHasher;
             _abpSession = abpSession;
             _logInManager = logInManager;
+            FilterBuilder = NullFilterBuilder<User, long>.Instance;
         }
 
         public override async Task<UserDto> CreateAsync(CreateUserDto input)
@@ -177,10 +183,10 @@ namespace Souccar.Users
             return user;
         }
 
-        protected override IQueryable<User> ApplySorting(IQueryable<User> query, PagedUserResultRequestDto input)
-        {
-            return query.OrderBy(r => r.UserName);
-        }
+        //protected override IQueryable<User> ApplySorting(IQueryable<User> query, PagedUserResultRequestDto input)
+        //{
+        //    return query.OrderBy(r => r.UserName);
+        //}
 
         protected virtual void CheckErrors(IdentityResult identityResult)
         {
@@ -246,6 +252,100 @@ namespace Souccar.Users
 
             return true;
         }
+
+        public async Task<PagedResultDto<UserDto>> ReadAsync(FullPagedRequestDto input)
+        {
+            var query = GetAllRoles();
+
+            query = ApplySearching(query, typeof(UserDto), input);
+            query = ApplyFiltering(query, input);
+
+            var totalCount = await AsyncQueryableExecuter.CountAsync(query);
+
+            query = ApplySorting(query, input);
+            query = ApplyPaging(query, input);
+
+            var entities = await AsyncQueryableExecuter.ToListAsync(query);
+
+            return new PagedResultDto<UserDto>(
+                totalCount,
+                entities.Select(MapToEntityDto).ToList()
+            );
+        }
+
+
+        #region Helper Methods
+        private IQueryable<User> ApplyFiltering(IQueryable<User> query, FullPagedRequestDto input)
+        {
+            var filterInput = input as IFilterResultRequest;
+            if (filterInput != null)
+            {
+                return FilterBuilder.Filter(query, filterInput.Filtering);
+            }
+
+            //No sorting
+            return query;
+        }
+
+        private IQueryable<User> ApplySearching(IQueryable<User> query, Type typeDto, FullPagedRequestDto input)
+        {
+            var searchInput = input as ISearchResultRequest;
+            if (searchInput != null)
+            {
+                return FilterBuilder.Search(query, typeDto, searchInput.Keyword);
+            }
+
+            //No sorting
+            return query;
+        }
+
+        private IQueryable<User> ApplySorting(IQueryable<User> query, FullPagedRequestDto input)
+        {
+            //Try to sort query if available
+            var sortInput = input as ISortedResultRequest;
+            if (sortInput != null)
+            {
+                if (!sortInput.Sorting.IsNullOrWhiteSpace())
+                {
+                    return query.OrderBy(sortInput.Sorting);
+                }
+            }
+
+            //IQueryable.Task requires sorting, so we should sort if Take will be used.
+            if (input is ILimitedResultRequest)
+            {
+                return query.OrderByDescending(e => e.Id);
+            }
+
+            //No sorting
+            return query;
+        }
+
+        private IQueryable<User> ApplyPaging(IQueryable<User> query, FullPagedRequestDto input)
+        {
+            //Try to use paging if available
+            var pagedInput = input as IPagedResultRequest;
+            if (pagedInput != null)
+            {
+                return query.PageBy(pagedInput);
+            }
+
+            //Try to limit query result if available
+            var limitedInput = input as ILimitedResultRequest;
+            if (limitedInput != null)
+            {
+                return query.Take(limitedInput.MaxResultCount);
+            }
+
+            //No paging
+            return query;
+        }
+
+        private IQueryable<User> GetAllRoles()
+        {
+            return Repository.GetAllIncluding(x => x.Roles);
+        }
+        #endregion
     }
 }
 
