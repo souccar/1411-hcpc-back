@@ -1,4 +1,5 @@
-﻿using Souccar.Hcpc.Units.Dto.Units;
+﻿using Souccar.Core.Dto.PagedRequests;
+using Souccar.Hcpc.Units.Dto.Units;
 using Souccar.Hcpc.Units.Services.Units;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace Souccar.Tests.Hcpc.Units
         public async Task CreateUnits_Test()
         {
             //Get all units
-            var pagedUnitRequest = new PagedUnitRequestDto();
+            var pagedUnitRequest = new FullPagedRequestDto();
             pagedUnitRequest.MaxResultCount = 100;
             pagedUnitRequest.SkipCount = 0;
             var units = await _unitAppService.GetAllAsync(pagedUnitRequest);

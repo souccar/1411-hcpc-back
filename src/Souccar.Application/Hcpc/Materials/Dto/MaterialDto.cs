@@ -12,6 +12,8 @@ namespace Souccar.Hcpc.Materials.Dto
             Suppliers = new List<MaterialSuppliersDto>();
         }
         public int Id { get; set; }
+
+   
         public IList<MaterialSuppliersDto> Suppliers { get; set; }
     }
 }
