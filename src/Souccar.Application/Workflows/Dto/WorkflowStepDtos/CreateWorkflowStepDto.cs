@@ -12,6 +12,7 @@ namespace Souccar.Workflows.Dto.WorkflowStepDtos
             Actions = new List<CreateWorkflowStepActionDto>();
         }
         public string Title { get; set; }
+        public int Status { get; set; }
         public int Index { get; set; }
         public int? WorkflowId { get; set; }
         public IList<CreateWorkflowStepGroupDto> Groups { get; set; }

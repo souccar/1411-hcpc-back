@@ -15,6 +15,7 @@ namespace Souccar.Workflows
 
         public int? TenantId { get; set; }
         public string Title { get; set; }
+        public WorkflowStepStatus Status { get; set; }
         public int Index { get; set; }
 
         #region Workflow
