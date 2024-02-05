@@ -13,6 +13,7 @@ using Souccar.Hcpc.DailyProductions;
 using Souccar.Hcpc.GeneralSettings;
 using Souccar.hr.Personnel.Employees;
 using Souccar.hr.Shared.Nationalities;
+using Souccar.Workflows;
 
 namespace Souccar.EntityFrameworkCore
 {
@@ -41,6 +42,11 @@ namespace Souccar.EntityFrameworkCore
         public DbSet<Warehouse> Warehouses { get; set; }
         public DbSet<DailyProductionNote> DailyProductionNotes { get; set; }
         public DbSet<Nationality> Nationalities { get; set; }
+        public DbSet<Workflow> Workflows { get; set; }
+        public DbSet<WorkflowStep> WorkflowSteps { get; set; }
+        public DbSet<WorkflowStepAction> WorkflowStepActions { get; set; }
+        public DbSet<WorkflowStepGroup> WorkflowStepGroups { get; set; }
+        public DbSet<WorkflowStepIndex> WorkflowIndexes { get; set; }
 
         public SouccarDbContext(DbContextOptions<SouccarDbContext> options)
             : base(options)
