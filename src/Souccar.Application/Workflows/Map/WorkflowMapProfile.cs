@@ -11,6 +11,7 @@ namespace Souccar.Workflows.Map
             CreateMap<CreateWorkflowDto, Workflow>();
             CreateMap<UpdateWorkflowDto, Workflow>();
             CreateMap<Workflow, UpdateWorkflowDto>();
+            CreateMap<Workflow, WorkflowForDropdownDto>();
         }
     }
 }
