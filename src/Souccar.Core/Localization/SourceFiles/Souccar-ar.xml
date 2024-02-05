@@ -313,7 +313,19 @@
 		<text name=" List"> القائمة</text>
 		<text name="CreatorUser">إضافة مستخدم</text>
 
-
+		
+		<text name=" Workflow"> تدفق العمل</text>
+		<text name=" CreateWorkflow"> إضافة تدفق عمل</text>
+		<text name=" EditWorkflow"> تعديل تدفق عمل</text>
+		<text name=" DeleteWorkflow"> حذف تدفق عمل</text>
+		<text name=" WorkflowStep"> خطوات تدفق عمل</text>
+		<text name=" CreateWorkflowStep"> إضافة خطوات تدفق عمل</text>
+		<text name=" EditWorkflowStep"> تعديل خطوات تدفق عمل</text>
+		<text name=" DeleteWorkflowStep"> حذف خطوات تدفق عمل</text>
+		<text name=" WorkflowStepIndex"> Workflow Step Index</text>
+		<text name=" CreateWorkflowStepIndex"> Create Workflow Step Index</text>
+		<text name=" EditWorkflowStepIndex"> Edit Workflow Step Index</text>
+		<text name=" DeleteWorkflowStepIndex"> Delete Workflow Step Index</text>
 
 
 
