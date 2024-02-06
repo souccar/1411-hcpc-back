@@ -2,7 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Souccar.Core.Services.Implements;
 using Souccar.Workflows.Services.Interfaces;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Souccar.Workflows.Services.Implements
 {
@@ -13,6 +15,13 @@ namespace Souccar.Workflows.Services.Implements
         public WorkflowStepManager(IRepository<WorkflowStep, int> workflowStepRepository) : base(workflowStepRepository)
         {
             _workflowStepRepository = workflowStepRepository;
+        }
+
+        public async Task<IList<WorkflowStep>> GetAllByWorkflowId(int workflowId)
+        {
+            var steps = await Task.FromResult(_workflowStepRepository.GetAllIncluding(x=>x.Actions)
+                .Include(z=>z.Groups).Where(w=>w.WorkflowId == workflowId).ToList());
+            return steps;
         }
 
         public WorkflowStep GetWithDetails(int id)

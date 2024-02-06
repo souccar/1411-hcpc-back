@@ -118,6 +118,27 @@ namespace Souccar.Authorization
             context.CreatePermission(PermissionNames.Production_Plans_Delete, L("DeletePlan"));
             #endregion
 
+
+            #region Workflow Module
+            //Workflows
+            context.CreatePermission(PermissionNames.Workflow, L("Workflow"));
+            context.CreatePermission(PermissionNames.Workflow_Create, L("CreateWorkflow"));
+            context.CreatePermission(PermissionNames.Workflow_Edit, L("EditWorkflow"));
+            context.CreatePermission(PermissionNames.Workflow_Delete, L("DeleteWorkflow"));
+
+            //Workflow Steps
+            context.CreatePermission(PermissionNames.Workflow_Step, L("WorkflowStep"));
+            context.CreatePermission(PermissionNames.Workflow_Step_Create, L("CreateWorkflowStep"));
+            context.CreatePermission(PermissionNames.Workflow_Step_Edit, L("EditWorkflowStep"));
+            context.CreatePermission(PermissionNames.Workflow_Step_Delete, L("DeleteWorkflowStep"));
+
+            //Workflow Steps Indexes
+            context.CreatePermission(PermissionNames.Workflow_Step_Index, L("WorkflowStepIndex"));
+            context.CreatePermission(PermissionNames.Workflow_Step_Index_Create, L("CreateWorkflowStepIndex"));
+            context.CreatePermission(PermissionNames.Workflow_Step_Index_Edit, L("EditWorkflowStepIndex"));
+            context.CreatePermission(PermissionNames.Workflow_Step_Index_Delete, L("DeleteWorkflowStepIndex"));
+            #endregion
+
         }
 
         private static ILocalizableString L(string name)

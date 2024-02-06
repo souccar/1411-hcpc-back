@@ -121,5 +121,26 @@
         public const string Production_DailyProductions_Delete = "Production.DailyProductions.Delete";
         #endregion
 
+
+        #region Workflow Module
+        //Workflows
+        public const string Workflow = "Workflow";
+        public const string Workflow_Create = "Workflow.Create";
+        public const string Workflow_Edit = "Workflow.Edit";
+        public const string Workflow_Delete = "Workflow.Delete";
+
+        //Workflow Steps
+        public const string Workflow_Step = "Workflow.Step";
+        public const string Workflow_Step_Create = "Workflow.Step.Create";
+        public const string Workflow_Step_Edit = "Workflow.Step.Edit";
+        public const string Workflow_Step_Delete = "Workflow.Step.Delete";
+
+        //Workflow Steps Indexes
+        public const string Workflow_Step_Index = "Workflow.Step.Index";
+        public const string Workflow_Step_Index_Create = "Workflow.Step.Index.Create";
+        public const string Workflow_Step_Index_Edit = "Workflow.Step.Index.Edit";
+        public const string Workflow_Step_Index_Delete = "Workflow.Step.Index.Delete";
+        #endregion
+
     }
 }
