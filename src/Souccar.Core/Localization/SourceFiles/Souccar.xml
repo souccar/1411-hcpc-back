@@ -499,6 +499,10 @@
 	  <text name="Details">Details</text>
 	  <text name="BackTo">Back To</text>
 	  <text name=" List"> List</text>
+	  <text name="PercentageCanNotBeNegativeOrZero" value="Percentage Can Not Be Less Than Zero">
+	  </text>
+	  <text name="PercentageCanNotBeGreaterThan100" value="Percentage Can Not Be Greater Than 100">
+	  </text>
 
 
 

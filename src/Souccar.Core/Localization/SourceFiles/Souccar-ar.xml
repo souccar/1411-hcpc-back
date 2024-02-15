@@ -258,7 +258,7 @@
 		<text name="Search" value="البحث"></text>
 		<text name="Day" value="يوم"></text>
 		<text name="AddOneSupplierAtLeast" value="أضف مورد واحد على الأقل "></text>
-		<text name="AddOneFormulaAtLeast" value="أضف تركيبة واحدة على الأقل "></text> 
+		<text name="AddOneFormulaAtLeast" value="أضف تركيبة واحدة على الأقل "></text>
 		<text name="ExpiryDurationNotifyCanNotBeNegativeOrZereo" value="لا يمكن أن يكون إشعار مدة انتهاء الصلاحية أصغر من صفر"></text>
 		<text name="PriceCanNotBeNegativeOrZero" value="السعر لا يمكن أن يكون أصفر من صفر"></text>
 		<text name="QuantityCanNotBeNegativeOrZero" value="لا يمكن أن تكون الكمية أصغر من صفر"></text>
@@ -312,6 +312,10 @@
 		<text name="BackTo">الرجوع إلى</text>
 		<text name=" List"> القائمة</text>
 		<text name="CreatorUser">إضافة مستخدم</text>
+		<text name="PercentageCanNotBeNegativeOrZero" value="النسبة المئوية لا يمكن أن تكون أقل من صفر">
+		</text>
+		<text name="PercentageCanNotBeGreaterThan100" value="النسبة المئوية لا يمكن أن تكون أكبر من 100">
+		</text>
 
 
 
