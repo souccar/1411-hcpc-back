@@ -17,7 +17,7 @@ namespace Souccar.Core.Filter
             if (!string.IsNullOrWhiteSpace(keyword))
             {
                 var filterDto = new FilterDto() { Condition = "or" };
-                var properties = typeof(TEntity).GetProperties().Where(x=>x.PropertyType == typeof(string));
+                var properties = typeof(TEntity).GetProperties().Where(x=>x.PropertyType == typeof(string) && x.CanWrite == true);
                 var propertiesDto = typeDto.GetProperties().Where(x => x.PropertyType == typeof(string));
                 foreach (var propertyInfo in propertiesDto)
                 {
