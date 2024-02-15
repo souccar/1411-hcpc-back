@@ -7,6 +7,6 @@ namespace Souccar.Workflows
     {
         public int? TenantId { get; set; }
         public string ActionName { get; set; }
-        public int Oreder { get; set; }
+        public int Order { get; set; }
     }
 }

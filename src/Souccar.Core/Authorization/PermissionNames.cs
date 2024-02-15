@@ -60,6 +60,12 @@
         public const string Setting_Products_Edit = "Setting.Products.Edit";
         public const string Setting_Products_Delete = "Setting.Products.Delete";
 
+        //Categories
+        public const string Setting_Categories = "Setting.Categories";
+        public const string Setting_Categories_Create = "Setting.Categories.Create";
+        public const string Setting_Categories_Edit = "Setting.Categories.Edit";
+        public const string Setting_Categories_Delete = "Setting.Categories.Delete";
+
         //Suppliers
         public const string Setting_Suppliers = "Setting.Suppliers";
         public const string Setting_Suppliers_Create = "Setting.Suppliers.Create";
@@ -119,6 +125,27 @@
         public const string Production_DailyProductions_Create = "Production.DailyProductions.Create";
         public const string Production_DailyProductions_Edit = "Production.DailyProductions.Edit";
         public const string Production_DailyProductions_Delete = "Production.DailyProductions.Delete";
+        #endregion
+
+
+        #region Workflow Module
+        //Workflows
+        public const string Workflow = "Workflow";
+        public const string Workflow_Create = "Workflow.Create";
+        public const string Workflow_Edit = "Workflow.Edit";
+        public const string Workflow_Delete = "Workflow.Delete";
+
+        //Workflow Steps
+        public const string Workflow_Step = "Workflow.Step";
+        public const string Workflow_Step_Create = "Workflow.Step.Create";
+        public const string Workflow_Step_Edit = "Workflow.Step.Edit";
+        public const string Workflow_Step_Delete = "Workflow.Step.Delete";
+
+        //Workflow Steps Indexes
+        public const string Workflow_Step_Index = "Workflow.Step.Index";
+        public const string Workflow_Step_Index_Create = "Workflow.Step.Index.Create";
+        public const string Workflow_Step_Index_Edit = "Workflow.Step.Index.Edit";
+        public const string Workflow_Step_Index_Delete = "Workflow.Step.Index.Delete";
         #endregion
 
     }

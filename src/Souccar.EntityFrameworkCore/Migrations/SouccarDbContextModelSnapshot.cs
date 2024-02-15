@@ -1577,6 +1577,33 @@ namespace Souccar.Migrations
                     b.ToTable("AbpUsers");
                 });
 
+            modelBuilder.Entity("Souccar.Hcpc.Categories.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ParentCategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TenantId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParentCategoryId");
+
+                    b.ToTable("Categories");
+                });
+
             modelBuilder.Entity("Souccar.Hcpc.DailyProductions.DailyProduction", b =>
                 {
                     b.Property<int>("Id")
@@ -2013,6 +2040,9 @@ namespace Souccar.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
 
@@ -2050,6 +2080,8 @@ namespace Souccar.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
                 });
@@ -2715,7 +2747,7 @@ namespace Souccar.Migrations
                     b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
 
-                    b.Property<int>("Oreder")
+                    b.Property<int>("Order")
                         .HasColumnType("int");
 
                     b.Property<int?>("TenantId")
@@ -3065,6 +3097,15 @@ namespace Souccar.Migrations
                     b.Navigation("LastModifierUser");
                 });
 
+            modelBuilder.Entity("Souccar.Hcpc.Categories.Category", b =>
+                {
+                    b.HasOne("Souccar.Hcpc.Categories.Category", "ParentCategory")
+                        .WithMany()
+                        .HasForeignKey("ParentCategoryId");
+
+                    b.Navigation("ParentCategory");
+                });
+
             modelBuilder.Entity("Souccar.Hcpc.DailyProductions.DailyProduction", b =>
                 {
                     b.HasOne("Souccar.Hcpc.Warehouses.OutputRequest", "OutputRequest")
@@ -3197,6 +3238,15 @@ namespace Souccar.Migrations
                     b.Navigation("Product");
 
                     b.Navigation("Unit");
+                });
+
+            modelBuilder.Entity("Souccar.Hcpc.Products.Product", b =>
+                {
+                    b.HasOne("Souccar.Hcpc.Categories.Category", "Category")
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryId");
+
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("Souccar.Hcpc.Units.Transfer", b =>
@@ -3442,6 +3492,11 @@ namespace Souccar.Migrations
                     b.Navigation("Settings");
 
                     b.Navigation("Tokens");
+                });
+
+            modelBuilder.Entity("Souccar.Hcpc.Categories.Category", b =>
+                {
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("Souccar.Hcpc.DailyProductions.DailyProduction", b =>

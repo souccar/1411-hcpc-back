@@ -80,7 +80,7 @@ namespace Souccar.Hcpc.Products.Services
 
         public Product GetWithDetails(int id)
         {
-            var product = _productRepository.GetAllIncluding(x => x.Formulas)
+            var product = _productRepository.GetAllIncluding(x => x.Formulas).Include(x=>x.Category)
                 .FirstOrDefault(x => x.Id == id);
             return product;
         }

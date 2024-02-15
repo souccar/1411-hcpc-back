@@ -14,6 +14,7 @@ using Souccar.Hcpc.GeneralSettings;
 using Souccar.hr.Personnel.Employees;
 using Souccar.hr.Shared.Nationalities;
 using Souccar.Workflows;
+using Souccar.Hcpc.Categories;
 
 namespace Souccar.EntityFrameworkCore
 {
@@ -29,6 +30,7 @@ namespace Souccar.EntityFrameworkCore
         public DbSet<Material> Materials { get; set; }
         public DbSet<FormulaItem> Formulas { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Category> Categories { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<Transfer> Transfers { get; set; }
         public DbSet<Unit> Units { get; set; }

@@ -10,6 +10,6 @@ namespace Souccar.Workflows.Dto.WorkflowStepIndexDtos
         public string ActionName { get; set; }
 
         [Required(ErrorMessage = SouccarAppConstant.Required)]
-        public int Oreder { get; set; }
+        public int Order { get; set; }
     }
 }
