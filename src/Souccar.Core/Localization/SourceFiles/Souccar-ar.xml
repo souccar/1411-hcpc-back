@@ -312,7 +312,7 @@
 		<text name="BackTo">الرجوع إلى</text>
 		<text name=" List"> القائمة</text>
 		<text name="CreatorUser">إضافة مستخدم</text>
-		<text name="PercentageCanNotBeNegativeOrZero" value="النسبة المئوية لا يمكن أن تكون أقل من صفر">
+		<text name="PercentageCanNotBeNegativeOrZero" value="النسبة المئوية لا يمكن أن تكون أصغر أو تساوي الصفر">
 		</text>
 		<text name="PercentageCanNotBeGreaterThan100" value="النسبة المئوية لا يمكن أن تكون أكبر من 100">
 		</text>
