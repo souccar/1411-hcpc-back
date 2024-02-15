@@ -1,4 +1,5 @@
-﻿using Souccar.Hcpc.Products.Dto.Formulas;
+﻿using Souccar.Hcpc.Categories.Dto;
+using Souccar.Hcpc.Products.Dto.Formulas;
 using System.Collections.Generic;
 
 namespace Souccar.Hcpc.Products.Dto.Products
@@ -15,5 +16,10 @@ namespace Souccar.Hcpc.Products.Dto.Products
         public double Size { get; set; }
         public double Price { get; set; }
         public virtual IList<FormulaDto> Formulas { get; set; }
+
+        #region Category
+        public int? CategoryId { get; set; }
+        public CategoryDto Category { get; set; }
+        #endregion
     }
 }

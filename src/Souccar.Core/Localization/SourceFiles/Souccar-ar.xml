@@ -327,6 +327,11 @@
 		<text name=" EditWorkflowStepIndex"> Edit Workflow Step Index</text>
 		<text name=" DeleteWorkflowStepIndex"> Delete Workflow Step Index</text>
 
+		<text name="CreateNewCategories">إضافة فئات جديدة </text>
+		<text name="DeleteCategory">حذف الفئة</text>
+		<text name="EditCategory">تعديل الفئة</text>
+		<text name="Categories">فئات</text>
+
 
 
 

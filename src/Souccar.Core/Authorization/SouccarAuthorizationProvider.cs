@@ -63,6 +63,12 @@ namespace Souccar.Authorization
             context.CreatePermission(PermissionNames.Setting_Products_Edit, L("EditProduct"));
             context.CreatePermission(PermissionNames.Setting_Products_Delete, L("DeleteProduct"));
 
+            //Categories
+            context.CreatePermission(PermissionNames.Setting_Categories, L("Categories"));
+            context.CreatePermission(PermissionNames.Setting_Categories_Create, L("CreateNewCategory"));
+            context.CreatePermission(PermissionNames.Setting_Categories_Edit, L("EditCategory"));
+            context.CreatePermission(PermissionNames.Setting_Categories_Delete, L("DeleteCategory"));
+
             //Suppliers
             context.CreatePermission(PermissionNames.Setting_Suppliers, L("Suppliers"));
             context.CreatePermission(PermissionNames.Setting_Suppliers_Create, L("CreateNewSupplier"));

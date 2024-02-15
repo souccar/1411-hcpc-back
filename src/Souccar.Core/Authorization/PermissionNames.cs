@@ -60,6 +60,12 @@
         public const string Setting_Products_Edit = "Setting.Products.Edit";
         public const string Setting_Products_Delete = "Setting.Products.Delete";
 
+        //Categories
+        public const string Setting_Categories = "Setting.Categories";
+        public const string Setting_Categories_Create = "Setting.Categories.Create";
+        public const string Setting_Categories_Edit = "Setting.Categories.Edit";
+        public const string Setting_Categories_Delete = "Setting.Categories.Delete";
+
         //Suppliers
         public const string Setting_Suppliers = "Setting.Suppliers";
         public const string Setting_Suppliers_Create = "Setting.Suppliers.Create";

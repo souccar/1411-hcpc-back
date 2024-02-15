@@ -2,7 +2,7 @@
 {
     public enum WorkflowActionType
     {
-        Netxt,
+        Next,
         Back,
         End
     }

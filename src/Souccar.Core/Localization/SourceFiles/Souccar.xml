@@ -392,7 +392,7 @@
     </text>
     <text name="PriceCanNotBeNegativeOrZero" value="Price Can Not Be Less Than Zero">
     </text>
-    <text name="QuantityCanNotBeNegativeOrZero" value="Quantit yCan Not Be Less Than Zero">
+    <text name="QuantityCanNotBeNegativeOrZero" value="Quantity Can Not Be Less Than Zero">
     </text>
     <text name="FillSupplierAndLeadTimeFieldBefoe" value="Fill Supplier And Lead Time Field Befoe">
     </text>
@@ -500,17 +500,27 @@
 	  <text name="BackTo">Back To</text>
 	  <text name=" List"> List</text>
 
-	  <text name=" Workflow"> Workflow</text>
-	  <text name=" CreateWorkflow"> Create Workflow</text>
-	  <text name=" EditWorkflow"> Edit Workflow</text>
-	  <text name=" DeleteWorkflow"> Delete Workflow</text>
-	  <text name=" WorkflowStep"> Workflow Step</text>
-	  <text name=" CreateWorkflowStep"> Create Workflow Step</text>
-	  <text name=" EditWorkflowStep"> Edit Workflow Step</text>
-	  <text name=" DeleteWorkflowStep"> Delete Workflow Step</text>
-	  <text name=" WorkflowStepIndex"> Workflow Step Index</text>
-	  <text name=" CreateWorkflowStepIndex"> Create Workflow Step Index</text>
-	  <text name=" EditWorkflowStepIndex"> Edit Workflow Step Index</text>
-	  <text name=" DeleteWorkflowStepIndex"> Delete Workflow Step Index</text>
+	  <text name="Workflow">Workflow</text>
+	  <text name="CreateWorkflow">Create Workflow</text>
+	  <text name="EditWorkflow">Edit Workflow</text>
+	  <text name="DeleteWorkflow">Delete Workflow</text>
+	  <text name="WorkflowStep">Workflow Step</text>
+	  <text name="CreateWorkflowStep">Create Workflow Step</text>
+	  <text name="EditWorkflowStep">Edit Workflow Step</text>
+	  <text name="DeleteWorkflowStep">Delete Workflow Step</text>
+	  <text name="WorkflowStepIndex">Workflow Step Index</text>
+	  <text name="CreateWorkflowStepIndex">Create Workflow Step Index</text>
+	  <text name="EditWorkflowStepIndex">Edit Workflow Step Index</text>
+	  
+	  <text name="CreateNewCategories">Create New Category</text>
+	  <text name="DeleteCategory">Delete Category</text>
+	  <text name="EditCategory">Edit Category</text>
+	  <text name="Categories">Categories</text>
+	 
+
+
+
+
+
   </texts>
 </localizationDictionary>

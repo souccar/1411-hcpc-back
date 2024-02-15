@@ -1,6 +1,8 @@
 ﻿using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
+using Souccar.Hcpc.Categories;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Souccar.Hcpc.Products
 {
@@ -18,5 +20,12 @@ namespace Souccar.Hcpc.Products
         public double Price { get; set; }
 
         public virtual IList<FormulaItem> Formulas { get; set; }
+
+        #region Category
+
+        [ForeignKey("CategoryId")]
+        public virtual Category Category { get; set; }
+        public int? CategoryId { get; set; }
+        #endregion
     }
 }
