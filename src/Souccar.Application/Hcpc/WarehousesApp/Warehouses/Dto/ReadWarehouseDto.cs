@@ -1,6 +1,5 @@
 ﻿using Abp.Application.Services.Dto;
-using Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Dto;
-using System.Collections.Generic;
+using Souccar.Users.Dto;
 
 namespace Souccar.Hcpc.WarehousesApp.Warehouses.Dto
 {
@@ -13,7 +12,8 @@ namespace Souccar.Hcpc.WarehousesApp.Warehouses.Dto
         public int Id { get; set; }
         public string Name { get; set; }
         public string Place { get; set; }
-        public string WarehouseKeeper { get; set; }
+        public long? WarehouseKeeperId { get; set; }
+        public UserForDropdownDto WarehouseKeeper { get; set; }
         //public IList<ReadWarehouseMaterialDto> WarehouseMaterials { get; set; }
     }
 }
