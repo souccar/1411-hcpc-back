@@ -12,5 +12,6 @@ namespace Souccar.Hcpc.Warehouses.Services.OutputRequestServices
         IQueryable<OutputRequest> GetPlanOutputRequests(int planId);
         Task<OutputRequest> ChangeStatus(OutputRequestStatus status, int id);
         public List<OutputRequest> GetAllIncluding();
+        IQueryable<OutputRequest> CreateFilteredQuery(string including, long? currentUserId);
     }
 }

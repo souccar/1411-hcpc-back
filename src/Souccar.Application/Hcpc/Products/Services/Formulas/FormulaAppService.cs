@@ -1,13 +1,13 @@
-﻿using Abp.Application.Services.Dto;
+﻿using Abp.Authorization;
+using Souccar.Authorization;
 using Souccar.Core.Services;
 using Souccar.Hcpc.Products;
 using Souccar.Hcpc.Products.Dto.Formulas;
 using Souccar.Hcpc.Products.Services;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Souccar.Hcpc.Formulas.Services.Formulas
 {
+    [AbpAuthorize(PermissionNames.Setting_Products)]
     public class FormulaAppService : AsyncSouccarAppService<FormulaItem, FormulaDto, int, PagedFormulaRequestDto, CreateFormulaDto, UpdateFormulaDto>, IFormulaAppService
     {
         private readonly IFormulaManager _formulaDomainService;

@@ -1,9 +1,6 @@
 ﻿using Abp.Application.Services.Dto;
 using Abp.UI;
-using AutoMapper;
 using Souccar.Core.Services;
-using Souccar.Hcpc.DailyProductions.Dto.DailyProductionDtos;
-using Souccar.Hcpc.DailyProductions;
 using Souccar.Hcpc.Materials.Dto;
 using Souccar.Hcpc.Materials.Dto.MaterialDetailsDtos;
 using Souccar.Hcpc.Products.Dto.Products;
@@ -18,11 +15,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Souccar.Hcpc.Suppliers.Services;
+using Abp.Authorization;
+using Souccar.Authorization;
 using Souccar.Core.Dto.PagedRequests;
 
 namespace Souccar.Hcpc.Materials.Services
 {
-    public class MaterialAppService : AsyncSouccarAppService<Material, MaterialDto, int, FullPagedRequestDto, CreateMaterialDto, UpdateMaterialDto>, IMaterialAppService
+    [AbpAuthorize(PermissionNames.Setting_Materials)]
+    public class MaterialAppService : AsyncSouccarAppService<Material, MaterialDto, int, PagedMaterialRequestDto, CreateMaterialDto, UpdateMaterialDto>, IMaterialAppService
     {
         private readonly IMaterialManager _materialManager;
         private readonly IWarehouseMaterialManager _warehouseMaterialManager;

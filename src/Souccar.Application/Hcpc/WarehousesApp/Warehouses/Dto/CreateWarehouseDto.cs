@@ -11,7 +11,7 @@ namespace Souccar.Hcpc.WarehousesApp.Warehouses.Dto
         [Required(ErrorMessage = SouccarAppConstant.Required, AllowEmptyStrings = false), MaxLength(SouccarAppConstant.SimpleStringMaxLength)]
         public string Place { get; set; }
 
-        [Required(ErrorMessage = SouccarAppConstant.Required, AllowEmptyStrings = false), MaxLength(SouccarAppConstant.SimpleStringMaxLength)]
-        public string WarehouseKeeper { get; set; }
+        [Required(ErrorMessage = SouccarAppConstant.Required)]
+        public long? WarehouseKeeperId { get; set; }
     }
 }

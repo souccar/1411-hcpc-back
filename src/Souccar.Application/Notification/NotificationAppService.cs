@@ -4,16 +4,11 @@ using Abp.Configuration;
 using Abp.Notifications;
 using Abp.Runtime.Session;
 using Abp.UI;
-using AutoMapper.Internal.Mappers;
-using Souccar.Authorization.Users;
 using Souccar.Notification.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using System.Xml.Linq;
 
 namespace Souccar.Notification
 {

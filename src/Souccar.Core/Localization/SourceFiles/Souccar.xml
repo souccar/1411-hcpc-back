@@ -499,6 +499,10 @@
 	  <text name="Details">Details</text>
 	  <text name="BackTo">Back To</text>
 	  <text name=" List"> List</text>
+	  <text name="PercentageCanNotBeNegativeOrZero" value="Percentage cannot be less than or equal zero">
+	  </text>
+	  <text name="PercentageCanNotBeGreaterThan100" value="Percentage cannot be greater Than 100">
+	  </text>
 
 	  <text name="Workflow">Workflow</text>
 	  <text name="CreateWorkflow">Create Workflow</text>

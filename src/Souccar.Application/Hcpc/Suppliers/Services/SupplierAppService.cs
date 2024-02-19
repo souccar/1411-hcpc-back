@@ -1,4 +1,6 @@
-﻿using Abp.Application.Services.Dto;
+﻿using Abp.Authorization;
+using Souccar.Authorization;
+using Abp.Application.Services.Dto;
 using Souccar.Core.Dto.PagedRequests;
 using Souccar.Core.Services;
 using Souccar.Hcpc.Suppliers.Dto;
@@ -7,6 +9,7 @@ using System.Linq;
 
 namespace Souccar.Hcpc.Suppliers.Services
 {
+    [AbpAuthorize(PermissionNames.Setting_Suppliers)]
     public class SupplierAppService :
         AsyncSouccarAppService<Supplier, SupplierDto, int, FullPagedRequestDto, CreateSupplierDto, UpdateSupplierDto>, ISupplierAppService
     {

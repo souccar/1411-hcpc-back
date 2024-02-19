@@ -11,7 +11,8 @@ namespace Souccar.Hcpc.WarehousesApp.Warehouses.Dto
         public string Name { get; set; }
         [ReadUserInterface(Searchable = true)]
         public string Place { get; set; }
-        [ReadUserInterface(Searchable = true)]
-        public string WarehouseKeeper { get; set; }
+        public long? WarehouseKeeperId { get; set; }
+        public UserForDropdownDto WarehouseKeeper { get; set; }
+        //public IList<ReadWarehouseMaterialDto> WarehouseMaterials { get; set; }
     }
 }

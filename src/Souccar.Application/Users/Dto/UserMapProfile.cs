@@ -8,6 +8,7 @@ namespace Souccar.Users.Dto
         public UserMapProfile()
         {
             CreateMap<UserDto, User>();
+            CreateMap<User, UserForDropdownDto>();
             CreateMap<UserDto, User>()
                 .ForMember(x => x.Roles, opt => opt.Ignore())
                 .ForMember(x => x.CreationTime, opt => opt.Ignore());
