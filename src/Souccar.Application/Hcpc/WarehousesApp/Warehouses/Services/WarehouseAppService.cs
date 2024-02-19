@@ -1,4 +1,6 @@
-﻿using Souccar.Core.Services;
+﻿using Abp.Authorization;
+using Souccar.Authorization;
+using Souccar.Core.Services;
 using Souccar.Hcpc.Warehouses;
 using Souccar.Hcpc.Warehouses.Services.WarehouseServices;
 using Souccar.Hcpc.WarehousesApp.Warehouses.Dto;
@@ -7,6 +9,7 @@ using System.Linq;
 
 namespace Souccar.Hcpc.WarehousesApp.Warehouses.Services
 {
+    [AbpAuthorize(PermissionNames.Warehouses_Warehouses)]
     public class WarehouseAppService : AsyncSouccarAppService<Warehouse, WarehouseDto, int, PagedWarehouseRequestDto, CreateWarehouseDto, UpdateWarehouseDto>, IWarehouseAppService
     {
         private readonly IWarehouseManager _warehouseManager;
