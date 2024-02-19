@@ -166,5 +166,27 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
             }
             return ObjectMapper.Map<OutputRequestDto>(updatedOutputRequst);
         }
+
+        public async Task<PagedResultDto<OutputRequestDto>> CustomReadAsync(PagedOutputRequestDto input)
+        {
+            CheckGetAllPermission();
+
+            var query = _outputRequestManager.CreateFilteredQuery(input.Including,AbpSession.UserId);
+
+            query = ApplySearching(query, typeof(OutputRequestDto), input);
+            query = ApplyFiltering(query, input);
+
+            var totalCount = await AsyncQueryableExecuter.CountAsync(query);
+
+            query = ApplySorting(query, input);
+            query = ApplyPaging(query, input);
+
+            var entities = await AsyncQueryableExecuter.ToListAsync(query);
+
+            return new PagedResultDto<OutputRequestDto>(
+                totalCount,
+                entities.Select(MapToEntityDto).ToList()
+            );
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Souccar.Core.Services;
+﻿using Abp.Application.Services.Dto;
+using Souccar.Core.Services;
 using Souccar.Hcpc.Warehouses;
 using Souccar.Hcpc.WarehousesApp.OutputRequests.Dto;
 using System.Collections.Generic;
@@ -12,5 +13,7 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
         IList<OutputRequestDto> GetPlanOutputRequests(int planId);
         
         Task<OutputRequestDto> ChangeStatusAsync(int status, int id);
+
+        Task<PagedResultDto<OutputRequestDto>> CustomReadAsync(PagedOutputRequestDto input);
     }
 }
