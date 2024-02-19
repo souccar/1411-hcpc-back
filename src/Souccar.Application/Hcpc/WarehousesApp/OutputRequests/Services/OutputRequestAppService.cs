@@ -1,23 +1,23 @@
 ﻿using Abp.Application.Services.Dto;
+using Abp.Authorization;
 using Abp.Events.Bus;
 using Abp.UI;
+using Souccar.Authorization;
 using Souccar.Authorization.Users;
 using Souccar.Core.Services;
-using Souccar.Core.Services.Interfaces;
-using Souccar.Hcpc.DailyProductions.Dto.DailyProductionDtos;
 using Souccar.Hcpc.Units.Services;
 using Souccar.Hcpc.Warehouses;
 using Souccar.Hcpc.Warehouses.Events;
 using Souccar.Hcpc.Warehouses.Services.OutputRequestServices;
 using Souccar.Hcpc.WarehousesApp.OutputRequests.Dto;
 using Souccar.Notification;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
 {
+    [AbpAuthorize(PermissionNames.Warehouses_OutputRquests)]
     public class OutputRequestAppService :
         AsyncSouccarAppService<OutputRequest, OutputRequestDto, int, PagedOutputRequestDto, CreateOutputRequestDto, UpdateOutputRequestDto>, IOutputRequestAppService
     {
