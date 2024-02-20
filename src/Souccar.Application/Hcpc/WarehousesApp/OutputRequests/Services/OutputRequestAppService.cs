@@ -168,7 +168,7 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
             return ObjectMapper.Map<OutputRequestDto>(updatedOutputRequst);
         }
 
-        public async Task<PagedResultDto<OutputRequestDto>> CustomReadAsync(PagedOutputRequestDto input)
+        public async Task<PagedResultDto<OutputRequestDto>> CustomReadAsync(FullPagedRequestDto input)
         {
             CheckGetAllPermission();
 

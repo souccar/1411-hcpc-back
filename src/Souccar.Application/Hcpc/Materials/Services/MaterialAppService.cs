@@ -22,7 +22,7 @@ using Souccar.Core.Dto.PagedRequests;
 namespace Souccar.Hcpc.Materials.Services
 {
     [AbpAuthorize(PermissionNames.Setting_Materials)]
-    public class MaterialAppService : AsyncSouccarAppService<Material, MaterialDto, int, PagedMaterialRequestDto, CreateMaterialDto, UpdateMaterialDto>, IMaterialAppService
+    public class MaterialAppService : AsyncSouccarAppService<Material, MaterialDto, int, FullPagedRequestDto, CreateMaterialDto, UpdateMaterialDto>, IMaterialAppService
     {
         private readonly IMaterialManager _materialManager;
         private readonly IWarehouseMaterialManager _warehouseMaterialManager;

@@ -1,6 +1,7 @@
 ﻿using Abp.Application.Services.Dto;
 using Souccar.Core.CustomAttributes;
 using Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Dto;
+using Souccar.Users.Dto;
 using System.Collections.Generic;
 
 namespace Souccar.Hcpc.WarehousesApp.Warehouses.Dto

@@ -14,7 +14,7 @@ using System.Linq;
 namespace Souccar.Hcpc.WarehousesApp.Warehouses.Services
 {
     [AbpAuthorize(PermissionNames.Warehouses_Warehouses)]
-    public class WarehouseAppService : AsyncSouccarAppService<Warehouse, WarehouseDto, int, PagedWarehouseRequestDto, CreateWarehouseDto, UpdateWarehouseDto>, IWarehouseAppService
+    public class WarehouseAppService : AsyncSouccarAppService<Warehouse, WarehouseDto, int, FullPagedRequestDto, CreateWarehouseDto, UpdateWarehouseDto>, IWarehouseAppService
     {
         private readonly IWarehouseManager _warehouseManager;
         public WarehouseAppService(IWarehouseManager warehouseManager) : base(warehouseManager)

@@ -15,6 +15,6 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
         
         Task<OutputRequestDto> ChangeStatusAsync(int status, int id);
 
-        Task<PagedResultDto<OutputRequestDto>> CustomReadAsync(PagedOutputRequestDto input);
+        Task<PagedResultDto<OutputRequestDto>> CustomReadAsync(FullPagedRequestDto input);
     }
 }

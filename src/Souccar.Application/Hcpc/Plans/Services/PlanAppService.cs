@@ -22,7 +22,7 @@ using System.Threading.Tasks;
 namespace Souccar.Hcpc.Plans.Services
 {
     [AbpAuthorize(PermissionNames.Production_Plans)]
-    public class PlanAppService : AsyncSouccarAppService<Plan, PlanDto, int, PagedPlanRequestDto, CreatePlanDto, UpdatePlanDto>, IPlanAppService
+    public class PlanAppService : AsyncSouccarAppService<Plan, PlanDto, int, FullPagedRequestDto, CreatePlanDto, UpdatePlanDto>, IPlanAppService
     {
         private readonly IPlanManager _planManager;
         private readonly IPlanProductManager _planProductManager;

@@ -20,10 +20,8 @@ using System.Threading.Tasks;
 
 namespace Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Services
 {
-    public class WarehouseMaterialAppService :
-        AsyncSouccarAppService<WarehouseMaterial, WarehouseMaterialDto, int, FullPagedRequestDto, CreateWarehouseMaterialDto, UpdateWarehouseMaterialDto>, IWarehouseMaterialAppService
     [AbpAuthorize(PermissionNames.Warehouses_WarehouseMaterials)]
-    public class WarehouseMaterialAppService : AsyncSouccarAppService<WarehouseMaterial, WarehouseMaterialDto, int, PagedWarehouseMaterialRequestDto, CreateWarehouseMaterialDto, UpdateWarehouseMaterialDto>, IWarehouseMaterialAppService
+        public class WarehouseMaterialAppService : AsyncSouccarAppService<WarehouseMaterial, WarehouseMaterialDto, int, FullPagedRequestDto, CreateWarehouseMaterialDto, UpdateWarehouseMaterialDto>, IWarehouseMaterialAppService
     {
         private readonly IWarehouseMaterialManager _warehouseMaterialDomainService;
         private readonly IAppNotifier _notifier;

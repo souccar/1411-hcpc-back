@@ -12,7 +12,7 @@ using Souccar.Core.Dto.PagedRequests;
 namespace Souccar.Hcpc.DailyProductions.Services
 {
     [AbpAuthorize(PermissionNames.Production_DailyProductions)]
-    public class DailyProductionAppService : AsyncSouccarAppService<DailyProduction, DailyProductionDto, int, PagedDailyProductionRequestDto, CreateDailyProductionDto, UpdateDailyProductionDto>, IDailyProductionAppService
+    public class DailyProductionAppService : AsyncSouccarAppService<DailyProduction, DailyProductionDto, int, FullPagedRequestDto, CreateDailyProductionDto, UpdateDailyProductionDto>, IDailyProductionAppService
     {
         private readonly IDailyProductionManager _dailyProductionManager;
 
