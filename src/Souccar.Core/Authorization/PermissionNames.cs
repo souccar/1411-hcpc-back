@@ -130,22 +130,22 @@
 
         #region Workflow Module
         //Workflows
-        public const string Workflow = "Workflow";
-        public const string Workflow_Create = "Workflow.Create";
-        public const string Workflow_Edit = "Workflow.Edit";
-        public const string Workflow_Delete = "Workflow.Delete";
+        public const string Workflow = "Workflow.Workflow";
+        public const string Workflow_Create = "Workflow.Workflow.Create";
+        public const string Workflow_Edit = "Workflow.Workflow.Edit";
+        public const string Workflow_Delete = "Workflow.Workflow.Delete";
 
         //Workflow Steps
-        public const string Workflow_Step = "Workflow.Step";
-        public const string Workflow_Step_Create = "Workflow.Step.Create";
-        public const string Workflow_Step_Edit = "Workflow.Step.Edit";
-        public const string Workflow_Step_Delete = "Workflow.Step.Delete";
+        public const string Workflow_Step = "Workflow.WorkflowStep";
+        public const string Workflow_Step_Create = "Workflow.WorkflowStep.Create";
+        public const string Workflow_Step_Edit = "Workflow.WorkflowStep.Edit";
+        public const string Workflow_Step_Delete = "Workflow.WorkflowStep.Delete";
 
         //Workflow Steps Indexes
-        public const string Workflow_Step_Index = "Workflow.Step.Index";
-        public const string Workflow_Step_Index_Create = "Workflow.Step.Index.Create";
-        public const string Workflow_Step_Index_Edit = "Workflow.Step.Index.Edit";
-        public const string Workflow_Step_Index_Delete = "Workflow.Step.Index.Delete";
+        public const string Workflow_Step_Index = "Workflow.StepIndex";
+        public const string Workflow_Step_Index_Create = "Workflow.StepIndex.Create";
+        public const string Workflow_Step_Index_Edit = "Workflow.StepIndex.Edit";
+        public const string Workflow_Step_Index_Delete = "Workflow.StepIndex.Delete";
         #endregion
 
     }
