@@ -18,24 +18,24 @@ namespace Souccar.Hcpc.Categories.Services
 {
     public class CategoryAppService : AsyncSouccarAppService<Category, CategoryDto, int, FullPagedRequestDto, CreateCategoryDto, UpdateCategoryDto>, ICategoryAppService
     {
-        private readonly ICategoryManager _categoryManagere;
+        private readonly ICategoryManager _categoryManager;
         public CategoryAppService(ISouccarDomainService<Category, int> domainService) : base(domainService)
         {
         }
         public CategoryAppService(ICategoryManager categoryDomainService) : base(categoryDomainService)
         {
-            _categoryManagere = categoryDomainService;
+            _categoryManager = categoryDomainService;
         }
         public override async Task<CategoryDto> GetAsync(EntityDto<int> input)
         {
-            var category = _categoryManagere.GetWithDetails(input.Id);
+            var category = await _categoryManager.GetWithDetailsAsync(input.Id);
             var categoryDto = MapToEntityDto(category);
             return categoryDto;
         }
 
         public IList<CategoryNameForDropdownDto> GetNameForDropdown()
         {
-            return _categoryManagere.GetAll()
+            return _categoryManager.GetAll()
                .Select(x => new CategoryNameForDropdownDto(x.Id, x.Name )).ToList();
 
         }
