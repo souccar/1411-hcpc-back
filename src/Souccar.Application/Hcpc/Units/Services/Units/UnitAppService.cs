@@ -1,6 +1,7 @@
 ﻿using Abp.Authorization;
 using Abp.UI;
 using Souccar.Authorization;
+using Souccar.Core.Dto.PagedRequests;
 using Souccar.Core.Services;
 using Souccar.Hcpc.Units.Dto.Units;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace Souccar.Hcpc.Units.Services.Units
 {
     [AbpAuthorize(PermissionNames.Setting_Units)]
     public class UnitAppService :
-        AsyncSouccarAppService<Unit, UnitDto, int, PagedUnitRequestDto, CreateUnitDto, UpdateUnitDto>, IUnitAppService
+        AsyncSouccarAppService<Unit, UnitDto, int, FullPagedRequestDto, CreateUnitDto, UpdateUnitDto>, IUnitAppService
     {
         private readonly IUnitManager _unitDomainService;
         public UnitAppService(IUnitManager unitDomainService) : base(unitDomainService)

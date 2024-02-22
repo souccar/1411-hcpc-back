@@ -3,6 +3,7 @@ using Abp.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Souccar.Authorization;
 using Souccar.Authorization.Users;
+using Souccar.Core.Dto.PagedRequests;
 using Souccar.Core.Services;
 using Souccar.Hcpc.GeneralSettings.Services;
 using Souccar.Hcpc.Warehouses;
@@ -20,7 +21,7 @@ using System.Threading.Tasks;
 namespace Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Services
 {
     [AbpAuthorize(PermissionNames.Warehouses_WarehouseMaterials)]
-    public class WarehouseMaterialAppService : AsyncSouccarAppService<WarehouseMaterial, WarehouseMaterialDto, int, PagedWarehouseMaterialRequestDto, CreateWarehouseMaterialDto, UpdateWarehouseMaterialDto>, IWarehouseMaterialAppService
+        public class WarehouseMaterialAppService : AsyncSouccarAppService<WarehouseMaterial, WarehouseMaterialDto, int, FullPagedRequestDto, CreateWarehouseMaterialDto, UpdateWarehouseMaterialDto>, IWarehouseMaterialAppService
     {
         private readonly IWarehouseMaterialManager _warehouseMaterialDomainService;
         private readonly IAppNotifier _notifier;
@@ -40,7 +41,7 @@ namespace Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Services
             _generalSettingManager = generalSettingManager;
         }
 
-        public override async Task<PagedResultDto<WarehouseMaterialDto>> GetAllAsync(PagedWarehouseMaterialRequestDto input)
+        public override async Task<PagedResultDto<WarehouseMaterialDto>> GetAllAsync(FullPagedRequestDto input)
         {
             var generalSetting = await _generalSettingManager.GetAll().FirstOrDefaultAsync();
             var warehouseMaterials = await base.GetAllAsync(input);

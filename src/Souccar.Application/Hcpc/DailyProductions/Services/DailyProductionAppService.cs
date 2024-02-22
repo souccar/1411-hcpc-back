@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 using Souccar.Hcpc.DailyProductions.Dto.DailyProductionNoteDtos;
 using Abp.Authorization;
 using Souccar.Authorization;
+using Souccar.Core.Dto.PagedRequests;
 
 namespace Souccar.Hcpc.DailyProductions.Services
 {
     [AbpAuthorize(PermissionNames.Production_DailyProductions)]
-    public class DailyProductionAppService : AsyncSouccarAppService<DailyProduction, DailyProductionDto, int, PagedDailyProductionRequestDto, CreateDailyProductionDto, UpdateDailyProductionDto>, IDailyProductionAppService
+    public class DailyProductionAppService : AsyncSouccarAppService<DailyProduction, DailyProductionDto, int, FullPagedRequestDto, CreateDailyProductionDto, UpdateDailyProductionDto>, IDailyProductionAppService
     {
         private readonly IDailyProductionManager _dailyProductionManager;
 
@@ -26,7 +27,7 @@ namespace Souccar.Hcpc.DailyProductions.Services
             return await Task.FromResult(MapToEntityDto(dailyProduction));
         }
 
-        public override async Task<PagedResultDto<DailyProductionDto>> GetAllAsync(PagedDailyProductionRequestDto input)
+        public override async Task<PagedResultDto<DailyProductionDto>> GetAllAsync(FullPagedRequestDto input)
         {
             PagedResultDto<DailyProductionDto> result = new PagedResultDto<DailyProductionDto>();
 

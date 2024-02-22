@@ -1,4 +1,5 @@
-﻿using Souccar.Core.Services;
+﻿using Souccar.Core.Dto.PagedRequests;
+using Souccar.Core.Services;
 using Souccar.Hcpc.Materials.Dto;
 using Souccar.Hcpc.Materials.Dto.MaterialDetailsDtos;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Souccar.Hcpc.Materials.Services
 {
-    public interface IMaterialAppService : IAsyncSouccarAppService<MaterialDto, int, PagedMaterialRequestDto, CreateMaterialDto, UpdateMaterialDto>
+    public interface IMaterialAppService : IAsyncSouccarAppService<MaterialDto, int, FullPagedRequestDto, CreateMaterialDto, UpdateMaterialDto>
     {
 
         IList<MaterialNameForDropdownDto> GetNameForDropdown();

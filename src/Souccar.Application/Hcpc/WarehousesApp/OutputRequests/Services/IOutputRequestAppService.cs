@@ -1,4 +1,5 @@
-﻿using Abp.Application.Services.Dto;
+﻿using Souccar.Core.Dto.PagedRequests;
+using Abp.Application.Services.Dto;
 using Souccar.Core.Services;
 using Souccar.Hcpc.Warehouses;
 using Souccar.Hcpc.WarehousesApp.OutputRequests.Dto;
@@ -7,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
 {
-    public interface IOutputRequestAppService : IAsyncSouccarAppService<OutputRequestDto, int, PagedOutputRequestDto, CreateOutputRequestDto, UpdateOutputRequestDto>
+    public interface IOutputRequestAppService : IAsyncSouccarAppService<OutputRequestDto, int, FullPagedRequestDto, CreateOutputRequestDto, UpdateOutputRequestDto>
     {
         Task<List<OutputRequestWithDetailDto>> GetWithDetail(int plan);
         IList<OutputRequestDto> GetPlanOutputRequests(int planId);
         
         Task<OutputRequestDto> ChangeStatusAsync(int status, int id);
 
-        Task<PagedResultDto<OutputRequestDto>> CustomReadAsync(PagedOutputRequestDto input);
+        Task<PagedResultDto<OutputRequestDto>> CustomReadAsync(FullPagedRequestDto input);
     }
 }

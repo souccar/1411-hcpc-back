@@ -4,6 +4,7 @@ using Abp.Events.Bus;
 using Abp.UI;
 using Souccar.Authorization;
 using Souccar.Authorization.Users;
+using Souccar.Core.Dto.PagedRequests;
 using Souccar.Core.Services;
 using Souccar.Hcpc.Units.Services;
 using Souccar.Hcpc.Warehouses;
@@ -19,7 +20,7 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
 {
     [AbpAuthorize(PermissionNames.Warehouses_OutputRquests)]
     public class OutputRequestAppService :
-        AsyncSouccarAppService<OutputRequest, OutputRequestDto, int, PagedOutputRequestDto, CreateOutputRequestDto, UpdateOutputRequestDto>, IOutputRequestAppService
+        AsyncSouccarAppService<OutputRequest, OutputRequestDto, int, FullPagedRequestDto, CreateOutputRequestDto, UpdateOutputRequestDto>, IOutputRequestAppService
     {
         private readonly IOutputRequestManager _outputRequestManager;
         private readonly ITransferManager _transferManager;
@@ -82,7 +83,7 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
             return ObjectMapper.Map<OutputRequestDto>(outputRequestWithDetails);
         }
 
-        public override async Task<PagedResultDto<OutputRequestDto>> GetAllAsync(PagedOutputRequestDto input)
+        public override async Task<PagedResultDto<OutputRequestDto>> GetAllAsync(FullPagedRequestDto input)
         {
             PagedResultDto<OutputRequestDto> result = new PagedResultDto<OutputRequestDto>();
 
@@ -167,7 +168,7 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
             return ObjectMapper.Map<OutputRequestDto>(updatedOutputRequst);
         }
 
-        public async Task<PagedResultDto<OutputRequestDto>> CustomReadAsync(PagedOutputRequestDto input)
+        public async Task<PagedResultDto<OutputRequestDto>> CustomReadAsync(FullPagedRequestDto input)
         {
             CheckGetAllPermission();
 

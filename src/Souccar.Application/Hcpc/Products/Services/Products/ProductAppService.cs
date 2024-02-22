@@ -7,11 +7,13 @@ using Souccar.Hcpc.Warehouses.Services.WarehouseServices;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Souccar.Core.Dto.PagedRequests;
+using Abp.Application.Services.Dto;
 
 namespace Souccar.Hcpc.Products.Services.Products
 {
     [AbpAuthorize(PermissionNames.Setting_Products)]
-    public class ProductAppService : AsyncSouccarAppService<Product, ProductDto, int, PagedProductRequestDto, CreateProductDto, UpdateProductDto>, IProductAppService
+    public class ProductAppService : AsyncSouccarAppService<Product, ProductDto, int, FullPagedRequestDto, CreateProductDto, UpdateProductDto>, IProductAppService
     {
         private readonly IProductManager _productDomainService;
         private readonly IPlanManager _planDomainService;
@@ -48,6 +50,13 @@ namespace Souccar.Hcpc.Products.Services.Products
 
             return ObjectMapper.Map<ProductDto>(updatedProduct);
         }
+
+        public override async Task<ProductDto> GetAsync(EntityDto<int> input)
+        {
+            var Product = _productDomainService.GetWithDetails(input.Id);
+            return await Task.FromResult(MapToEntityDto(Product));
+        }
+
 
     }
 }

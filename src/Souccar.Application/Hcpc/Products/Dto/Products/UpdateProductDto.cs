@@ -28,5 +28,8 @@ namespace Souccar.Hcpc.Products.Dto.Products
 
         [NotEmptyList(ErrorMessage = SouccarAppConstant.EmptyList)]
         public virtual IList<UpdateFormulaDto> Formulas { get; set; }
+
+        [Required(ErrorMessage = SouccarAppConstant.Required)]
+        public int? CategoryId { get; set; }
     }
 }
