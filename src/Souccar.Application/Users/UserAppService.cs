@@ -275,7 +275,7 @@ namespace Souccar.Users
 
         public async Task<List<UserForDropdownDto>> GetForDropdown()
         {
-            var users = await this.Repository.GetAllListAsync();
+            var users = await Task.FromResult(this.Repository.GetAll().Where(x=>x.Id != 1));
             return ObjectMapper.Map<List<UserForDropdownDto>>(users);
         }
 
