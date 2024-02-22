@@ -27,5 +27,17 @@ namespace Souccar.Hcpc.Warehouses.Services.WarehouseServices
             }
             return base.DeleteAsync(id);
         }
+
+        public async Task<Warehouse> GetWarehouseByIdWithDetails(int id)
+        {
+            var warehouseMaterial = await _warehouseRepository.GetAsync(id);
+
+            if (warehouseMaterial != null)
+            {
+                await _warehouseRepository.EnsurePropertyLoadedAsync(warehouseMaterial, w => w.WarehouseKeeper);
+                await _warehouseRepository.EnsureCollectionLoadedAsync(warehouseMaterial, w => w.WarehouseMaterials);
+            }
+            return warehouseMaterial;
+        }
     }
 }

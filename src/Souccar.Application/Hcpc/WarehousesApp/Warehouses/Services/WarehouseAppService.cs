@@ -10,6 +10,8 @@ using Souccar.hr.Personnel.Employees.Services;
 using Souccar.hr.Personnel.Employees;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Abp.Application.Services.Dto;
 
 namespace Souccar.Hcpc.WarehousesApp.Warehouses.Services
 {
@@ -26,6 +28,12 @@ namespace Souccar.Hcpc.WarehousesApp.Warehouses.Services
         {
             return _warehouseManager.GetAll()
                 .Select(x => new WarehouseNameForDropdownDto(x.Id, x.Name)).ToList();
+        }
+
+        public override async Task<WarehouseDto> GetAsync(EntityDto<int> input)
+        {
+            var warehouse = await _warehouseManager.GetWarehouseByIdWithDetails(input.Id);
+            return ObjectMapper.Map<WarehouseDto>(warehouse);
         }
     }
 }
