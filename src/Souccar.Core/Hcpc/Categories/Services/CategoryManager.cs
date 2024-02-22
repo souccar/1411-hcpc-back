@@ -17,13 +17,6 @@ namespace Souccar.Hcpc.Categories.Services
             _categoryRepository = categoryRepository;
         }
 
-        public Category GetWithDetails(int id)
-        {
-            var category = _categoryRepository.GetAllIncluding(x => x.ParentCategory).FirstOrDefault(x => x.Id == id); 
-            return category;
-        }
-       
-
         public async Task<Category> GetWithDetailsAsync(int id)
         {
             var category = await _categoryRepository.GetAsync(id);
