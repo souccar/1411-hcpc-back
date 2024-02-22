@@ -28,9 +28,9 @@ namespace Souccar.Hcpc.Categories.Services
         }
         public override async Task<CategoryDto> GetAsync(EntityDto<int> input)
         {
-            var ctegory = _categoryManagere.GetWithDetails(input.Id);
-            var ctegoryDto = MapToEntityDto(ctegory);
-            return ctegoryDto;
+            var category = _categoryManagere.GetWithDetails(input.Id);
+            var categoryDto = MapToEntityDto(category);
+            return categoryDto;
         }
 
         public IList<CategoryNameForDropdownDto> GetNameForDropdown()

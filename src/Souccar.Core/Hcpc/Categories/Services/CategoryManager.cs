@@ -19,10 +19,11 @@ namespace Souccar.Hcpc.Categories.Services
 
         public Category GetWithDetails(int id)
         {
-            var category = _categoryRepository.GetAllIncluding(x => x.ParentCategory).FirstOrDefault(x => x.Id == id); 
+            var category = _categoryRepository.FirstOrDefault(x => x.Id == id);
+            _categoryRepository.EnsurePropertyLoaded(category, x => x.ParentCategory);
             return category;
         }
-       
+
 
         public async Task<Category> GetWithDetailsAsync(int id)
         {
