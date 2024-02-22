@@ -1,17 +1,17 @@
 ﻿using Abp.Application.Services.Dto;
 using Souccar.Core.Services;
 using Souccar.Hcpc.DailyProductions.Dto.DailyProductionDtos;
-using Souccar.Hcpc.Plans.Dto.Plans;
-using Souccar.Hcpc.Plans;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 using Souccar.Hcpc.DailyProductions.Dto.DailyProductionNoteDtos;
+using Abp.Authorization;
+using Souccar.Authorization;
 using Souccar.Core.Dto.PagedRequests;
 
 namespace Souccar.Hcpc.DailyProductions.Services
 {
+    [AbpAuthorize(PermissionNames.Production_DailyProductions)]
     public class DailyProductionAppService : AsyncSouccarAppService<DailyProduction, DailyProductionDto, int, FullPagedRequestDto, CreateDailyProductionDto, UpdateDailyProductionDto>, IDailyProductionAppService
     {
         private readonly IDailyProductionManager _dailyProductionManager;

@@ -1,4 +1,6 @@
-﻿using Souccar.Core.Dto.PagedRequests;
+﻿using Abp.Authorization;
+using Souccar.Authorization;
+using Souccar.Core.Dto.PagedRequests;
 using Souccar.Core.Services;
 using Souccar.Hcpc.Units;
 using Souccar.Hcpc.Units.Dto.Transfers;
@@ -7,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Souccar.Hcpc.Transfers.Services.Transfers
 {
+    [AbpAuthorize(PermissionNames.Setting_Transfers)]
     public class TransferAppService :
         AsyncSouccarAppService<Transfer, TransferDto, int, FullPagedRequestDto, CreateTransferDto, UpdateTransferDto>, ITransferAppService
     {

@@ -1,24 +1,24 @@
 ﻿using Abp.Application.Services.Dto;
+using Abp.Authorization;
 using Abp.Events.Bus;
 using Abp.UI;
+using Souccar.Authorization;
 using Souccar.Authorization.Users;
 using Souccar.Core.Dto.PagedRequests;
 using Souccar.Core.Services;
-using Souccar.Core.Services.Interfaces;
-using Souccar.Hcpc.DailyProductions.Dto.DailyProductionDtos;
 using Souccar.Hcpc.Units.Services;
 using Souccar.Hcpc.Warehouses;
 using Souccar.Hcpc.Warehouses.Events;
 using Souccar.Hcpc.Warehouses.Services.OutputRequestServices;
 using Souccar.Hcpc.WarehousesApp.OutputRequests.Dto;
 using Souccar.Notification;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
 {
+    [AbpAuthorize(PermissionNames.Warehouses_OutputRquests)]
     public class OutputRequestAppService :
         AsyncSouccarAppService<OutputRequest, OutputRequestDto, int, FullPagedRequestDto, CreateOutputRequestDto, UpdateOutputRequestDto>, IOutputRequestAppService
     {
@@ -166,6 +166,28 @@ namespace Souccar.Hcpc.WarehousesApp.OutputRequests.Services
                 }
             }
             return ObjectMapper.Map<OutputRequestDto>(updatedOutputRequst);
+        }
+
+        public async Task<PagedResultDto<OutputRequestDto>> CustomReadAsync(FullPagedRequestDto input)
+        {
+            CheckGetAllPermission();
+
+            var query = _outputRequestManager.CreateFilteredQuery(input.Including,AbpSession.UserId);
+
+            query = ApplySearching(query, typeof(OutputRequestDto), input);
+            query = ApplyFiltering(query, input);
+
+            var totalCount = await AsyncQueryableExecuter.CountAsync(query);
+
+            query = ApplySorting(query, input);
+            query = ApplyPaging(query, input);
+
+            var entities = await AsyncQueryableExecuter.ToListAsync(query);
+
+            return new PagedResultDto<OutputRequestDto>(
+                totalCount,
+                entities.Select(MapToEntityDto).ToList()
+            );
         }
     }
 }

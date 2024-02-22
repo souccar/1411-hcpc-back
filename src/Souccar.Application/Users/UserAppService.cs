@@ -273,6 +273,12 @@ namespace Souccar.Users
             );
         }
 
+        public async Task<List<UserForDropdownDto>> GetForDropdown()
+        {
+            var users = await this.Repository.GetAllListAsync();
+            return ObjectMapper.Map<List<UserForDropdownDto>>(users);
+        }
+
 
         #region Helper Methods
         private IQueryable<User> ApplyFiltering(IQueryable<User> query, FullPagedRequestDto input)
@@ -345,6 +351,8 @@ namespace Souccar.Users
         {
             return Repository.GetAllIncluding(x => x.Roles);
         }
+
+        
         #endregion
     }
 }

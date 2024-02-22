@@ -1,5 +1,7 @@
 ﻿using Abp.Application.Services.Dto;
+using Abp.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Souccar.Authorization;
 using Souccar.Authorization.Users;
 using Souccar.Core.Dto.PagedRequests;
 using Souccar.Core.Services;
@@ -9,7 +11,6 @@ using Souccar.Hcpc.Warehouses.Services.OutputRequestServices;
 using Souccar.Hcpc.Warehouses.Services.WarehouseServices;
 using Souccar.Hcpc.WarehousesApp.OutputRequests.Dto;
 using Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Dto;
-using Souccar.Hcpc.WarehousesApp.Warehouses.Dto;
 using Souccar.Notification;
 using Souccar.Notification.Dto;
 using System;
@@ -19,8 +20,8 @@ using System.Threading.Tasks;
 
 namespace Souccar.Hcpc.WarehousesApp.WarehouseMaterials.Services
 {
-    public class WarehouseMaterialAppService :
-        AsyncSouccarAppService<WarehouseMaterial, WarehouseMaterialDto, int, FullPagedRequestDto, CreateWarehouseMaterialDto, UpdateWarehouseMaterialDto>, IWarehouseMaterialAppService
+    [AbpAuthorize(PermissionNames.Warehouses_WarehouseMaterials)]
+        public class WarehouseMaterialAppService : AsyncSouccarAppService<WarehouseMaterial, WarehouseMaterialDto, int, FullPagedRequestDto, CreateWarehouseMaterialDto, UpdateWarehouseMaterialDto>, IWarehouseMaterialAppService
     {
         private readonly IWarehouseMaterialManager _warehouseMaterialDomainService;
         private readonly IAppNotifier _notifier;

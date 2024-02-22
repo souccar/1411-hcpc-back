@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abp.Application.Services;
 using Abp.Application.Services.Dto;
@@ -17,5 +18,7 @@ namespace Souccar.Users
         Task<bool> ChangePassword(ChangePasswordDto input);
 
         Task<PagedResultDto<UserDto>> ReadAsync(FullPagedRequestDto input);
+
+        Task<List<UserForDropdownDto>> GetForDropdown();
     }
 }
