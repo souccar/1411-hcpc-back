@@ -84,6 +84,9 @@ namespace Souccar.Users
 
         public override async Task<UserDto> UpdateAsync(UserDto input)
         {
+            if (input.Id == 1)
+                throw new UserFriendlyException("This user's data cannot be modified");
+
             CheckUpdatePermission();
 
             var user = await _userManager.GetUserByIdAsync(input.Id);
@@ -202,7 +205,7 @@ namespace Souccar.Users
             {
                 throw new Exception("There is no current user!");
             }
-            
+
             if (await _userManager.CheckPasswordAsync(user, input.CurrentPassword))
             {
                 CheckErrors(await _userManager.ChangePasswordAsync(user, input.NewPassword));
@@ -224,19 +227,19 @@ namespace Souccar.Users
             {
                 throw new UserFriendlyException("Please log in before attempting to reset password.");
             }
-            
+
             var currentUser = await _userManager.GetUserByIdAsync(_abpSession.GetUserId());
             var loginAsync = await _logInManager.LoginAsync(currentUser.UserName, input.AdminPassword, shouldLockout: false);
             if (loginAsync.Result != AbpLoginResultType.Success)
             {
                 throw new UserFriendlyException("Your 'Admin Password' did not match the one on record.  Please try again.");
             }
-            
+
             if (currentUser.IsDeleted || !currentUser.IsActive)
             {
                 return false;
             }
-            
+
             var roles = await _userManager.GetRolesAsync(currentUser);
             if (!roles.Contains(StaticRoleNames.Tenants.Admin))
             {
@@ -255,7 +258,7 @@ namespace Souccar.Users
 
         public async Task<PagedResultDto<UserDto>> ReadAsync(FullPagedRequestDto input)
         {
-            var query = GetAllRoles();
+            var query = GetAllUsers();
 
             query = ApplySearching(query, typeof(UserDto), input);
             query = ApplyFiltering(query, input);
@@ -275,10 +278,36 @@ namespace Souccar.Users
 
         public async Task<List<UserForDropdownDto>> GetForDropdown()
         {
-            var users = await Task.FromResult(this.Repository.GetAll().Where(x=>x.Id != 1));
+            var users = await Task.FromResult(this.Repository.GetAll().Where(x => x.Id != 1));
             return ObjectMapper.Map<List<UserForDropdownDto>>(users);
         }
 
+        public override async Task<PagedResultDto<UserDto>> GetAllAsync(PagedUserResultRequestDto input)
+        {
+            var users = await base.GetAllAsync(input);
+            users.Items = users.Items.Where(x => x.Id != 1).ToList();
+            users.TotalCount = users.Items.Count;
+            return users;
+        }
+
+        public async Task<bool> ResetCurrentUserPesswordToDefault()
+        {
+            await _userManager.InitializeOptionsAsync(AbpSession.TenantId);
+
+            if (AbpSession.UserId != null || AbpSession.UserId != 1)
+            {
+                string defaultPassword = "123qwe";
+                var currentUser = await _userManager.FindByIdAsync(AbpSession.GetUserId().ToString());
+                if (currentUser == null)
+                    throw new Exception("There is no current user!");
+                 CheckErrors(await _userManager.ChangePasswordAsync(currentUser, defaultPassword));
+                return true;
+            }
+            else
+            {
+                throw new UserFriendlyException("The operation could not be completed");
+            }
+        }
 
         #region Helper Methods
         private IQueryable<User> ApplyFiltering(IQueryable<User> query, FullPagedRequestDto input)
@@ -347,12 +376,12 @@ namespace Souccar.Users
             return query;
         }
 
-        private IQueryable<User> GetAllRoles()
+        private IQueryable<User> GetAllUsers()
         {
-            return Repository.GetAllIncluding(x => x.Roles);
+            var users = Repository.GetAllIncluding(x => x.Roles).Where(x=>x.Id != 1);
+            return users;
         }
-
-        
+              
         #endregion
     }
 }

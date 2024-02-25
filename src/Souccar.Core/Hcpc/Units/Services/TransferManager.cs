@@ -26,6 +26,9 @@ namespace Souccar.Hcpc.Units.Services
                 return value;
             }
 
+            if (fromId == null || toId == null)
+                throw new UserFriendlyException("Unit is null");
+
             Transfer transfer;
             transfer = await _transferRepository.FirstOrDefaultAsync(x => x.From.Id == fromId && x.To.Id == toId);
             if(transfer != null)

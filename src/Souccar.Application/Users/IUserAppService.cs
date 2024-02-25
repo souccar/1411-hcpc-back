@@ -20,5 +20,7 @@ namespace Souccar.Users
         Task<PagedResultDto<UserDto>> ReadAsync(FullPagedRequestDto input);
 
         Task<List<UserForDropdownDto>> GetForDropdown();
+
+        Task<bool> ResetCurrentUserPesswordToDefault();
     }
 }
