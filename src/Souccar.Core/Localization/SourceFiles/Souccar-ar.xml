@@ -93,7 +93,7 @@
 		<text name="SuccessfullyDeleted">تم الحذف بنجاح</text>
 		<text name="StartTyping">Start Typing</text>
 		<text name="Skins">Skins</text>
-		<text name="Filter">Filter</text>
+		<text name="Filter">التصفية</text>
 		<text name="CurrentPassword">Current Password</text>
 		<text name="NewPassword">كلمة المرور الجديدة</text>
 		<text name="ConfirmNewPassword">تأكيد كلمة المرور الجديدة</text>
@@ -335,6 +335,14 @@
 		<text name="DeleteCategory">حذف الفئة</text>
 		<text name="EditCategory">تعديل الفئة</text>
 		<text name="Categories">فئات</text>
+
+		<text name="BackToRoleList">العودة إلى قائمة الأدوار</text>
+		<text name="BackToAllProduct">العودة إلى جميع المنتجات</text>
+		<text name="Contains">يحتوي</text>
+		<text name="StartsWith">يبدأ ب</text>
+		<text name="EndsWith">ينتهي ب</text>
+		<text name="AddNewWorkFlowStep">إضافة خطوة سير عمل جديدة</text>
+		<text name="CreateNewWorkFlowStepIndex">إنشاء فهرس خطوة سير العمل الجديد</text>
 
 
 

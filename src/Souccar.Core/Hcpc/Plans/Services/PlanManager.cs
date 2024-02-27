@@ -128,6 +128,7 @@ namespace Souccar.Hcpc.Plans.Services
         {
             var pendingPlans = _planRepository.GetAllIncluding()
                 .Include(x => x.PlanProducts).ThenInclude(p => p.Product).ThenInclude(f => f.Formulas).ThenInclude(u => u.Unit)
+                .Include(x => x.PlanProducts).ThenInclude(p => p.Product).ThenInclude(c=>c.Category)
                 .Include(x => x.PlanProducts).ThenInclude(p => p.Product).ThenInclude(f => f.Formulas).ThenInclude(m => m.Material)
                 .Where(x => x.Status == PlanStatus.InProgress).ToList();
             return pendingPlans;

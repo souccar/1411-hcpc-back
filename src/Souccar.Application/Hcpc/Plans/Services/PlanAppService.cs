@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Connections.Features;
 using Souccar.Authorization;
 using Souccar.Core.Dto.PagedRequests;
 using Souccar.Core.Services;
+using Souccar.Hcpc.Categories.Services;
 using Souccar.Hcpc.DailyProductions.Services;
 using Souccar.Hcpc.Plans.Dto.PlanMaterials;
 using Souccar.Hcpc.Plans.Dto.PlanProductMaterials;
@@ -43,6 +44,7 @@ namespace Souccar.Hcpc.Plans.Services
             _dailyProductionManager = dailyProductionManager;
             _planProductManager = planProductManager;
             _transferManager = transferManager;
+           
         }
 
         public IList<PlanNameForDropdownDto> GetNameForDropdown()
@@ -151,7 +153,7 @@ namespace Souccar.Hcpc.Plans.Services
 
             foreach (var planProduct in planDto.PlanProducts)
             {
-                var productCost = costs.Where(x=>x.ProductId == planProduct.ProductId).FirstOrDefault();
+                var productCost = costs.Where(x => x.ProductId == planProduct.ProductId).FirstOrDefault();
                 var productFormula = formulas.Where(x => x.ProductId == planProduct.ProductId);
                 foreach (var formula in productFormula)
                 {
@@ -174,7 +176,7 @@ namespace Souccar.Hcpc.Plans.Services
             var planProductMaterials = planDto.PlanProducts.SelectMany(x => x.PlanProductMaterials);
             var materialIds = planProductMaterials.Select(x => x.MaterialId).Distinct();
             var materials = planDto.PlanProducts.Select(x => x.Product).SelectMany(x => x.Formulas).Select(x => x.Material);
-            var previousActualPlans = GetActualPlans().Where(x=>x.Id < planDto.Id); /////
+            var previousActualPlans = GetActualPlans().Where(x => x.Id < planDto.Id); /////
 
             foreach (var materialId in materialIds)
             {
@@ -183,7 +185,7 @@ namespace Souccar.Hcpc.Plans.Services
                 var material = materials.FirstOrDefault(x => x.Id == materialId);
                 var stock = warehouseMaterials.Where(x => x.MaterialId == materialId && x.CurrentQuantity != 0).ToList();
                 var totalQuantity = items.Sum(x => x.RequiredQuantity);
-                var totalQuantityAfterTranfer = AsyncHelper.RunSync(()=> _transferManager.ConvertTo(items.FirstOrDefault().UnitId, stock.FirstOrDefault().UnitId, totalQuantity));
+                var totalQuantityAfterTranfer = AsyncHelper.RunSync(() => _transferManager.ConvertTo(items.FirstOrDefault().UnitId, stock.FirstOrDefault().UnitId, totalQuantity));
 
                 //////////
 
@@ -214,8 +216,8 @@ namespace Souccar.Hcpc.Plans.Services
                         ReservedQuantities = allReservedQuantities
                     };
 
-                    rate = planMaterial.TotalQuantity != 0 ? (planMaterial.InventoryQuantity / planMaterial.TotalQuantity) : 0;                    
-                    
+                    rate = planMaterial.TotalQuantity != 0 ? (planMaterial.InventoryQuantity / planMaterial.TotalQuantity) : 0;
+
                     planDto.PlanMaterials.Add(planMaterial);
                 }
 
@@ -278,12 +280,12 @@ namespace Souccar.Hcpc.Plans.Services
 
             foreach (var planProduct in plan.PlanProducts)
             {
-                if (!planProducts.Any(x=>x.ProductId == planProduct.ProductId && x.PlanId == planProduct.PlanId))
+                if (!planProducts.Any(x => x.ProductId == planProduct.ProductId && x.PlanId == planProduct.PlanId))
                 {
                     var createdPlanProduct = AsyncHelper.RunSync(() => _planProductManager.InsertAsync(planProduct));
                 }
-                
-            }            
+
+            }
 
             var update = _planManager.UpdatePlan(plan);
 
@@ -597,7 +599,7 @@ namespace Souccar.Hcpc.Plans.Services
                 }
             }
             return actualPlansDtos;
-        }        
+        }
 
         /////
 

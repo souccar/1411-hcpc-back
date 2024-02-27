@@ -19,7 +19,7 @@
     <text name="ResetPassword" value="Reset Password" />
     <text name="UpdatePassword" value="Update Password" />
     <text name="RememberMe" value="Remember me" />
-    <text name="LogIn" value="Log in" />
+    <text name="Login" value="Login" />
     <text name="LoginFailed" value="Login failed!" />
     <text name="NameSurname" value="Name surname" />
     <text name="UserName" value="User name" />
@@ -520,6 +520,16 @@
 	  <text name="DeleteCategory">Delete Category</text>
 	  <text name="EditCategory">Edit Category</text>
 	  <text name="Categories">Categories</text>
+	  
+	  <text name="BackToRoleList">Back To Role List</text>
+	  <text name="BackToAllProduct">Back To All Product</text>
+	  <text name="Contains">Contains</text>
+	  <text name="StartsWith">Starts With</text>
+	  <text name="EndsWith">EndsWith</text>
+	  <text name="Account">Account</text>
+	  <text name="AddNewWorkFlowStep">Add New WorkFlow Step</text>
+	  <text name="CreateNewWorkFlowStepIndex">Create New Work Flow Step Index</text>
+
 	 
 
 
